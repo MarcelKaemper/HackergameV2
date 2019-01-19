@@ -1,3 +1,6 @@
+# DB File
+./public/javascripts/dbconn.js
+
 # Logs
 logs
 *.log
