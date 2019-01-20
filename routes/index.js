@@ -15,13 +15,14 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next){
-	res.render('login', {title: 'Login'});
+	res.render('login', {title: 'Login', message: 'login'});
 });
 
 router.post('/login', function(req,res,next){
 	var login = req.body.login;
 	var password = req.body.password;
 	var sql; 
+	var returnPw;
 	if(validateEmail(login)){
 		sql = "SELECT * FROM logins WHERE mail='"+login+"'";
 	}else{
@@ -31,12 +32,16 @@ router.post('/login', function(req,res,next){
 	pool.getConnection(function(err, connection){
 		connection.query(sql,function(err, results){
 			if (err) throw err;
-			console.log(results);
+			returnPW = results[0].password;
 			connection.release();
-
 		});
 
 	});
+	if(pwh.verify(password, returnPW)){
+		res.render('login', {title: 'Login', message: 'Successfully logged in'});
+	}else{
+		res.render('login', {title: 'Login', message: 'Login failed'});
+	}
 
 });
 
