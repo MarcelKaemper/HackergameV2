@@ -1,5 +1,6 @@
 <h1>{{title}}</h1>
 <p>{{message}}</p>
+{{#unless loggedIn}}
 <form action="login" method="post">
 	Login: (Username/email)
 	<br />
@@ -11,3 +12,7 @@
 	<br />
 	<button type="submit">Submit</button>
 </form>
+{{else}}
+<p>You are logged in!</p>
+{{/unless}}
+
