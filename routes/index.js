@@ -19,16 +19,17 @@ router.get('/login', function(req, res, next){
 });
 
 router.post('/submit', function(req, res, next){
-	// res.render('signup', {title: req.body.email});
 	var mail = req.body.mail;
 	var name = req.body.username;
 	var password = pwh.generate(req.body.password);
 
-	var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
-	con.query(sql, function(err, result){
-		if (err) throw err;
-	})
-	con.end();
+	if(validateEmail(mail)){
+		var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
+		con.query(sql, function(err, result){
+			if (err) throw err;
+		})
+		con.end();
+	}
 	res.render('signup', {title: "test"});
 });
 
