@@ -18,6 +18,28 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
+router.post('/login', function(req,res,next){
+	var login = req.body.login;
+	var password = req.body.password;
+	var sql; 
+	if(validateEmail(login)){
+		sql = "SELECT * FROM logins WHERE mail='"+login+"'";
+	}else{
+		sql = "SELECT * FROM logins WHERE name='"+login+"'";
+	}
+	
+	pool.getConnection(function(err, connection){
+		connection.query(sql,function(err, results){
+			if (err) throw err;
+			console.log(results);
+			connection.release();
+
+		});
+
+	});
+
+});
+
 router.post('/signup', function(req, res, next){
 	var mail = req.body.mail;
 	var name = req.body.username;
