@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 // sql = require('../public/javascripts/dbconn.js')
-var con = require('../public/javascripts/dbconn.js');
+var pool = require('../public/javascripts/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
 
@@ -11,26 +11,30 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-	res.render('signup', { title: 'Sign up' });
+	res.render('signup', { title: 'Sign up', message: 'Sign up' });
 });
 
 router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login'});
 });
 
-router.post('/submit', function(req, res, next){
+router.post('/signup', function(req, res, next){
 	var mail = req.body.mail;
 	var name = req.body.username;
 	var password = pwh.generate(req.body.password);
 
 	if(validateEmail(mail)){
-		var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
-		con.query(sql, function(err, result){
-			if (err) throw err;
+		pool.getConnection(function(err, connection){
+			var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
+			connection.query(sql, [], function(err, results){
+				connection.release();
+			});
+			
 		})
-		con.end();
+		res.render('signup',{title: "Sign up", message: "Sign up successful"});
+	}else{
+		res.render('signup',{title: "Sign up", message: "Error: Enter a valid email"});
 	}
-	res.render('signup', {title: "test"});
 });
 
 module.exports = router;
