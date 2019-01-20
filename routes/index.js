@@ -3,6 +3,7 @@ var router = express.Router();
 // sql = require('../public/javascripts/dbconn.js')
 var con = require('../public/javascripts/dbconn.js');
 var pwh = require('password-hash');
+var validateEmail = require('../public/javascripts/validateEmail.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,6 +12,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/signup', function(req, res, next) {
 	res.render('signup', { title: 'Sign up' });
+});
+
+router.get('/login', function(req, res, next){
+	res.render('login', {title: 'Login'});
 });
 
 router.post('/submit', function(req, res, next){
