@@ -1,8 +1,21 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.topbar{
+	background-color: green;
+	height: 50px;
+	display: flex;
 }
-
-a {
-  color: #00B7FF;
+.topbar a button{
+	top: 0;
+	right: 0;
+	height: 100%;
+	border: 0;
+	display: inline-block;
+}
+a{
+	text-decoration: none;
+}
+.topbar a button:hover{
+	border: 1px solid black;
+}
+.topbar a button:focus{
+	background-color: darkgrey;
 }
