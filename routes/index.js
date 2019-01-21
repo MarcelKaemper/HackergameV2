@@ -15,11 +15,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-	res.render('signup', { title: 'Sign up', message: 'Sign up', loggedIn: req.session.loggedIn });
+	res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
 });
 
 router.get('/login', function(req, res, next){
-	res.render('login', {title: 'Login', message: 'login', loggedIn: req.session.loggedIn});
+	res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
 });
 
 router.post('/login', function(req,res,next){
@@ -38,15 +38,11 @@ router.post('/login', function(req,res,next){
 			con.release();
 			if (err) throw err;
 			returnPW = results[0].password;
-			console.log("returnPW: ", returnPW);
-			console.log("Passed");
 			if(pwh.verify(password, returnPW)){
-				console.log("correct");
-				res.render('login', {title: 'Login', message: 'Successfully logged in'});
 				req.session.loggedIn = true;
+				res.redirect('/');
 			}else{
-				console.log("wrong");
-				res.render('login', {title: 'Login', message: 'Login failed'});
+				res.redirect('/login?error=loginFailed');
 			}
 		});
 	});
@@ -60,14 +56,14 @@ router.post('/signup', function(req, res, next){
 	var password = pwh.generate(req.body.password);
 
 	if(!validateEmail(mail)){
-		res.render('signup',{title: "Sign up", message: "Error: Enter a valid email"});
+		res.redirect('signup?error=invalidEmail');
 	}else{
 		pool.getConnection(function(err, con){
 			var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
 			con.query(sql, function(err, results){
 				con.release();
 				if (err) throw err;
-				res.render('signup',{title: "Sign up", message: "Sign up successful"});
+				res.redirect('/login');
 			});
 		});
 	}
