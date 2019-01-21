@@ -23,22 +23,27 @@ router.post('/login', function(req,res,next){
 	var password = req.body.password;
 	var sql; 
 	var returnPw;
-	if(validateEmail(login)){
-		sql = "SELECT * FROM logins WHERE mail='"+login+"'";
-	}else{
-		sql = "SELECT * FROM logins WHERE name='"+login+"'";
-	}
+	sql = "SELECT * FROM logins WHERE name='"+login+"'";
+	// if(validateEmail(login)){
+	// 	sql = "SELECT * FROM logins WHERE mail='"+login+"'";
+	// }else{
+	// 	sql = "SELECT * FROM logins WHERE name='"+login+"'";
+	// }
 	con.query(sql,function(err, results){
 		if (err) throw err;
 		returnPW = results[0].password;
+		console.log("returnPW: ", returnPW);
+		console.log("Passed");
+		if(pwh.verify(password, returnPW)){
+			console.log("correct");
+			res.render('login', {title: 'Login', message: 'Successfully logged in'});
+			req.session.loggedIn = true;
+		}else{
+			console.log("wrong");
+			res.render('login', {title: 'Login', message: 'Login failed'});
+		}
 	});
 
-	if(pwh.verify(password, returnPW)){
-		res.render('login', {title: 'Login', message: 'Successfully logged in'});
-		req.session.loggedIn = true;
-	}else{
-		res.render('login', {title: 'Login', message: 'Login failed'});
-	}
 
 });
 
