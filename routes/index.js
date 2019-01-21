@@ -8,6 +8,10 @@ var validateEmail = require('../public/javascripts/validateEmail.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', { title: 'Express', loggedIn: req.session.loggedIn});
+	if(req.query.logout = 1){
+		req.session.destroy();
+	}
+
 });
 
 router.get('/signup', function(req, res, next) {
