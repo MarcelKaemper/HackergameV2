@@ -18,6 +18,11 @@ router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
 });
 
+router.get('/logout', function(req,res,next){
+	req.session.destroy();
+	res.redirect('/');
+});
+
 router.post('/login', function(req,res,next){
 	var login = req.body.login;
 	var password = req.body.password;
