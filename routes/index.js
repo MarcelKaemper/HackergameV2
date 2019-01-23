@@ -28,11 +28,13 @@ router.post('/login', function(req,res,next){
 	var password = req.body.password;
 	var sql; 
 	var returnPw;
+
 	if(validateEmail(login)){
 		sql = "SELECT * FROM logins WHERE mail='"+login+"'";
 	}else{
 		sql = "SELECT * FROM logins WHERE name='"+login+"'";
 	}
+
 	pool.getConnection(function(err, con){
 		if (err) throw err;
 		con.query(sql,function(err, results){
@@ -54,11 +56,10 @@ router.post('/login', function(req,res,next){
 router.post('/signup', function(req, res, next){
 	var mail = req.body.mail;
 	var name = req.body.username;
-	var password = pwh.generate(req.body.password);
+	var password = req.body.password;
 
-	if(!validateEmail(mail)){
-		res.redirect('signup?error=invalidEmail');
-	}else{
+	if(validateEmail(mail) && password.length >= 4){
+		password = pwh.generate(password);
 		pool.getConnection(function(err, con){
 			var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
 			con.query(sql, function(err, results){
@@ -67,6 +68,8 @@ router.post('/signup', function(req, res, next){
 				res.redirect('/login');
 			});
 		});
+	}else{
+		res.redirect('signup?error=invalidEmail');
 	}
 });
 

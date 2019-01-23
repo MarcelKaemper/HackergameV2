@@ -1,6 +1,5 @@
 var createError = require('http-errors');
 var express = require('express');
-var validator = require('express-validator');
 var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -21,7 +20,6 @@ app.use(session({secret: 'sessionsecretkey', resave: false, saveUninitialized: t
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({secret: "secret", saveUninitialized: false, resave: false}));
