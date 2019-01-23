@@ -58,19 +58,39 @@ router.post('/signup', function(req, res, next){
 	var name = req.body.username;
 	var password = req.body.password;
 
-	if(validateEmail(mail) && password.length >= 4){
-		password = pwh.generate(password);
-		pool.getConnection(function(err, con){
-			var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
-			con.query(sql, function(err, results){
-				con.release();
-				if (err) throw err;
-				res.redirect('/login');
+	var takenNames = [];
+	var takenMails = [];
+
+	pool.getConnection(function(err, con){
+		var sql = "SELECT mail, name FROM logins";
+
+		con.query(sql, function(err, results){
+			con.release();
+			for(var i in results){
+				takenNames.push(results[i].name);
+				takenMails.push(results[i].mail);
+			}
+			console.log(takenNames.indexOf(name));
+			if(validateEmail(mail) &&
+				password.length >= 4 &&
+				takenNames.indexOf(name) <= -1 &&
+				takenMails.indexOf(mail) <= -1){
+
+				password = pwh.generate(password);
+				pool.getConnection(function(err, con){
+				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
+				con.query(sql, function(err, results){
+					con.release();
+					if (err) throw err;
+					res.redirect('/login');
+				});
 			});
+			}else{
+				console.log(takenMails, takenNames);
+				res.redirect('signup?error=invalidEmail');
+			}
 		});
-	}else{
-		res.redirect('signup?error=invalidEmail');
-	}
+	});
 });
 
 module.exports = router;
