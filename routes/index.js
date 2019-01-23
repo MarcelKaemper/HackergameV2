@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// sql = require('../public/javascripts/dbconn.js')
 var pool = require('../public/javascripts/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
@@ -64,29 +63,31 @@ router.post('/signup', function(req, res, next){
 	pool.getConnection(function(err, con){
 		var sql = "SELECT mail, name FROM logins";
 
+		// Load the list of already taken emails and usernames
 		con.query(sql, function(err, results){
 			con.release();
 			for(var i in results){
 				takenNames.push(results[i].name);
 				takenMails.push(results[i].mail);
 			}
-			console.log(takenNames.indexOf(name));
+			//Check if the email format is correct, the password length, and
+			//for duplicate emails and usernames
 			if(validateEmail(mail) &&
 				password.length >= 4 &&
 				takenNames.indexOf(name) <= -1 &&
 				takenMails.indexOf(mail) <= -1){
 
 				password = pwh.generate(password);
+
 				pool.getConnection(function(err, con){
 				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
 				con.query(sql, function(err, results){
 					con.release();
-					if (err) throw err;
 					res.redirect('/login');
 				});
 			});
+			//Redirect with error msg
 			}else{
-				console.log(takenMails, takenNames);
 				res.redirect('signup?error=invalidEmail');
 			}
 		});
