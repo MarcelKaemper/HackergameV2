@@ -25,6 +25,7 @@ router.get('/logout', function(req,res,next){
 router.post('/login', function(req,res,next){
 	var login = req.body.login;
 	var password = req.body.password;
+	var exists = false;
 	var sql; 
 	var returnPw;
 
@@ -35,17 +36,28 @@ router.post('/login', function(req,res,next){
 	}
 
 	pool.getConnection(function(err, con){
-		if (err) throw err;
-		con.query(sql,function(err, results){
-			con.release();
-			if (err) throw err;
-			returnPW = results[0].password;
-			if(pwh.verify(password, returnPW)){
-				req.session.loggedIn = true;
-				res.redirect('/');
-			}else{
-				res.redirect('/login?error=loginFailed');
+		con.query("SELECT name,mail FROM logins", function(err, results){
+			for(var i in results){
+				if(results[i].name == login || results[i].mail == login){
+					exists = true;
+					break;
+				}
 			}
+			if(exists){
+				con.query(sql,function(err, results){
+					con.release();
+					returnPW = results[0].password;
+					if(pwh.verify(password, returnPW)){
+						req.session.loggedIn = true;
+						res.redirect('/');
+					}else{
+						res.redirect('/login?error=loginFailed');
+					}
+				});
+			}else{
+			con.release();
+			res.redirect('/login');
+		}
 		});
 	});
 
