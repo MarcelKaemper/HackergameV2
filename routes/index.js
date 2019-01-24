@@ -117,10 +117,13 @@ router.post('/signup', function(req, res, next){
 
 				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";	
 				var sql2 = "INSERT INTO money(money,robbable) VALUES ('10000', '2500')";
+				var sql3 = "INSERT INTO levels(level,xp) VALUES ('1', '0')";
 				con.query(sql, function(err, results){
 					con.query(sql2, function(err, results){
-						con.release();
-						res.redirect('/login');
+						con.query(sql3, function(err, results){
+							con.release();
+							res.redirect('/login');
+						});
 					});
 				});
 			});
