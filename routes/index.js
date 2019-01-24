@@ -6,7 +6,7 @@ var validateEmail = require('../public/javascripts/validateEmail.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Hackergame', loggedIn: req.session.loggedIn});
+	res.render('index', { title: 'Hackergame', loggedIn: req.session.loggedIn, id:req.session.userid});
 });
 
 router.get('/signup', function(req, res, next) {
@@ -27,7 +27,6 @@ router.post('/login', function(req,res,next){
 	var password = req.body.password;
 	var exists = false;
 	var sql; 
-	var returnPw;
 
 	// Define sql query for username or mail
 	if(validateEmail(login)){
@@ -51,9 +50,9 @@ router.post('/login', function(req,res,next){
 				con.query(sql,function(err, results){
 					con.release();
 					// Compare entered pw to hashed pw
-					returnPW = results[0].password;
 					// If password correct
-					if(pwh.verify(password, returnPW)){
+					if(pwh.verify(password, results[0].password)){
+						req.session.userid = results[0].id;
 						req.session.loggedIn = true;
 						res.redirect('/');
 					// If password not correct
