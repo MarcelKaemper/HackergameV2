@@ -80,7 +80,7 @@ router.post('/signup', function(req, res, next){
 	var takenMails = [];
 
 	pool.getConnection(function(err, con){
-		var sql = "SELECT mail, name FROM logins";
+		var sql = "SELECT mail, name, id FROM logins";
 
 		// Load the list of already taken emails and usernames
 		con.query(sql, function(err, results){
@@ -99,10 +99,14 @@ router.post('/signup', function(req, res, next){
 				password = pwh.generate(password);
 
 				pool.getConnection(function(err, con){
-				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
+
+				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";	
+				var sql2 = "INSERT INTO money(money,robbable) VALUES ('10000', '2500')";
 				con.query(sql, function(err, results){
-					con.release();
-					res.redirect('/login');
+					con.query(sql2, function(err, results){
+						con.release();
+						res.redirect('/login');
+					});
 				});
 			});
 			//Redirect with error msg
