@@ -10,8 +10,11 @@ var insert = require('../public/javascripts/insertIntoDB.js');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if(req.session.loggedIn){
-		userInfo(req.session.userid, function(money){
-			req.session.money = money;
+		userInfo(req.session.userid, function(a){
+			console.log(a);
+			req.session.money = a.money;
+			req.session.level = a.level;
+			req.session.xp = a.xp;
 			res.render('index', { title: 'Hackergame', loggedIn: req.session.loggedIn, money:req.session.money,id:req.session.userid});
 		});
 	}else{
@@ -29,7 +32,7 @@ router.get('/login', function(req, res, next){
 
 router.get('/profile', function(req,res,next){
 	res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
-				user:{name:req.session.name,level:req.session.level,money:req.session.money}});
+				user:{name:req.session.name,xp:req.session.xp,level:req.session.level,money:req.session.money}});
 });
 
 router.get('/logout', function(req,res,next){
