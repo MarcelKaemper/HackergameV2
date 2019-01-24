@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var pool = require('../public/javascripts/dbconn.js');
+var pool = require('../public/javascripts/database/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
-var userInfo = require('../public/javascripts/getUserInfo.js');
-var insert = require('../public/javascripts/insertIntoDB.js');
+var userInfo = require('../public/javascripts/database/getUserInfo.js');
+var insert = require('../public/javascripts/database/insertIntoDB.js');
 
 
 /* GET home page. */
