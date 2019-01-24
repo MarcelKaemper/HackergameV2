@@ -4,6 +4,7 @@ var pool = require('../public/javascripts/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
 var userInfo = require('../public/javascripts/getUserInfo.js');
+var insert = require('../public/javascripts/insertIntoDB.js');
 
 
 /* GET home page. */
@@ -113,20 +114,18 @@ router.post('/signup', function(req, res, next){
 
 				password = pwh.generate(password);
 
-				pool.getConnection(function(err, con){
+				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
+				var sql2 = "INSERT INTO money(money, robbable) VALUES('10000', '2500');";
+				var sql3 = "INSERT INTO levels(level, xp) VALUES('1', '0');";
 
-				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";	
-				var sql2 = "INSERT INTO money(money,robbable) VALUES ('10000', '2500')";
-				var sql3 = "INSERT INTO levels(level,xp) VALUES ('1', '0')";
-				con.query(sql, function(err, results){
-					con.query(sql2, function(err, results){
-						con.query(sql3, function(err, results){
-							con.release();
-							res.redirect('/login');
+				insert(sql, function(results){
+					insert(sql2, function(results){
+						insert(sql3, function(results){
+							res.redirect('login');
 						});
 					});
 				});
-			});
+
 			//Redirect with error msg
 			}else{
 				res.redirect('signup?error=invalidEmail');
