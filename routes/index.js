@@ -3,10 +3,19 @@ var router = express.Router();
 var pool = require('../public/javascripts/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
+var userInfo = require('../public/javascripts/getUserInfo.js');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Hackergame', loggedIn: req.session.loggedIn, id:req.session.userid});
+	if(req.session.loggedIn){
+		userInfo(req.session.userid, function(money){
+			req.session.money = money;
+			res.render('index', { title: 'Hackergame', loggedIn: req.session.loggedIn, money:req.session.money,id:req.session.userid});
+		});
+	}else{
+		res.render('index', {title: 'Hackergame'});
+	}
 });
 
 router.get('/signup', function(req, res, next) {
@@ -15,6 +24,11 @@ router.get('/signup', function(req, res, next) {
 
 router.get('/login', function(req, res, next){
 	res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
+});
+
+router.get('/profile', function(req,res,next){
+	res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
+				user:{name:req.session.name,level:req.session.level,money:req.session.money}});
 });
 
 router.get('/logout', function(req,res,next){
@@ -53,6 +67,7 @@ router.post('/login', function(req,res,next){
 					// If password correct
 					if(pwh.verify(password, results[0].password)){
 						req.session.userid = results[0].id;
+						req.session.name = results[0].name;
 						req.session.loggedIn = true;
 						res.redirect('/');
 					// If password not correct
