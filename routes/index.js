@@ -3,15 +3,14 @@ var router = express.Router();
 var pool = require('../public/javascripts/database/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
-var read = require('../public/javascripts/database/readFromDB.js');
-var insert = require('../public/javascripts/database/insertIntoDB.js');
+var query = require('../public/javascripts/database/dbquery.js');
 var sessionReload = require('../public/javascripts/loadSessionVars.js');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	//Reload session variables
-	sessionReload(req, read, function(){
+	sessionReload(req, function(){
 		res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
 	});
 });
@@ -118,9 +117,9 @@ router.post('/signup', function(req, res, next){
 				var sql2 = "INSERT INTO money(money, robbable) VALUES('10000', '2500');";
 				var sql3 = "INSERT INTO levels(level, xp) VALUES('1', '0');";
 
-				insert(sql, function(results){
-					insert(sql2, function(results){
-						insert(sql3, function(results){
+				query(sql, function(results){
+					query(sql2, function(results){
+						query(sql3, function(results){
 							res.redirect('login');
 						});
 					});

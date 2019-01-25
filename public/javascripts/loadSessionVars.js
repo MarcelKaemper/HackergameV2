@@ -1,15 +1,17 @@
-function reload(req,read,callback){
+var query = require('./database/dbquery.js');
+
+function reload(req,callback){
 	//If user logged in
 	if(req.session.loggedIn){
 		// Read money table and return results
-		read("SELECT money FROM money WHERE id='"+req.session.userid+"';", function(results){
+		query("SELECT money FROM money WHERE id='"+req.session.userid+"';", function(results){
 			// Set session
-			req.session.money = results.money;
+			req.session.money = results[0].money;
 			//Read from levels table and return results
-			read("SELECT level,xp FROM levels where id='"+req.session.userid+"';", function(results){
+			query("SELECT level,xp FROM levels where id='"+req.session.userid+"';", function(results){
 				// Set session
-				req.session.level = results.level;
-				req.session.xp = results.xp;
+				req.session.level = results[0].level;
+				req.session.xp = results[0].xp;
 				// Continue
 				callback();
 			});
