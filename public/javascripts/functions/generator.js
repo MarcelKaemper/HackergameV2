@@ -5,7 +5,7 @@ function genUUID(callback) {
     var max = Math.floor(61);
     
     for(var i = 0; i < 16; i++) {
-        uuid = uuid + charset[(Math.floor(Math.random() * (max - min + 1)) + min)];
+        uuid += charset[(Math.floor(Math.random() * (max - min + 1)) + min)];
     }
     
     callback(uuid);
@@ -18,9 +18,9 @@ function genIP(callback) {
 
     for(var i = 0; i < 4; i++) {
         if(i != 3) {
-            ipaddress = ipaddress + "" + (Math.floor(Math.random() * (max - min + 1)) + min) + ".";
+            ipaddress += "" + (Math.floor(Math.random() * (max - min + 1)) + min) + ".";
         } else {
-            ipaddress = ipaddress + "" + (Math.floor(Math.random() * (max - min + 1)) + min);
+            ipaddress += "" + (Math.floor(Math.random() * (max - min + 1)) + min);
         }
     }
 
