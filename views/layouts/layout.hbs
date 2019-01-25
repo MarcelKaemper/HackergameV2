@@ -2,6 +2,7 @@
 	<head>
 		<title>{{ title }}</title>
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+		<link rel="stylesheet" type="text/css" href="stylesheets/content.css">
 	</head>
 	<body>
 		<div class='topbar'>
@@ -14,6 +15,10 @@
 			<a href="/logout"><button>Logout</button></a>
 			{{/unless}}
 		</div>
-			{{{ body }}}		
+		<div class="content">
+			<div class="content_box">
+				{{{ body }}}
+			</div>
+		</div>		
 	</body>
 </html>
