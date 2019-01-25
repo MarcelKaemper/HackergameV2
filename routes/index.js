@@ -94,12 +94,10 @@ router.post('/signup', function(req, res, next){
 	var takenNames = [];
 	var takenMails = [];
 
-	pool.getConnection(function(err, con){
-		var sql = "SELECT mail, name, id FROM logins";
+	var sql = "SELECT mail, name, id FROM logins";
 
-		// Load the list of already taken emails and usernames
-		con.query(sql, function(err, results){
-			con.release();
+	// Load the list of already taken emails and usernames
+	query(sql, function(results){
 			for(var i in results){
 				takenNames.push(results[i].name);
 				takenMails.push(results[i].mail);
@@ -129,7 +127,6 @@ router.post('/signup', function(req, res, next){
 			}else{
 				res.redirect('signup?error=invalidEmail');
 			}
-		});
 	});
 });
 
