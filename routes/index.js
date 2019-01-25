@@ -5,6 +5,7 @@ var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
 var query = require('../public/javascripts/database/dbquery.js');
 var sessionReload = require('../public/javascripts/loadSessionVars.js');
+var generator = require('../public/javascripts/functions/generator.js');
 
 
 /* GET home page. */
@@ -87,6 +88,9 @@ router.post('/signup', function(req, res, next){
 	var name = req.body.username;
 	var password = req.body.password;
 
+	var uuid;
+	var ip_address;
+
 	var takenNames = [];
 	var takenMails = [];
 
@@ -105,16 +109,29 @@ router.post('/signup', function(req, res, next){
 				takenNames.indexOf(name) <= -1 &&
 				takenMails.indexOf(mail) <= -1){
 
+				// Generate password hash
 				password = pwh.generate(password);
+				// Generate uuid
+				generator.genUUID(function(uuid){
+					uuid = uuid;
+					// Gen IP
+					generator.genIP(function(ip){
+						ip_address = ip;
 
-				var sql = "INSERT INTO logins(mail, name, password) VALUES('"+mail+"','"+name+"','"+password+"')";
-				var sql2 = "INSERT INTO money(money, robbable) VALUES('10000', '2500');";
-				var sql3 = "INSERT INTO levels(level, xp) VALUES('1', '0');";
+						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail+"','"+name+"','"+password+"')";
+						var sql2 = "INSERT INTO money(uuid, money, robbable) VALUES('"+uuid+"', '10000', '2500');";
+						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '1', '0');";
+						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
 
-				query(sql, function(results){
-					query(sql2, function(results){
-						query(sql3, function(results){
-							res.redirect('login');
+						// Insert values
+						query(sql, function(results){
+							query(sql2, function(results){
+								query(sql3, function(results){
+									query(sql4, function(results){
+										res.redirect('login');
+									});
+								});
+							});
 						});
 					});
 				});
