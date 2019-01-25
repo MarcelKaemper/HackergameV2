@@ -3,19 +3,20 @@ var router = express.Router();
 var pool = require('../public/javascripts/database/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
-var userInfo = require('../public/javascripts/database/getUserInfo.js');
+var read = require('../public/javascripts/database/readFromDB.js');
 var insert = require('../public/javascripts/database/insertIntoDB.js');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	if(req.session.loggedIn){
-		userInfo(req.session.userid, function(a){
-			console.log(a);
-			req.session.money = a.money;
-			req.session.level = a.level;
-			req.session.xp = a.xp;
+		read("SELECT money FROM money WHERE id='"+req.session.userid+"';", function(results){
+			req.session.money = results.money;
+			read("SELECT level,xp FROM levels where id='"+req.session.userid+"';", function(results){
+				req.session.level = results.level;
+				req.session.xp = results.xp;
 			res.render('index', { title: 'Hackergame', loggedIn: req.session.loggedIn, money:req.session.money,id:req.session.userid});
+			});
 		});
 	}else{
 		res.render('index', {title: 'Hackergame'});
