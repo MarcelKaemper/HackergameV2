@@ -49,40 +49,36 @@ router.post('/login', function(req,res,next){
 		sql = "SELECT * FROM logins WHERE name='"+login+"'";
 	}
 
-	pool.getConnection(function(err, con){
-		// Get the names and mail addresses
-		con.query("SELECT name,mail FROM logins", function(err, results){
-			// Check if the username exists
-			for(var i in results){
-				if(results[i].name == login || results[i].mail == login){
-					exists = true;
-					break;
-				}
+	// Get the names and mail addresses
+	query("SELECT name,mail FROM logins", function(results){
+		console.log(results);
+		// Check if the username exists
+		for(var i in results){
+			if(results[i].name == login || results[i].mail == login){
+				exists = true;
+				break;
 			}
-			//If username or email exists in database
-			if(exists){
-				con.query(sql,function(err, results){
-					con.release();
-					// Compare entered pw to hashed pw
-					// If password correct
-					if(pwh.verify(password, results[0].password)){
-						req.session.userid = results[0].id;
-						req.session.name = results[0].name;
-						req.session.loggedIn = true;
-						res.redirect('/');
-					// If password not correct
-					}else{
-						res.redirect('/login?error=loginFailed');
-					}
-				});
-			// If login doesn't exists
-			}else{
-				con.release();
-				res.redirect('/login');
 		}
-		});
+		//If username or email exists in database
+		if(exists){
+			query(sql,function(results){
+				// Compare entered pw to hashed pw
+				// If password correct
+				if(pwh.verify(password, results[0].password)){
+					req.session.userid = results[0].id;
+					req.session.name = results[0].name;
+					req.session.loggedIn = true;
+					res.redirect('/');
+				// If password not correct
+				}else{
+					res.redirect('/login?error=loginFailed');
+				}
+			});
+		// If login doesn't exists
+		}else{
+			res.redirect('/login');
+		}
 	});
-
 
 });
 
