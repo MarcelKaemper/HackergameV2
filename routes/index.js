@@ -10,6 +10,7 @@ var sessionReload = require('../public/javascripts/loadSessionVars.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	//Reload session variables
 	sessionReload(req, read, function(){
 		res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
 	});
@@ -25,7 +26,10 @@ router.get('/login', function(req, res, next){
 
 router.get('/profile', function(req,res,next){
 	res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
-				user:{name:req.session.name,xp:req.session.xp,level:req.session.level,money:req.session.money}});
+				user:{name:req.session.name,
+					xp:req.session.xp,
+					level:req.session.level,
+					money:req.session.money}});
 });
 
 router.get('/logout', function(req,res,next){
