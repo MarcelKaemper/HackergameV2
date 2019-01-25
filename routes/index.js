@@ -6,31 +6,40 @@ var validateEmail = require('../public/javascripts/validateEmail.js');
 var query = require('../public/javascripts/database/dbquery.js');
 var sessionReload = require('../public/javascripts/loadSessionVars.js');
 var generator = require('../public/javascripts/functions/generator.js');
+var writeActivity = require('../public/javascripts/writeActivity.js');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	//Reload session variables
 	sessionReload(req, function(){
-		res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
+		writeActivity(req.session.uuid, function(){	
+			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
+		});
 	});
 });
 
 router.get('/signup', function(req, res, next) {
-	res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
+	writeActivity(req.session.uuid, function(){	
+		res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
+	});
 });
 
 router.get('/login', function(req, res, next){
-	res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
+	writeActivity(req.session.uuid, function(){
+		res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
+	});
 });
 
 router.get('/profile', function(req,res,next){
-	res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
-				user:{name:req.session.name,
+	writeActivity(req.session.uuid, function(){
+		res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
+					user:{name:req.session.name,
 					xp:req.session.xp,
 					level:req.session.level,
 					money:req.session.money,
 					ip: req.session.ip}});
+	});
 });
 
 router.get('/logout', function(req,res,next){
@@ -131,13 +140,16 @@ router.post('/signup', function(req, res, next){
 						var sql2 = "INSERT INTO money(uuid, money, robbable) VALUES('"+uuid+"', '10000', '2500');";
 						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '1', '0');";
 						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
+						var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
 
 						// Insert values
 						query(sql, function(results){
 							query(sql2, function(results){
 								query(sql3, function(results){
 									query(sql4, function(results){
-										res.redirect('login');
+										query(sql5, function(results){
+											res.redirect('login');
+										});
 									});
 								});
 							});
