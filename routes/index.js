@@ -29,7 +29,8 @@ router.get('/profile', function(req,res,next){
 				user:{name:req.session.name,
 					xp:req.session.xp,
 					level:req.session.level,
-					money:req.session.money}});
+					money:req.session.money,
+					ip: req.session.ip}});
 });
 
 router.get('/logout', function(req,res,next){
@@ -42,6 +43,7 @@ router.post('/login', function(req,res,next){
 	var password = req.body.password;
 	var exists = false;
 	var sql; 
+	var sql2;
 
 	// Define sql query for username or mail
 	if(validateEmail(login)){
@@ -69,7 +71,12 @@ router.post('/login', function(req,res,next){
 					req.session.userid = results[0].id;
 					req.session.name = results[0].name;
 					req.session.loggedIn = true;
-					res.redirect('/');
+					req.session.uuid = results[0].uuid;
+					sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
+					query(sql, function(results){
+						req.session.ip = results[0].ip_address;	
+						res.redirect('/');
+					});
 				// If password not correct
 				}else{
 					res.redirect('/login?error=loginFailed');
@@ -94,7 +101,7 @@ router.post('/signup', function(req, res, next){
 	var takenNames = [];
 	var takenMails = [];
 
-	var sql = "SELECT mail, name, id FROM logins";
+	var sql = "SELECT mail, name FROM logins";
 
 	// Load the list of already taken emails and usernames
 	query(sql, function(results){
