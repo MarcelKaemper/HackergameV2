@@ -94,6 +94,7 @@ router.post('/signup', function(req, res, next){
 	var mail = req.body.mail;
 	var name = req.body.username;
 	var password = req.body.password;
+	var confirm_password = req.body.confirmPassword;
 
 	var uuid;
 	var ip_address;
@@ -114,7 +115,8 @@ router.post('/signup', function(req, res, next){
 			if(validateEmail(mail) &&
 				password.length >= 4 &&
 				takenNames.indexOf(name) <= -1 &&
-				takenMails.indexOf(mail) <= -1){
+				takenMails.indexOf(mail) <= -1 &&
+				confirm_password == password){
 
 				// Generate password hash
 				password = pwh.generate(password);
