@@ -34,3 +34,7 @@
 .form_signup button, .form_login button {
     padding: 5px 5px 5px 5px;
 }
+
+.onlinePlayers {
+    text-decoration-style: none;
+}
