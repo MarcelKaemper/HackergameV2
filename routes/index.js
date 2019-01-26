@@ -93,8 +93,10 @@ router.post('/login', function(req,res,next){
 					sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
 					query(sql, function(results){
 						req.session.ip = results[0].ip_address;	
-						setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
-							res.redirect('/');
+						writeActivity(req.session.uuid, function(){
+							setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
+								res.redirect('/');
+							});
 						});
 					});
 				// If password not correct
