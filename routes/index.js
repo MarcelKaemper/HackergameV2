@@ -9,6 +9,7 @@ var generator = require('../public/javascripts/functions/generator.js');
 var writeActivity = require('../public/javascripts/writeActivity.js');
 var setLoggedIn = require('../public/javascripts/setLoggedIn.js');
 var logoutInactive = require('../public/javascripts/logoutInactivePlayers.js');
+var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers.js');
 
 
 /* GET home page. */
@@ -16,9 +17,11 @@ router.get('/', function(req, res, next) {
 	logoutInactive(req.session.loggedIn, function(){
 		sessionReload(req, function(){
 			writeActivity(req.session.uuid, function(){	
-				res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
+				getOnlinePlayers(function(onlinePlayers) {
+					req.session.onlinePlayers = onlinePlayers;
+					res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
+				});
 			});
-
 		});
 	});
 });
