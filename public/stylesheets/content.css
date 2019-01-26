@@ -36,5 +36,10 @@
 }
 
 .onlinePlayers {
-    text-decoration-style: none;
+    list-style-type: none;
+}
+
+.onlinePlayerList {
+    margin-right: 40px;
+    margin-top: -10px;
 }

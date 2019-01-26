@@ -2,6 +2,20 @@
 {{#if loggedIn}}
 You are logged in
 <br>
+
+<br>
+<br>
+
+<h4>Online Players:</h4>
+<div class="onlinePlayerList">
+    <ul class="onlinePlayers">
+        {{#each players}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</div>
+
+<br>
 {{else}}
 Log in to start playing!
 <br>
