@@ -92,7 +92,7 @@ router.post('/login', function(req,res,next){
 					req.session.uuid = results[0].uuid;
 					sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
 					query(sql, function(results){
-						setLoggedIn(true, req.session.uuid, function(){
+						setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
 							req.session.ip = results[0].ip_address;	
 							res.redirect('/');
 						});
