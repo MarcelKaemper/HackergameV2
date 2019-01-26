@@ -14,8 +14,8 @@ var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	sessionReload(req, function(){
-		logoutInactive(req.session.loggedIn, function(){
+	logoutInactive(req.session.loggedIn, function(){
+		sessionReload(req, function(){
 			writeActivity(req.session.uuid, function(){	
 				getOnlinePlayers(function(onlinePlayers) {
 					req.session.onlinePlayers = onlinePlayers;
@@ -92,8 +92,8 @@ router.post('/login', function(req,res,next){
 					req.session.uuid = results[0].uuid;
 					sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
 					query(sql, function(results){
+						req.session.ip = results[0].ip_address;	
 						setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
-							req.session.ip = results[0].ip_address;	
 							res.redirect('/');
 						});
 					});
