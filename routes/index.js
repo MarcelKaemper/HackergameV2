@@ -7,6 +7,7 @@ var query = require('../public/javascripts/database/dbquery.js');
 var sessionReload = require('../public/javascripts/loadSessionVars.js');
 var generator = require('../public/javascripts/functions/generator.js');
 var writeActivity = require('../public/javascripts/writeActivity.js');
+var setLoggedIn = require('../public/javascripts/setLoggedIn.js');
 
 
 /* GET home page. */
@@ -16,6 +17,7 @@ router.get('/', function(req, res, next) {
 		writeActivity(req.session.uuid, function(){	
 			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
 		});
+
 	});
 });
 
@@ -43,8 +45,10 @@ router.get('/profile', function(req,res,next){
 });
 
 router.get('/logout', function(req,res,next){
-	req.session.destroy();
-	res.redirect('/');
+	setLoggedIn(false, req.session.uuid, function(){
+		req.session.destroy();
+		res.redirect('/');
+	});
 });
 
 router.post('/login', function(req,res,next){
@@ -83,8 +87,10 @@ router.post('/login', function(req,res,next){
 					req.session.uuid = results[0].uuid;
 					sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
 					query(sql, function(results){
-						req.session.ip = results[0].ip_address;	
-						res.redirect('/');
+						setLoggedIn(true, req.session.uuid, function(){
+							req.session.ip = results[0].ip_address;	
+							res.redirect('/');
+						});
 					});
 				// If password not correct
 				}else{
