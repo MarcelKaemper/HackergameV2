@@ -9,11 +9,16 @@ function reload(req,callback){
 			req.session.money = results[0].money;
 			//Read from levels table and return results
 			query("SELECT level,xp FROM levels where id='"+req.session.userid+"';", function(results){
-				// Set session
-				req.session.level = results[0].level;
-				req.session.xp = results[0].xp;
-				// Continue
-				callback();
+				query("SELECT loggedIn FROM logins WHERE uuid='"+req.session.uuid+"';", function(results){
+					if(results[0].loggedIn == false){
+						req.session.loggedIn = false;
+					}
+					// Set session
+					req.session.level = results[0].level;
+					req.session.xp = results[0].xp;
+					// Continue
+					callback();
+				});
 			});
 		});
 	// Not logged in
