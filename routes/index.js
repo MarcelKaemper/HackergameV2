@@ -13,8 +13,8 @@ var logoutInactive = require('../public/javascripts/logoutInactivePlayers.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	logoutInactive(req.session.loggedIn, function(){
-		sessionReload(req, function(){
+	sessionReload(req, function(){
+		logoutInactive(req.session.loggedIn, function(){
 			writeActivity(req.session.uuid, function(){	
 				res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn});
 			});
