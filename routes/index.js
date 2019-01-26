@@ -8,10 +8,12 @@ var sessionReload = require('../public/javascripts/loadSessionVars.js');
 var generator = require('../public/javascripts/functions/generator.js');
 var writeActivity = require('../public/javascripts/writeActivity.js');
 var setLoggedIn = require('../public/javascripts/setLoggedIn.js');
+var lastActivity = require('../public/javascripts/timeSinceLastActivity.js');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	lastActivity();
 	//Reload session variables
 	sessionReload(req, function(){
 		writeActivity(req.session.uuid, function(){	
