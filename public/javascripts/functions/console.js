@@ -47,7 +47,7 @@ function consolecmd(req, cmd, callback) {
                                     }
                                 });
                             } else {
-                                req.session.command_log += "Unvalid ip format!\n";
+                                req.session.command_log += "Invalid ip format!\n";
                                 callback();
                             }
                         });
