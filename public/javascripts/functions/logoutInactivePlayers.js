@@ -1,4 +1,4 @@
-var query = require('./database/dbquery.js');
+var query = require('../database/dbquery.js');
 var moment = require('moment'); 
 
 function timeBetweenLastActivity(loggedIn, callback){

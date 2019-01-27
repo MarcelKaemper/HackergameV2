@@ -1,4 +1,4 @@
-var query = require('./database/dbquery.js');
+var query = require('../database/dbquery.js');
 
 function reload(req,callback){
 	//If user logged in

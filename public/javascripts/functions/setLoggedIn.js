@@ -1,4 +1,4 @@
-var query = require('./database/dbquery.js');
+var query = require('../database/dbquery.js');
 
 function setLoggedIn(li, uuid, callback){
 	sql = "UPDATE logins SET loggedIn="+li+" WHERE uuid='"+uuid+"';";
