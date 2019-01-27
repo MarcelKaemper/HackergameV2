@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+{{#if loggedIn}}
+<form action="console" method="post">
+    <textarea class="console_input" id="commandlog" name="commandlog" size="50" cols="75" rows="20" readonly autocomplete="off">{{message}}</textarea><br />
+    <input class="console_input" type="text" name="command" size="82" required minlength="1" autofocus autocomplete="off">
+    <input class="console_input_submit" type="submit" name="enter" hidden>
+</form>
+{{else}}
+You need to log in to see this page!
+{{/if}}

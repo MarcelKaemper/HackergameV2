@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var pool = require('../public/javascripts/database/dbconn.js');
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/validateEmail.js');
 var query = require('../public/javascripts/database/dbquery.js');
@@ -10,7 +9,7 @@ var writeActivity = require('../public/javascripts/writeActivity.js');
 var setLoggedIn = require('../public/javascripts/setLoggedIn.js');
 var logoutInactive = require('../public/javascripts/logoutInactivePlayers.js');
 var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers.js');
-
+var consolecmd = require('../public/javascripts/functions/console.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -56,6 +55,19 @@ router.get('/logout', function(req,res,next){
 	});
 });
 
+router.get('/console', function(req, res, next) {
+	writeActivity(req.session.uuid, function() {
+		res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, message: req.session.command_log});
+	});
+});
+
+router.post('/console', function(req, res, next) {
+	consolecmd(req, req.body.command, function(message) {
+		//res.render('console', {loggedIn: req.session.loggedIn, message: message});
+		res.redirect('/console');
+	});
+});
+
 router.post('/login', function(req,res,next){
 	var login = req.body.login;
 	var password = req.body.password;
@@ -75,7 +87,7 @@ router.post('/login', function(req,res,next){
 		console.log(results);
 		// Check if the username exists
 		for(var i in results){
-			if(results[i].name == login || results[i].mail == login){
+			if(results[i].name.toLowerCase() == login.toLowerCase() || results[i].mail.toLowerCase() == login.toLowerCase()){
 				exists = true;
 				break;
 			}
@@ -129,15 +141,15 @@ router.post('/signup', function(req, res, next){
 	// Load the list of already taken emails and usernames
 	query(sql, function(results){
 			for(var i in results){
-				takenNames.push(results[i].name);
-				takenMails.push(results[i].mail);
+				takenNames.push(results[i].name.toLowerCase());
+				takenMails.push(results[i].mail.toLowerCase());
 			}
 			//Check if the email format is correct, the password length, and
 			//for duplicate emails and usernames
 			if(validateEmail(mail) &&
 				password.length >= 4 &&
-				takenNames.indexOf(name) <= -1 &&
-				takenMails.indexOf(mail) <= -1 &&
+				takenNames.indexOf(name.toLowerCase()) <= -1 &&
+				takenMails.indexOf(mail.toLowerCase()) <= -1 &&
 				confirm_password == password){
 
 				// Generate password hash
@@ -149,7 +161,7 @@ router.post('/signup', function(req, res, next){
 					generator.genIP(function(ip){
 						ip_address = ip;
 
-						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail+"','"+name+"','"+password+"')";
+						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"')";
 						var sql2 = "INSERT INTO money(uuid, money, robbable) VALUES('"+uuid+"', '10000', '2500');";
 						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '1', '0');";
 						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
