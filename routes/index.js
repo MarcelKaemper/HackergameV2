@@ -94,7 +94,7 @@ router.post('/login', function(req,res,next){
 	}
 
 	// Get the names and mail addresses
-	query("SELECT name,mail, loggedIn FROM logins", function(results){
+	query("SELECT name,mail FROM logins", function(results){
 		console.log(results);
 		// Check if the username exists
 		for(var i in results){
