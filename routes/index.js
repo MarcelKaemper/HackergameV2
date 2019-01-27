@@ -16,10 +16,6 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	// // logoutInactive(req.session.loggedIn, function(){
-	// // 	sessionReload(req, function(){
-	// // 		writeActivity(req.session.uuid, function(){	
-	// 			getOnlinePlayers(function(onlinePlayers) {
 	stdCall(req, function(){
 		getOnlinePlayers(function(onlinePlayers){
 			req.session.onlinePlayers = onlinePlayers;
@@ -29,19 +25,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-	writeActivity(req.session.uuid, function(){	
+	stdCall(req, function(){	
 		res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
 	});
 });
 
 router.get('/login', function(req, res, next){
-	writeActivity(req.session.uuid, function(){
+	stdCall(req, function(){
 		res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
 	});
 });
 
 router.get('/bank', function(req, res, next){
-	writeActivity(req.session.uuid, function(){
+	stdCall(req, function(){
 		getAllPlayers(function(players){
 			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, players:players});
 		});
@@ -55,7 +51,7 @@ router.post('/bank', function(req, res, next){
 });
 
 router.get('/profile', function(req,res,next){
-	writeActivity(req.session.uuid, function(){
+	stdCall(req, function(){
 		res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
 					user:{name:req.session.name,
 					xp:req.session.xp,
@@ -73,7 +69,7 @@ router.get('/logout', function(req,res,next){
 });
 
 router.get('/console', function(req, res, next) {
-	writeActivity(req.session.uuid, function() {
+	stdCall(req, function() {
 		res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, message: req.session.command_log});
 	});
 });
