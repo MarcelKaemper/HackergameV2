@@ -11,6 +11,8 @@ var consolecmd = require('../public/javascripts/functions/console.js');
 var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
+var writeXP = require('../public/javascripts/functions/writeXP.js');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -36,8 +38,8 @@ router.get('/login', function(req, res, next){
 
 router.get('/bank', function(req, res, next){
 	stdCall(req, function(){
-		getAllPlayers(function(players){
-			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, money:req.session.money, players:players});
+		getAllPlayers(req.session.uuid, function(players){
+			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, name: req.session.name, money:req.session.money, players:players});
 		});
 	});
 });
