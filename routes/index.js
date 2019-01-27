@@ -10,6 +10,8 @@ var writeActivity = require('../public/javascripts/writeActivity.js');
 var setLoggedIn = require('../public/javascripts/setLoggedIn.js');
 var logoutInactive = require('../public/javascripts/logoutInactivePlayers.js');
 var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers.js');
+var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
+var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 
 
 /* GET home page. */
@@ -35,6 +37,20 @@ router.get('/signup', function(req, res, next) {
 router.get('/login', function(req, res, next){
 	writeActivity(req.session.uuid, function(){
 		res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
+	});
+});
+
+router.get('/bank', function(req, res, next){
+	writeActivity(req.session.uuid, function(){
+		getAllPlayers(function(players){
+			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, players:players});
+		});
+	});
+});
+
+router.post('/bank', function(req, res, next){
+	transferMoney(req, function(){
+		res.redirect('/bank');
 	});
 });
 
