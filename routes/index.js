@@ -94,7 +94,7 @@ router.post('/login', function(req,res,next){
 	}
 
 	// Get the names and mail addresses
-	query("SELECT name,mail FROM logins", function(results){
+	query("SELECT name,mail, loggedIn FROM logins", function(results){
 		console.log(results);
 		// Check if the username exists
 		for(var i in results){
@@ -108,7 +108,7 @@ router.post('/login', function(req,res,next){
 			query(sql,function(results){
 				// Compare entered pw to hashed pw
 				// If password correct
-				if(pwh.verify(password, results[0].password)){
+				if(pwh.verify(password, results[0].password) && !results[0].loggedIn){
 					req.session.userid = results[0].id;
 					req.session.name = results[0].name;
 					req.session.loggedIn = true;
