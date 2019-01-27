@@ -37,7 +37,7 @@ router.get('/login', function(req, res, next){
 router.get('/bank', function(req, res, next){
 	stdCall(req, function(){
 		getAllPlayers(function(players){
-			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, players:players});
+			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, money:req.session.money, players:players});
 		});
 	});
 });
