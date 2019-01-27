@@ -1,0 +1,16 @@
+{{#if loggedIn}}
+	<h1>{{title}}</h1>
+	<form method="post" action="/bank">
+		Amount:
+		<input type="text" name="amount" />
+		<br>
+		<br>
+		Transfer to:
+		<select name="player">
+			{{#each players}}
+				<option value="{{this}}">{{this}}</option>
+			{{/each}}
+		</select>
+		<input type="submit" value="Transfer">
+	</form>
+{{/if}}
