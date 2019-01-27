@@ -12,17 +12,18 @@ var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers
 var consolecmd = require('../public/javascripts/functions/console.js');
 var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
+var stdCall = require('../public/javascripts/functions/stdCall.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	logoutInactive(req.session.loggedIn, function(){
-		sessionReload(req, function(){
-			writeActivity(req.session.uuid, function(){	
-				getOnlinePlayers(function(onlinePlayers) {
-					req.session.onlinePlayers = onlinePlayers;
-					res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
-				});
-			});
+	// // logoutInactive(req.session.loggedIn, function(){
+	// // 	sessionReload(req, function(){
+	// // 		writeActivity(req.session.uuid, function(){	
+	// 			getOnlinePlayers(function(onlinePlayers) {
+	stdCall(req, function(){
+		getOnlinePlayers(function(onlinePlayers){
+			req.session.onlinePlayers = onlinePlayers;
+			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
 		});
 	});
 });
