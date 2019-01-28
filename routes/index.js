@@ -90,13 +90,13 @@ router.post('/login', function(req,res,next){
 
 	// Define sql query for username or mail
 	if(validateEmail(login)){
-		sql = "SELECT * FROM logins WHERE mail='"+login+"'";
+		sql = "SELECT * FROM logins WHERE mail='"+login+"';";
 	}else{
-		sql = "SELECT * FROM logins WHERE name='"+login+"'";
+		sql = "SELECT * FROM logins WHERE name='"+login+"';";
 	}
 
 	// Get the names and mail addresses
-	query("SELECT name,mail FROM logins", function(results){
+	query("SELECT name,mail FROM logins;", function(results){
 		console.log(results);
 		// Check if the username exists
 		for(var i in results){
@@ -149,7 +149,7 @@ router.post('/signup', function(req, res, next){
 	var takenNames = [];
 	var takenMails = [];
 
-	var sql = "SELECT mail, name FROM logins";
+	var sql = "SELECT mail, name FROM logins;";
 
 	// Load the list of already taken emails and usernames
 	query(sql, function(results){
@@ -174,7 +174,7 @@ router.post('/signup', function(req, res, next){
 					generator.genIP(function(ip){
 						ip_address = ip;
 
-						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"')";
+						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
 						var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
 						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '1', '0');";
 						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
