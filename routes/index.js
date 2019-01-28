@@ -11,15 +11,17 @@ var consolecmd = require('../public/javascripts/functions/console.js');
 var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
-var writeXP = require('../public/javascripts/functions/writeXP.js');
+var addXP = require('../public/javascripts/functions/leveling/addXP.js');
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	stdCall(req, function(){
 		getOnlinePlayers(function(onlinePlayers){
-			req.session.onlinePlayers = onlinePlayers;
-			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
+			addXP(req.session.uuid, 10, function(){
+				req.session.onlinePlayers = onlinePlayers;
+				res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
+			});
 		});
 	});
 });
@@ -176,7 +178,7 @@ router.post('/signup', function(req, res, next){
 
 						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
 						var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
-						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '1', '0');";
+						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '0', '0');";
 						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
 						var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
 
