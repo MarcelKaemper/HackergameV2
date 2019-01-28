@@ -175,7 +175,7 @@ router.post('/signup', function(req, res, next){
 						ip_address = ip;
 
 						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"')";
-						var sql2 = "INSERT INTO money(uuid, money, robbable) VALUES('"+uuid+"', '10000', '2500');";
+						var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
 						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '1', '0');";
 						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
 						var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
