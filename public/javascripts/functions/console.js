@@ -51,7 +51,7 @@ function consolecmd(req, cmd, callback) {
                                 callback();
                             }
                         });
-                    } else {LovelyMaryS
+                    } else {
                         req.session.command_log += "You are not an admin!\n";
                         callback();
                     }
