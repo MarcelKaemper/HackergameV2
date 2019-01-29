@@ -4,6 +4,7 @@ var consoleDefault = require('./console/consoleDefault.js');
 var cmdHelp = require('./console/cmdHelp.js');
 var cmdClear = require('./console/cmdClear.js');
 var cmdCheck = require('./console/cmdCheck.js');
+var cmdXp = require('./console/cmdXp.js');
 // >> ######################################## << //
 
 function consolecmd(req, cmd, callback) {
@@ -31,6 +32,13 @@ function consolecmd(req, cmd, callback) {
             case "check":
                 consoleDefault(req, cmd, command, function() {
                     cmdCheck(req, cmd, command, function() {
+                        callback();
+                    });
+                });
+                break;
+            case "xp":
+                consoleDefault(req, cmd, command, function() {
+                    cmdXp(req, cmd, command, function() {
                         callback();
                     });
                 });
