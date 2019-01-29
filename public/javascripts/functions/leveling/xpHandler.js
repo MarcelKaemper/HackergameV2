@@ -3,26 +3,14 @@ var setLevel = require('./setLevel.js');
 
 //level = parameter
 //faktor = 125
-//level²*faktor
+//level²*faktor = xp
+//level = sqroot(xp/125)
 
-function handleXP(uuid,level,xp,callback){
-	var level = level;
-	var lvlups = 0;
-	var needed = (Math.pow(level+1,2)*125)-xp;
+function handleXP(uuid,xp,callback){
 
-	while(needed <= 0){
-		level+=1;
-		lvlups+=1;
-		needed = (Math.pow(level,2)*125)-xp;
-	}
-
-	if(lvlups > 0){
-		setLevel(uuid, lvlups-1, function(){
-			callback();
-		});
-	}else{
+	setLevel(uuid, Math.floor(Math.sqrt(xp/125)), function(){
 		callback();
-	}
+	});
 };
 
 module.exports = handleXP;
