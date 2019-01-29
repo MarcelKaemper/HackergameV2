@@ -18,10 +18,8 @@ var addXP = require('../public/javascripts/functions/leveling/addXP.js');
 router.get('/', function(req, res, next) {
 	stdCall(req, function(){
 		getOnlinePlayers(function(onlinePlayers){
-			addXP(req.session.uuid, 10, function(){
-				req.session.onlinePlayers = onlinePlayers;
-				res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
-			});
+			req.session.onlinePlayers = onlinePlayers;
+			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
 		});
 	});
 });
