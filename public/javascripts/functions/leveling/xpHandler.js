@@ -1,5 +1,5 @@
 var query = require('../../database/dbquery.js');
-var addLevel = require('./addlevel.js');
+var setLevel = require('./setLevel.js');
 
 //level = parameter
 //faktor = 125
@@ -17,7 +17,7 @@ function handleXP(uuid,level,xp,callback){
 	}
 
 	if(lvlups > 0){
-		addLevel(uuid, lvlups-1, function(){
+		setLevel(uuid, lvlups-1, function(){
 			callback();
 		});
 	}else{

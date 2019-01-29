@@ -11,7 +11,6 @@ var consolecmd = require('../public/javascripts/functions/console.js');
 var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
-var addXP = require('../public/javascripts/functions/leveling/addXP.js');
 
 
 /* GET home page. */
