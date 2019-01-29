@@ -1,6 +1,6 @@
 var query = require('../database/dbquery.js');
 
-function uuidToName(uuid, callback) {
+function toName(uuid, callback) {
     var sql = "SELECT name FROM logins WHERE uuid='" + uuid + "';";
     query(sql, function(results) {
         var name = results[0].name;
@@ -8,7 +8,7 @@ function uuidToName(uuid, callback) {
     });
 }
 
-function nameToUuid(name, callback) {
+function toUuid(name, callback) {
     var sql = "SELECT uuid FROM logins WHERE name='" + name + "';";
     query(sql, function(results) {
         var uuid = results[0].uuid;
@@ -17,6 +17,6 @@ function nameToUuid(name, callback) {
 }
 
 module.exports = {
-    uuidToName,
-    nameToUuid
+    toName,
+    toUuid
 }
