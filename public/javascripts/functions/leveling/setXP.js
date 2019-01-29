@@ -33,7 +33,7 @@ function setXP(uuid, amount, operation, callback) {
 		case "show":	
 			sql = "SELECT level, xp FROM levels WHERE uuid='"+uuid+"';";
 			query(sql, function(results) {
-				uuidName.toName(results[0].uuid, function(name) {
+				uuidName.toName(uuid, function(name) {
 					callback(results[0].level, results[0].xp, name);
 				});
 			});
