@@ -1,9 +1,9 @@
 var query = require('../../database/dbquery.js');
 var handleXP = require('./xpHandler.js');
 
-function addXP(uuid, amount, callback){
+function setXP(uuid, amount, callback){
 	uuid = uuid;
-	var sql = "UPDATE levels SET xp=xp+'"+amount+"' WHERE uuid='"+uuid+"';";
+	var sql = "UPDATE levels SET xp='"+amount+"' WHERE uuid='"+uuid+"';";
 
 	query(sql, function(results){
 		query("SELECT level,xp FROM levels WHERE uuid='"+uuid+"';", function(results){
@@ -16,4 +16,4 @@ function addXP(uuid, amount, callback){
 };
 
 
-module.exports = addXP;
+module.exports = setXP;
