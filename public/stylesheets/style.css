@@ -28,3 +28,10 @@ a{
 .topbar a button:focus{
 	background-color: darkgrey;
 }
+
+
+#earnMoneyLabel{
+	text-align: center;
+	border: none;
+	background-color: #cfcfcf;
+}

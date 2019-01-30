@@ -10,6 +10,7 @@ var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers
 var consolecmd = require('../public/javascripts/functions/console.js');
 var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
+var changeMoney = require('../public/javascripts/functions/changeMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
 
 
@@ -46,6 +47,12 @@ router.get('/bank', function(req, res, next){
 router.post('/bank', function(req, res, next){
 	transferMoney(req, function(){
 		res.redirect('/bank');
+	});
+});
+
+router.post('/deposit', function(req, res, next) {
+	changeMoney(req.session.uuid, req.body.amount, "give", function(){
+		res.redirect('/');
 	});
 });
 
@@ -96,7 +103,6 @@ router.post('/login', function(req,res,next){
 
 	// Get the names and mail addresses
 	query("SELECT name,mail FROM logins;", function(results){
-		console.log(results);
 		// Check if the username exists
 		for(var i in results){
 			if(results[i].name.toLowerCase() == login.toLowerCase() || results[i].mail.toLowerCase() == login.toLowerCase()){
