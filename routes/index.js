@@ -18,10 +18,9 @@ var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
-	getOnlinePlayers(function(onlinePlayers) {
-		req.session.onlinePlayers = onlinePlayers;
-		res.render('index', {title: 'Hackergame', isAdmin: req.session.isAdmin, loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
-	});
+	var onlinePlayers = getOnlinePlayers();
+	req.session.onlinePlayers = onlinePlayers;
+	res.render('index', {title: 'Hackergame', isAdmin: req.session.isAdmin, loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
 });
 
 router.get('/signup', async function(req, res, next) {
@@ -36,15 +35,13 @@ router.get('/login', async function(req, res, next) {
 
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
-	getAllPlayers(req.session.uuid, function(players) {
-		res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, name: req.session.name, money:req.session.money, players:players});
-	});
+	var players = await getAllPlayers(req.session.uuid);
+	res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, name: req.session.name, money: req.session.money, players: players});
 });
 
-router.post('/bank', function(req, res, next) {
-	transferMoney(req, function() {
-		res.redirect('/bank');
-	});
+router.post('/bank', async function(req, res, next) {
+	await transferMoney(req);
+	res.redirect('/bank');
 });
 
 router.get('/admin', function(req, res, next) {
@@ -59,10 +56,10 @@ router.post('/deposit', async function(req, res, next) {
 router.get('/profile', async function(req,res,next) {
 	await stdCall(req);
 	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, 
-				user:{name:req.session.name,
-				xp:req.session.xp,
-				level:req.session.level,
-				money:req.session.money,
+				user:{name: req.session.name,
+				xp: req.session.xp,
+				level: req.session.level,
+				money: req.session.money,
 				ip: req.session.ip}});
 });
 
@@ -77,11 +74,10 @@ router.get('/console', async function(req, res, next) {
 	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, message: req.session.command_log});
 });
 
-router.post('/console', function(req, res, next) {
-	consolecmd(req, req.body.command, function(message) {
-		//res.render('console', {loggedIn: req.session.loggedIn, message: message});
-		res.redirect('/console');
-	});
+router.post('/console', async function(req, res, next) {
+	await consolecmd(req, req.body.command);
+	//res.render('console', {loggedIn: req.session.loggedIn, message: message});
+	res.redirect('/console');
 });
 
 router.post('/login', async function(req,res,next) {
@@ -151,7 +147,7 @@ router.post('/signup', async function(req, res, next) {
 
 	// Load the list of already taken emails and usernames
 	var results = await query(sql);
-	for(var i in results){
+	for(var i in results) {
 		takenNames.push(results[i].name.toLowerCase());
 		takenMails.push(results[i].mail.toLowerCase());
 	}
@@ -161,7 +157,7 @@ router.post('/signup', async function(req, res, next) {
 		password.length >= 4 &&
 		takenNames.indexOf(name.toLowerCase()) <= -1 &&
 		takenMails.indexOf(mail.toLowerCase()) <= -1 &&
-		confirm_password == password){
+		confirm_password == password) {
 
 		// Generate password hash
 		password = pwh.generate(password);
@@ -185,7 +181,7 @@ router.post('/signup', async function(req, res, next) {
 		res.redirect('login');
 
 	//Redirect with error msg
-	}else{
+	} else {
 		res.redirect('signup?error=invalidEmail');
 	}
 });
