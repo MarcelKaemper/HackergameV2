@@ -12,6 +12,7 @@ var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 var changeMoney = require('../public/javascripts/functions/changeMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
+var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
 
 
 /* GET home page. */
@@ -19,24 +20,24 @@ router.get('/', async function(req, res, next) {
 	await stdCall(req);
 	getOnlinePlayers(function(onlinePlayers) {
 		req.session.onlinePlayers = onlinePlayers;
-		res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
+		res.render('index', {title: 'Hackergame', isAdmin: req.session.isAdmin, loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
 	});
 });
 
 router.get('/signup', async function(req, res, next) {
 	await stdCall(req);
-	res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
+	res.render('signup', { title: 'Sign up', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn });
 });
 
 router.get('/login', async function(req, res, next) {
 	await stdCall(req);
-	res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
+	res.render('login', {title: 'Login', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn});
 });
 
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
 	getAllPlayers(req.session.uuid, function(players) {
-		res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, name: req.session.name, money:req.session.money, players:players});
+		res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, name: req.session.name, money:req.session.money, players:players});
 	});
 });
 
@@ -44,6 +45,10 @@ router.post('/bank', function(req, res, next) {
 	transferMoney(req, function() {
 		res.redirect('/bank');
 	});
+});
+
+router.get('/admin', function(req, res, next) {
+	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn});
 });
 
 router.post('/deposit', function(req, res, next) {
@@ -54,7 +59,7 @@ router.post('/deposit', function(req, res, next) {
 
 router.get('/profile', async function(req,res,next) {
 	await stdCall(req);
-	res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
+	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, 
 				user:{name:req.session.name,
 				xp:req.session.xp,
 				level:req.session.level,
@@ -70,7 +75,7 @@ router.get('/logout', async function(req,res,next) {
 
 router.get('/console', async function(req, res, next) {
 	await stdCall(req);
-	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, message: req.session.command_log});
+	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, message: req.session.command_log});
 });
 
 router.post('/console', function(req, res, next) {
@@ -118,6 +123,7 @@ router.post('/login', async function(req,res,next) {
 			results = await query(sql);
 			req.session.ip = results[0].ip_address;	
 			await writeActivity(req.session.uuid);
+			req.session.isAdmin = await checkAdmin(req.session.uuid);
 			await setLoggedIn(req.session.loggedIn, req.session.uuid);
 			res.redirect('/');
 		// If password not correct
