@@ -1,0 +1,27 @@
+<h1>{{ title }}</h1>
+{{#if message}}
+<p>{{message}}</p>
+{{/if}}
+{{#unless loggedIn}}
+<form action="signup" method="post" class="form_signup">
+	email:
+	<br />
+	<input type="text" name="mail" required size="22">
+	<br />
+	username:
+	<br />
+	<input type="text" name="username" required size="22">
+	<br />
+	password:
+	<br />
+	<input type="password" name="password" required size="22">
+	<br />
+	confirm password:
+	<br />
+	<input type="password" name="confirmPassword" size="22">
+	<br />
+	<button type="submit">Submit</button>
+</form>
+{{else}}
+<p>logged in</p>
+{{/unless}}

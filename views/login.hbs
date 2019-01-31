@@ -1,0 +1,18 @@
+<h1>{{title}}</h1>
+<p>{{message}}</p>
+{{#unless loggedIn}}
+<form action="login" method="post" class="form_login">
+	Login: (Username/email)
+	<br />
+	<input type="text" name="login" required size="22">
+	<br />
+	Password:
+	<br />
+	<input type="password" name="password" required size="22">
+	<br />
+	<button type="submit">Submit</button>
+</form>
+{{else}}
+<p>You are logged in!</p>
+{{/unless}}
+

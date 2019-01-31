@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+{{#if loggedIn}}
+<form action="console" method="post">
+    <textarea class="console_input" id="commandlog" name="commandlog" cols="75" rows="30" readonly autocomplete="off">{{message}}</textarea><br />
+    <input class="console_input" type="text" name="command" required minlength="1" autofocus autocomplete="off" maxlength="256">
+    <input class="console_input_submit" type="submit" name="enter" hidden>
+</form>
+<script type="text/javascript">
+    document.getElementById('commandlog').scrollTop=document.getElementById('commandlog').scrollHeight;
+</script>
+{{else}}
+You need to log in to see this page!
+{{/if}}
