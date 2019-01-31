@@ -47,9 +47,8 @@ router.post('/bank', function(req, res, next) {
 });
 
 router.post('/deposit', function(req, res, next) {
-	changeMoney(req.session.uuid, req.body.amount, "give", function() {
-		res.redirect('/');
-	});
+	changeMoney(req.session.uuid, req.body.amount, "give");
+	res.redirect('/');
 });
 
 router.get('/profile', async function(req,res,next) {
