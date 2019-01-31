@@ -4,7 +4,7 @@ var checkExtend = require('../checkExtend.js');
 var generator = require('../generator.js');
 
 function cmdABank(req, cmd, command, callback) {
-    checkAdmin(req.session.uuid, function(calla) {
+    checkAdmin(req.session.uuid, async function(calla) {
         if(calla) {
             var operation = command[1];
             var targetName = command[2];
@@ -15,23 +15,19 @@ function cmdABank(req, cmd, command, callback) {
                 switch(operation) {
                     case "create":
                         var sql1 = "SELECT name FROM bankAccounts WHERE name='" + targetName + "';";
-                        query(sql1, function(result1) {
-                            if(result1 <= 0) {
-                                generator.genUUID(function (recuuid) {
-                                    generator.genIP(function(recipaddress) {
-                                        var sql2 = "INSERT INTO bankAccounts (uuid, name, money, ip_address) VALUES ('" + recuuid + "', '" + targetName + "', 0, '" + recipaddress + "');";
-    
-                                        query(sql2, function(result2) {
-                                            req.session.command_log += "Bank account successful created!\n";
-                                            callback();
-                                        });
-                                    });
-                                });
-                            } else {
-                                req.session.command_log += "Name is not available!\n";
-                                callback();
-                            }
-                        });
+                        var results1 = await query(sql1);
+                        if(results1 <= 0) {
+                            var recuuid = await generator.genUUID();
+                            var recipaddress = await generator.genIP();
+                            var sql2 = "INSERT INTO bankAccounts (uuid, name, money, ip_address) VALUES ('" + recuuid + "', '" + targetName + "', 0, '" + recipaddress + "');";
+        
+                            await query(sql2);
+                            req.session.command_log += "Bank account successful created!\n";
+                            callback();
+                        } else {
+                            req.session.command_log += "Name is not available!\n";
+                            callback();
+                        }
                         break;
                     default:
                         req.session.command_log += "You need to specify a operation [create]!\n";

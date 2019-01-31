@@ -1,4 +1,3 @@
-var query = require('../../database/dbquery.js');
 var setLevel = require('./setLevel.js');
 
 //level = parameter
@@ -6,11 +5,11 @@ var setLevel = require('./setLevel.js');
 //level²*faktor = xp
 //level = sqroot(xp/125)
 
-function handleXP(uuid,xp,callback){
-
-	setLevel(uuid, Math.floor(Math.sqrt(xp/125)), function(){
-		callback();
+function handleXP(uuid, xp){
+	return new Promise(async function(resolve, reject) {
+		await setLevel(uuid, Math.floor(Math.sqrt(xp/125)));
+		resolve();
 	});
-};
+}
 
 module.exports = handleXP;

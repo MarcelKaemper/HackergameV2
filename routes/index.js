@@ -122,7 +122,7 @@ router.post('/login', async function(req,res,next){
 			req.session.loggedIn = true;
 			req.session.uuid = results[0].uuid;
 			sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
-			results = await query(sql)
+			results = await query(sql);
 			req.session.ip = results[0].ip_address;	
 			writeActivity(req.session.uuid, function(){
 				setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
@@ -170,26 +170,23 @@ router.post('/signup', async function(req, res, next){
 		// Generate password hash
 		password = pwh.generate(password);
 		// Generate uuid
-		generator.genUUID(function(uuid){
-			// Gen IP
-			generator.genIP(async function(ip){
-				ip_address = ip;
+		var uuid = await generator.genUUID();
+		// Gen IP
+		var ip_address = await generator.genIP();
 
-				sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
-				var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
-				var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '0', '0');";
-				var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
-				var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
+		sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
+		var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
+		var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '0', '0');";
+		var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
+		var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
 
-				// Insert values
-				await query(sql);
-				await query(sql2);
-				await query(sql3);
-				await query(sql4);
-				await query(sql5);
-				res.redirect('login');
-			});
-		});
+		// Insert values
+		await query(sql);
+		await query(sql2);
+		await query(sql3);
+		await query(sql4);
+		await query(sql5);
+		res.redirect('login');
 
 	//Redirect with error msg
 	}else{
