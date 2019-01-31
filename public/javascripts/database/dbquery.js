@@ -8,7 +8,6 @@ function query(sql) {
 			con.query(sql, function(err, results) {
 				// Release and continue
 				con.release();
-				console.log(results);
 				resolve(results);
 			});
 		});
