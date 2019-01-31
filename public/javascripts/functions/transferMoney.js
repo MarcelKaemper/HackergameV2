@@ -2,7 +2,7 @@ var query = require('../database/dbquery.js');
 var changeMoney = require('./changeMoney.js');
 
 function transferMoney(req) {
-	return new Promise(function(resolve, reject) {
+	return new Promise(async function(resolve, reject) {
 		var currentMoney;
 		var moneyToTransfer = Math.abs(req.body.amount);
 		var transferTo = req.body.player;
