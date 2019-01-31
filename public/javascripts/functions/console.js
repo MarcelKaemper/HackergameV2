@@ -8,7 +8,7 @@ var cmdXp = require('./console/cmdXp.js');
 var cmdABank = require('./console/cmdABank.js');
 // >> ######################################## << //
 
-function consolecmd(req, cmd, callback) {
+async function consolecmd(req, cmd, callback) {
     if(req.session.command_log == null) {
         req.session.command_log = "";
     }
@@ -17,44 +17,38 @@ function consolecmd(req, cmd, callback) {
 
         switch(command[0]) {
             case "help":
-                consoleDefault(req, cmd, command, function() {
-                    cmdHelp(req, cmd, command, function() {
-                        callback();
-                    });
+                await consoleDefault(req, cmd, command);
+                cmdHelp(req, cmd, command, function() {
+                    callback();
                 });
                 break;
             case "clear":
-                consoleDefault(req, cmd, command, function() {
-                    cmdClear(req, cmd, command, function() {
-                        callback();
-                    });
+                await consoleDefault(req, cmd, command);
+                cmdClear(req, cmd, command, function() {
+                    callback();
                 });
                 break;
             case "check":
-                consoleDefault(req, cmd, command, function() {
-                    cmdCheck(req, cmd, command, function() {
-                        callback();
-                    });
+                await consoleDefault(req, cmd, command);
+                cmdCheck(req, cmd, command, function() {
+                    callback();
                 });
                 break;
             case "xp":
-                consoleDefault(req, cmd, command, function() {
-                    cmdXp(req, cmd, command, function() {
-                        callback();
-                    });
+                await consoleDefault(req, cmd, command);
+                cmdXp(req, cmd, command, function() {
+                    callback();
                 });
                 break;
             case "bank":
-                consoleDefault(req, cmd, command, function() {
-                    cmdABank(req, cmd, command, function() {
-                        callback();
-                    });
+                await consoleDefault(req, cmd, command);
+                cmdABank(req, cmd, command, function() {
+                    callback();
                 });
                 break;
             default:
-                consoleDefault(req, cmd, command, function() {
-                    callback();
-                });
+                await consoleDefault(req, cmd, command);
+                callback();
                 break;
         }
     }
