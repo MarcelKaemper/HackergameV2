@@ -15,69 +15,62 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-	stdCall(req, function(){
-		getOnlinePlayers(function(onlinePlayers){
-			req.session.onlinePlayers = onlinePlayers;
-			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
-		});
+router.get('/', async function(req, res, next) {
+	await stdCall(req);
+	getOnlinePlayers(function(onlinePlayers) {
+		req.session.onlinePlayers = onlinePlayers;
+		res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
 	});
 });
 
-router.get('/signup', function(req, res, next) {
-	stdCall(req, function(){	
-		res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
+router.get('/signup', async function(req, res, next) {
+	await stdCall(req);
+	res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
+});
+
+router.get('/login', async function(req, res, next) {
+	await stdCall(req);
+	res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
+});
+
+router.get('/bank', async function(req, res, next) {
+	await stdCall(req);
+	getAllPlayers(req.session.uuid, function(players) {
+		res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, name: req.session.name, money:req.session.money, players:players});
 	});
 });
 
-router.get('/login', function(req, res, next){
-	stdCall(req, function(){
-		res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
-	});
-});
-
-router.get('/bank', function(req, res, next){
-	stdCall(req, function(){
-		getAllPlayers(req.session.uuid, function(players){
-			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, name: req.session.name, money:req.session.money, players:players});
-		});
-	});
-});
-
-router.post('/bank', function(req, res, next){
-	transferMoney(req, function(){
+router.post('/bank', function(req, res, next) {
+	transferMoney(req, function() {
 		res.redirect('/bank');
 	});
 });
 
 router.post('/deposit', function(req, res, next) {
-	changeMoney(req.session.uuid, req.body.amount, "give", function(){
+	changeMoney(req.session.uuid, req.body.amount, "give", function() {
 		res.redirect('/');
 	});
 });
 
-router.get('/profile', function(req,res,next){
-	stdCall(req, function(){
-		res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
-					user:{name:req.session.name,
-					xp:req.session.xp,
-					level:req.session.level,
-					money:req.session.money,
-					ip: req.session.ip}});
-	});
+router.get('/profile', async function(req,res,next) {
+	await stdCall(req);
+	res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
+				user:{name:req.session.name,
+				xp:req.session.xp,
+				level:req.session.level,
+				money:req.session.money,
+				ip: req.session.ip}});
 });
 
-router.get('/logout', function(req,res,next){
-	setLoggedIn(false, req.session.uuid, function(){
-		req.session.destroy();
-		res.redirect('/');
-	});
+router.get('/logout', async function(req,res,next) {
+	await setLoggedIn(false, req.session.uuid);
+	req.session.destroy();
+	res.redirect('/');
 });
 
-router.get('/console', function(req, res, next) {
-	stdCall(req, function() {
-		res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, message: req.session.command_log});
-	});
+router.get('/console', async function(req, res, next) {
+	await stdCall(req);
+	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, message: req.session.command_log});
 });
 
 router.post('/console', function(req, res, next) {
@@ -87,7 +80,7 @@ router.post('/console', function(req, res, next) {
 	});
 });
 
-router.post('/login', async function(req,res,next){
+router.post('/login', async function(req,res,next) {
 	var login = req.body.login;
 	var password = req.body.password;
 	var exists = false;
@@ -105,14 +98,14 @@ router.post('/login', async function(req,res,next){
 	// Get the names and mail addresses
 	results = await query("SELECT name,mail FROM logins;");
 	// Check if the username exists
-	for(var i in results){
+	for(var i in results) {
 		if(results[i].name.toLowerCase() == login.toLowerCase() || results[i].mail.toLowerCase() == login.toLowerCase()){
 			exists = true;
 			break;
 		}
 	}
 	//If username or email exists in database
-	if(exists){
+	if(exists) {
 		results = await query(sql)
 		// Compare entered pw to hashed pw
 		// If password correct
@@ -124,23 +117,21 @@ router.post('/login', async function(req,res,next){
 			sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
 			results = await query(sql);
 			req.session.ip = results[0].ip_address;	
-			writeActivity(req.session.uuid, function(){
-				setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
-					res.redirect('/');
-				});
-			});
+			await writeActivity(req.session.uuid);
+			await setLoggedIn(req.session.loggedIn, req.session.uuid);
+			res.redirect('/');
 		// If password not correct
-		}else{
+		} else {
 			res.redirect('/login?error=loginFailed');
 		}
 	// If login doesn't exists
-	}else{
+	} else {
 		res.redirect('/login');
 	}
 
 });
 
-router.post('/signup', async function(req, res, next){
+router.post('/signup', async function(req, res, next) {
 	var mail = req.body.mail;
 	var name = req.body.username;
 	var password = req.body.password;
