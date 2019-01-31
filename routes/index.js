@@ -12,7 +12,6 @@ var getAllPlayers = require('../public/javascripts/functions/getAllPlayers.js');
 var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 var changeMoney = require('../public/javascripts/functions/changeMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
-var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
 
 
 /* GET home page. */
@@ -20,31 +19,27 @@ router.get('/', function(req, res, next) {
 	stdCall(req, function(){
 		getOnlinePlayers(function(onlinePlayers){
 			req.session.onlinePlayers = onlinePlayers;
-			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, isAdmin: req.session.admin, onlinePlayers: req.session.onlinePlayers});
+			res.render('index', {title: 'Hackergame', loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
 		});
 	});
 });
 
 router.get('/signup', function(req, res, next) {
 	stdCall(req, function(){	
-		res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn, isAdmin: req.session.admin });
+		res.render('signup', { title: 'Sign up', message: req.query.error, loggedIn: req.session.loggedIn });
 	});
 });
 
 router.get('/login', function(req, res, next){
 	stdCall(req, function(){
-		res.render('login', {title: 'Login', message: req.query.error, isAdmin: req.session.admin, loggedIn: req.session.loggedIn});
+		res.render('login', {title: 'Login', message: req.query.error, loggedIn: req.session.loggedIn});
 	});
-});
-
-router.get('/admin', function(req, res, next) {
-	res.render('adminArea', {title: 'Adminarea', message: req.query.error, loggedIn: req.session.loggedIn, isAdmin: req.session.admin});
 });
 
 router.get('/bank', function(req, res, next){
 	stdCall(req, function(){
 		getAllPlayers(req.session.uuid, function(players){
-			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, isAdmin: req.session.admin,name: req.session.name, money:req.session.money, players:players});
+			res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, name: req.session.name, money:req.session.money, players:players});
 		});
 	});
 });
@@ -63,7 +58,7 @@ router.post('/deposit', function(req, res, next) {
 
 router.get('/profile', function(req,res,next){
 	stdCall(req, function(){
-		res.render('profile', {title: 'Profile', isAdmin: req.session.admin,loggedIn: req.session.loggedIn, 
+		res.render('profile', {title: 'Profile', loggedIn: req.session.loggedIn, 
 					user:{name:req.session.name,
 					xp:req.session.xp,
 					level:req.session.level,
@@ -81,7 +76,7 @@ router.get('/logout', function(req,res,next){
 
 router.get('/console', function(req, res, next) {
 	stdCall(req, function() {
-		res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.admin,message: req.session.command_log});
+		res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, message: req.session.command_log});
 	});
 });
 
@@ -130,11 +125,8 @@ router.post('/login', async function(req,res,next){
 			results = await query(sql);
 			req.session.ip = results[0].ip_address;	
 			writeActivity(req.session.uuid, function(){
-				checkAdmin(req.session.uuid, function(isAdmin){
-					req.session.admin = isAdmin;
-					setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
-						res.redirect('/');
-						});
+				setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
+					res.redirect('/');
 				});
 			});
 		// If password not correct
