@@ -51,8 +51,8 @@ router.get('/admin', function(req, res, next) {
 	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn});
 });
 
-router.post('/deposit', function(req, res, next) {
-	changeMoney(req.session.uuid, req.body.amount, "give");
+router.post('/deposit', async function(req, res, next) {
+	await changeMoney(req.session.uuid, req.body.amount, "give");
 	res.redirect('/');
 });
 
