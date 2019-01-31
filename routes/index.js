@@ -87,10 +87,11 @@ router.post('/console', function(req, res, next) {
 	});
 });
 
-router.post('/login', function(req,res,next){
+router.post('/login', async function(req,res,next){
 	var login = req.body.login;
 	var password = req.body.password;
 	var exists = false;
+	var results;
 	var sql; 
 	var sql2;
 
@@ -102,53 +103,49 @@ router.post('/login', function(req,res,next){
 	}
 
 	// Get the names and mail addresses
-	query("SELECT name,mail FROM logins;", function(results){
-		// Check if the username exists
-		for(var i in results){
-			if(results[i].name.toLowerCase() == login.toLowerCase() || results[i].mail.toLowerCase() == login.toLowerCase()){
-				exists = true;
-				break;
-			}
+	results = await query("SELECT name,mail FROM logins;");
+	// Check if the username exists
+	for(var i in results){
+		if(results[i].name.toLowerCase() == login.toLowerCase() || results[i].mail.toLowerCase() == login.toLowerCase()){
+			exists = true;
+			break;
 		}
-		//If username or email exists in database
-		if(exists){
-			query(sql,function(results){
-				// Compare entered pw to hashed pw
-				// If password correct
-				if(pwh.verify(password, results[0].password) && !results[0].loggedIn){
-					req.session.userid = results[0].id;
-					req.session.name = results[0].name;
-					req.session.loggedIn = true;
-					req.session.uuid = results[0].uuid;
-					sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
-					query(sql, function(results){
-						req.session.ip = results[0].ip_address;	
-						writeActivity(req.session.uuid, function(){
-							setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
-								res.redirect('/');
-							});
-						});
-					});
-				// If password not correct
-				}else{
-					res.redirect('/login?error=loginFailed');
-				}
+	}
+	//If username or email exists in database
+	if(exists){
+		results = await query(sql)
+		// Compare entered pw to hashed pw
+		// If password correct
+		if(pwh.verify(password, results[0].password) && !results[0].loggedIn){
+			req.session.userid = results[0].id;
+			req.session.name = results[0].name;
+			req.session.loggedIn = true;
+			req.session.uuid = results[0].uuid;
+			sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
+			results = await query(sql)
+			req.session.ip = results[0].ip_address;	
+			writeActivity(req.session.uuid, function(){
+				setLoggedIn(req.session.loggedIn, req.session.uuid, function(){
+					res.redirect('/');
+				});
 			});
-		// If login doesn't exists
+		// If password not correct
 		}else{
-			res.redirect('/login');
+			res.redirect('/login?error=loginFailed');
 		}
-	});
+	// If login doesn't exists
+	}else{
+		res.redirect('/login');
+	}
 
 });
 
-router.post('/signup', function(req, res, next){
+router.post('/signup', async function(req, res, next){
 	var mail = req.body.mail;
 	var name = req.body.username;
 	var password = req.body.password;
 	var confirm_password = req.body.confirmPassword;
 
-	var uuid;
 	var ip_address;
 
 	var takenNames = [];
@@ -157,54 +154,47 @@ router.post('/signup', function(req, res, next){
 	var sql = "SELECT mail, name FROM logins;";
 
 	// Load the list of already taken emails and usernames
-	query(sql, function(results){
-			for(var i in results){
-				takenNames.push(results[i].name.toLowerCase());
-				takenMails.push(results[i].mail.toLowerCase());
-			}
-			//Check if the email format is correct, the password length, and
-			//for duplicate emails and usernames
-			if(validateEmail(mail) &&
-				password.length >= 4 &&
-				takenNames.indexOf(name.toLowerCase()) <= -1 &&
-				takenMails.indexOf(mail.toLowerCase()) <= -1 &&
-				confirm_password == password){
+	var results = await query(sql);
+	for(var i in results){
+		takenNames.push(results[i].name.toLowerCase());
+		takenMails.push(results[i].mail.toLowerCase());
+	}
+	//Check if the email format is correct, the password length, and
+	//for duplicate emails and usernames
+	if(validateEmail(mail) &&
+		password.length >= 4 &&
+		takenNames.indexOf(name.toLowerCase()) <= -1 &&
+		takenMails.indexOf(mail.toLowerCase()) <= -1 &&
+		confirm_password == password){
 
-				// Generate password hash
-				password = pwh.generate(password);
-				// Generate uuid
-				generator.genUUID(function(uuid){
-					uuid = uuid;
-					// Gen IP
-					generator.genIP(function(ip){
-						ip_address = ip;
+		// Generate password hash
+		password = pwh.generate(password);
+		// Generate uuid
+		generator.genUUID(function(uuid){
+			// Gen IP
+			generator.genIP(async function(ip){
+				ip_address = ip;
 
-						var sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
-						var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
-						var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '0', '0');";
-						var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
-						var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
+				sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
+				var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
+				var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '0', '0');";
+				var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
+				var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
 
-						// Insert values
-						query(sql, function(results){
-							query(sql2, function(results){
-								query(sql3, function(results){
-									query(sql4, function(results){
-										query(sql5, function(results){
-											res.redirect('login');
-										});
-									});
-								});
-							});
-						});
-					});
-				});
+				// Insert values
+				await query(sql);
+				await query(sql2);
+				await query(sql3);
+				await query(sql4);
+				await query(sql5);
+				res.redirect('login');
+			});
+		});
 
-			//Redirect with error msg
-			}else{
-				res.redirect('signup?error=invalidEmail');
-			}
-	});
+	//Redirect with error msg
+	}else{
+		res.redirect('signup?error=invalidEmail');
+	}
 });
 
 module.exports = router;

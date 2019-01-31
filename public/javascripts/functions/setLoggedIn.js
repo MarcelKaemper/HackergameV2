@@ -1,11 +1,10 @@
 var query = require('../database/dbquery.js');
 
-function setLoggedIn(li, uuid, callback){
+async function setLoggedIn(li, uuid, callback){
 	sql = "UPDATE logins SET loggedIn="+li+" WHERE uuid='"+uuid+"';";
 
-	query(sql, function(results){
-		callback();
-	});
+	var results = await query(sql);
+	callback();
 }
 
 

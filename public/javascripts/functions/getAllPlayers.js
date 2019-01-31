@@ -1,15 +1,14 @@
 var query = require ('../database/dbquery.js');
 
-function getAllPlayers(ownUuid,callback){
-	query("SELECT uuid, name FROM logins;", function(results){
-		var players = [];
-		for(var i in results){
-			if(results[i].uuid != ownUuid){
-				players.push(results[i].name);
-			}
+async function getAllPlayers(ownUuid,callback){
+	var results = await query("SELECT uuid, name FROM logins;");
+	var players = [];
+	for(var i in results){
+		if(results[i].uuid != ownUuid){
+			players.push(results[i].name);
 		}
-		callback(players);
-	});
+	}
+	callback(players);
 }
 
 module.exports = getAllPlayers;

@@ -1,17 +1,19 @@
 var pool = require('./dbconn.js');
 
-function query(sql, callback) {
+function query(sql) {
 	// Open connection
-	pool.getConnection(function(err,con){
-		//Execute given query 
-		con.query(sql, function(err, results){
+	return new Promise(function(resolve, reject){
+		pool.getConnection(function(err,con){
+			//Execute given query 
+			con.query(sql, function(err, results){
 				// Release and continue
 				con.release();
-				callback(results);
+				console.log(results);
+				resolve(results);
+			});
 		});
 	});
 };
-
 
 
 module.exports = query;
