@@ -1,6 +1,6 @@
 var query = require('../database/dbquery.js');
 
-async function changeMoney(uuid, amount, operation) {
+function changeMoney(uuid, amount, operation) {
 	var sql;
 	
 	return new Promise(async function(resolve, reject) {
