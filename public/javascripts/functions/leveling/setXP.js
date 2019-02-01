@@ -22,7 +22,7 @@ function setXP(uuid, amount, operation) {
 				xp = await query(sql);
 				sql = "UPDATE levels SET xp=xp-"+amount+" WHERE uuid='"+uuid+"';";
 				await query(sql);
-				await handleXP(uuid, amount-parseInt(xp[0].xp));
+				await handleXP(uuid, parseInt(xp[0].xp)-amount);
 				resolve();
 				break;
 			case "set":	
