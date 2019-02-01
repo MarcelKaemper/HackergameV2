@@ -6,6 +6,8 @@ var cmdClear = require('./console/cmdClear.js');
 var cmdCheck = require('./console/cmdCheck.js');
 var cmdXp = require('./console/cmdXp.js');
 var cmdABank = require('./console/cmdABank.js');
+var cmdScan = require('./console/cmdScan.js');
+var cmdMoney = require('./console/cmdMoney.js');
 // >> ######################################## << //
 
 function consolecmd(req, cmd) {
@@ -44,6 +46,18 @@ function consolecmd(req, cmd) {
                 case "bank":
                     await consoleDefault(req, cmd, command);
                     cmdABank(req, cmd, command, function() {
+                        resolve();
+                    });
+                    break;
+                case "scan":
+                    await consoleDefault(req, cmd, command);
+                    cmdScan(req, cmd, command, function() {
+                        resolve();
+                    });
+                    break;
+                case "money":
+                    await consoleDefault(req, cmd, command);
+                    cmdMoney(req, cmd, command, function() {
                         resolve();
                     });
                     break;
