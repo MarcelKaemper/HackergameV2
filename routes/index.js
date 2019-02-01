@@ -13,6 +13,7 @@ var transferMoney = require('../public/javascripts/functions/transferMoney.js');
 var changeMoney = require('../public/javascripts/functions/changeMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
 var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
+var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandler.js');
 
 
 /* GET home page. */
@@ -44,8 +45,9 @@ router.post('/bank', async function(req, res, next) {
 	res.redirect('/bank');
 });
 
-router.get('/admin', function(req, res, next) {
-	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, players: ["Creep", "Exarous"]});
+router.get('/admin', async function(req, res, next) {
+	let players = await getAllPlayers(req.session.uuid);
+	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, players: players});
 });
 
 router.post('/deposit', async function(req, res, next) {
@@ -75,8 +77,10 @@ router.get('/console', async function(req, res, next) {
 });
 
 router.post('/admin', async function(req, res, next) {
+	if(req.body.confirm) {
+		await adminAreaHandler(req.body.operation, req.body.user);
+	}
 	res.redirect('/admin');
-
 });
 
 router.post('/console', async function(req, res, next) {
