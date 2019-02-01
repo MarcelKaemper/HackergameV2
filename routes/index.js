@@ -18,9 +18,9 @@ var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
-	var onlinePlayers = getOnlinePlayers();
+	var onlinePlayers = await getOnlinePlayers();
 	req.session.onlinePlayers = onlinePlayers;
-	res.render('index', {title: 'Hackergame', isAdmin: req.session.isAdmin, loggedIn:req.session.loggedIn, onlinePlayers: req.session.onlinePlayers});
+	res.render('index', {title: 'Hackergame', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, onlinePlayers: req.session.onlinePlayers});
 });
 
 router.get('/signup', async function(req, res, next) {
@@ -45,7 +45,7 @@ router.post('/bank', async function(req, res, next) {
 });
 
 router.get('/admin', function(req, res, next) {
-	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn});
+	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, players: ["Creep", "Exarous"]});
 });
 
 router.post('/deposit', async function(req, res, next) {
@@ -72,6 +72,11 @@ router.get('/logout', async function(req,res,next) {
 router.get('/console', async function(req, res, next) {
 	await stdCall(req);
 	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, message: req.session.command_log});
+});
+
+router.post('/admin', async function(req, res, next) {
+	res.redirect('/admin');
+
 });
 
 router.post('/console', async function(req, res, next) {
