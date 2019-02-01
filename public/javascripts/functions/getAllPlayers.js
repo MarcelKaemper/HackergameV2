@@ -1,4 +1,5 @@
 var query = require ('../database/dbquery.js');
+var checkAdmin = require ('../functions/checkAdmin.js');
 
 function getAllPlayers(ownUuid) {
 	return new Promise(async function(resolve, reject) {
@@ -6,7 +7,9 @@ function getAllPlayers(ownUuid) {
 		var players = [];
 		for(var i in results){
 			if(results[i].uuid != ownUuid){
-				players.push(results[i].name);
+				if(!await checkAdmin(results[i].uuid)){
+					players.push(results[i].name);
+				}
 			}
 		}
 		resolve(players);
