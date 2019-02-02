@@ -30,7 +30,35 @@ function UUID(uuid) {
     });
 }
 
+function Name(name) {
+    return new Promise(async function(resolve, reject) {
+        var sql1 = "SELECT uuid, name FROM logins WHERE name='" + name + "';";
+        var results1 = await query(sql1);
+
+        if(results1 <= 0) {
+            resolve(false);
+        } else {
+            resolve(true);
+        }
+    });
+}
+
+function Mail(mail) {
+    return new Promise(async function(resolve, reject) {
+        var sql1 = "SELECT uuid, mail FROM logins WHERE mail='" + mail + "';";
+        var results1 = await query(sql1);
+
+        if(results1 <= 0) {
+            resolve(false);
+        } else {
+            resolve(true);
+        }
+    });
+}
+
 module.exports = {
     UUID,
-    IP
+    IP,
+    Name,
+    Mail
 };
