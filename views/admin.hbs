@@ -1,44 +1,48 @@
 <h1>{{title}}</h1>
-{{#if isAdmin}}
-	<div class="wrapper">
-		<form class="row" action="admin" method="post">
-			<div class="first">
-				Select Player: 
-				<br>
-				<select id="select" name="user" size="10">
-					{{#each players}}
-						<option> {{this}} </option>
-					{{/each}}		
-				</select>
-			</div>
-			<div class="second">
-				Select Operation: 
-				<br>
-				<select id="select" name="operation" size="10" width="10">
-					<option value="delete">Delete</option>
-					<option value="setxp">Set XP</option>
-					<option value="takexp">Take XP</option>
-					<option value="givexp">Give XP</option>
-					<option value="setmoney">Set Money</option>
-					<option value="takemoney">Take Money</option>
-					<option value="givemoney">Give Money</option>
-					<option value="resetpw">Reset Password</option>
-				</select>
-			</div>
-			<div class="third">
-				Additional arguments:
-				<br>
-				<input name="additional" type="text">
-				<br>
-				<input name="confirm" type="checkbox">
-				Confirm 
-				<br>
-				<button type="submit">
-				Go
-				</button>
-			</div>
-		</form>
-	</div>
+{{#if loggedIn}}
+	{{#if isAdmin}}
+		<div class="wrapper">
+			<form class="row" action="admin" method="post">
+				<div class="first">
+					Select Player: 
+					<br>
+					<select id="select" name="user" size="10">
+						{{#each players}}
+							<option> {{this}} </option>
+						{{/each}}		
+					</select>
+				</div>
+				<div class="second">
+					Select Operation: 
+					<br>
+					<select id="select" name="operation" size="10" width="10">
+						<option value="delete">Delete</option>
+						<option value="setxp">Set XP</option>
+						<option value="takexp">Take XP</option>
+						<option value="givexp">Give XP</option>
+						<option value="setmoney">Set Money</option>
+						<option value="takemoney">Take Money</option>
+						<option value="givemoney">Give Money</option>
+						<option value="resetpw">Reset Password</option>
+					</select>
+				</div>
+				<div class="third">
+					Additional arguments:
+					<br>
+					<input name="additional" type="text">
+					<br>
+					<input name="confirm" type="checkbox">
+					Confirm 
+					<br>
+					<button type="submit">
+					Go
+					</button>
+				</div>
+			</form>
+		</div>
+	{{else}}
+		You must be an admin to see this area!
+	{{/if}}
 {{else}}
-	You must be an admin to see this area!
+You must be logged in to see this page!
 {{/if}}
