@@ -53,13 +53,8 @@ router.post('/deposit', async function(req, res, next) {
 
 router.get('/profile', async function(req, res, next) {
 	await stdCall(req);
-	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, 
-				user:{name: req.session.name,
-				displayName: req.session.displayName,
-				xp: req.session.xp,
-				level: req.session.level,
-				money: req.session.money,
-				ip: req.session.ip}});
+	var user = {name: req.session.name,displayName: req.session.displayName,xp: req.session.xp,level: req.session.level,money: req.session.money, ip: req.session.ip};
+	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn,user:user});
 });
 
 router.get('/logout', async function(req, res, next) {
