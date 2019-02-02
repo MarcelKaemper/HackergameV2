@@ -41,7 +41,7 @@ function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
                     }
                 }
                 if(!count1 && !count2) {
-                    var sql1 = "INSERT INTO logins(uuid, mail, name, password) VALUES ('" + uuid + "', '" + mail.toLowerCase() + "', '" + name + "', '" + password + "');";
+                    var sql1 = "INSERT INTO logins(uuid, mail, name, displayName, password) VALUES ('" + uuid + "', '" + mail.toLowerCase() + "', '" + name.toLowerCase() + "', '" + name + "', '" + password + "');";
                     var sql2 = "INSERT INTO money(uuid, money) VALUES ('" + uuid + "', '10000');";
                     var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES ('" + uuid + "', '0', '0');";
                     var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES ('" + uuid +"', '" + ip_address + "');";

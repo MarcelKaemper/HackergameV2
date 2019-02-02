@@ -8,42 +8,34 @@ var setLoggedIn = require('./setLoggedIn.js');
 
 function login(req, arg_login, arg_password) {
     return new Promise(async function(resolve, reject) {
-        var login = arg_login;
+        var login = arg_login.toLowerCase();
         var password = arg_password;
-        var exists = false;
-        var results;
         var sql;
     
         await logoutInactive(true);
 
         if(validateEmail(login)) {
-            sql = "SELECT * FROM logins WHERE mail='"+login+"';";
+            sql = "SELECT * FROM logins WHERE mail='" + login +"';";
         } else {
-            sql = "SELECT * FROM logins WHERE name='"+login+"';";
+            sql = "SELECT * FROM logins WHERE name='" + login + "';";
         }
 
-        results = await query("SELECT name,mail FROM logins;");
+        var results = await query(sql);
 
-        for(var i in results) {
-            if(results[i].name.toLowerCase() == login.toLowerCase() || results[i].mail.toLowerCase() == login.toLowerCase()){
-                exists = true;
-                break;
-            }
-        }
-
-        if(exists) {
-            results = await query(sql);
-
-            if(pwh.verify(password, results[0].password) && !results[0].loggedIn){
+        if(results <= 0) {
+            resolve(false);
+        } else {
+            if(pwh.verify(password, results[0].password) && !results[0].loggedIn) {
                 req.session.userid = results[0].id;
                 req.session.name = results[0].name;
                 req.session.loggedIn = true;
                 req.session.uuid = results[0].uuid;
-    
-                sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
+                req.session.displayName = results[0].displayName;
+
+                var sql2 = "SELECT ip_address FROM userdata WHERE uuid='" + req.session.uuid + "';";
                 
-                results = await query(sql);
-                req.session.ip = results[0].ip_address;	
+                var results2 = await query(sql2);
+                req.session.ip = results2[0].ip_address;	
                 await writeActivity(req.session.uuid);
                 
                 req.session.isAdmin = await checkAdmin(req.session.uuid);
@@ -53,8 +45,6 @@ function login(req, arg_login, arg_password) {
             } else {
                 resolve(false);
             }
-        } else {
-            resolve(false);
         }
     });
 }

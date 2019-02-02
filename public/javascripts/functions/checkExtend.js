@@ -32,7 +32,7 @@ function UUID(uuid) {
 
 function Name(name) {
     return new Promise(async function(resolve, reject) {
-        var sql1 = "SELECT uuid, name FROM logins WHERE name='" + name + "';";
+        var sql1 = "SELECT uuid, name FROM logins WHERE name='" + name.toLowerCase() + "';";
         var results1 = await query(sql1);
 
         if(results1 <= 0) {
@@ -45,7 +45,7 @@ function Name(name) {
 
 function Mail(mail) {
     return new Promise(async function(resolve, reject) {
-        var sql1 = "SELECT uuid, mail FROM logins WHERE mail='" + mail + "';";
+        var sql1 = "SELECT uuid, mail FROM logins WHERE mail='" + mail.toLowerCase() + "';";
         var results1 = await query(sql1);
 
         if(results1 <= 0) {
