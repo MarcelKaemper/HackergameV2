@@ -74,7 +74,7 @@ router.get('/console', async function(req, res, next) {
 
 router.post('/admin', async function(req, res, next) {
 	if(req.body.confirm) {
-		await adminAreaHandler(req.body.operation, req.body.user);
+		await adminAreaHandler(req.body.operation, req.body.user, req.body.additional);
 	}
 	res.redirect('/admin');
 });
