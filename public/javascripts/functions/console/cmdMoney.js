@@ -22,10 +22,6 @@ function cmdMoney(req, cmd, command, callback) {
                             var results1 = await query(sql1);
                             var results2 = await query(sql2);
                             var results3 = await query(sql3);
-                            
-                            console.log(results1.length);
-                            console.log(results2.length);
-                            console.log(results3.length);
 
                             if(results1.length == 1) {
                                 var sql11 = "SELECT uuid, money FROM money WHERE uuid='" + results1[0].uuid + "';";
