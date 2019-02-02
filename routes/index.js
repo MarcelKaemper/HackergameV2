@@ -10,6 +10,7 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandler.js');
 var signup = require('../public/javascripts/functions/signup.js');
 var login = require('../public/javascripts/functions/login.js');
+var neededXP = require('../public/javascripts/functions/leveling/xpForLvlup.js');
 
 
 /* GET home page. */
@@ -53,7 +54,8 @@ router.post('/deposit', async function(req, res, next) {
 
 router.get('/profile', async function(req, res, next) {
 	await stdCall(req);
-	var user = {name: req.session.name,displayName: req.session.displayName,xp: req.session.xp,level: req.session.level,money: req.session.money, ip: req.session.ip};
+	var xpNextlvl = await neededXP(req.session.xp, req.session.level);
+	var user = {name: req.session.name,displayName: req.session.displayName,xp: req.session.xp, neededXP: xpNextlvl, level: req.session.level,money: req.session.money, ip: req.session.ip};
 	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn,user:user});
 });
 
