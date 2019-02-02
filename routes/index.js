@@ -3,7 +3,6 @@ var router = express.Router();
 var pwh = require('password-hash');
 var validateEmail = require('../public/javascripts/functions/validateEmail.js');
 var query = require('../public/javascripts/database/dbquery.js');
-var generator = require('../public/javascripts/functions/generator.js');
 var writeActivity = require('../public/javascripts/functions/writeActivity.js');
 var setLoggedIn = require('../public/javascripts/functions/setLoggedIn.js');
 var getOnlinePlayers = require('../public/javascripts/functions/getOnlinePlayers.js');
@@ -14,6 +13,7 @@ var changeMoney = require('../public/javascripts/functions/changeMoney.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
 var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
 var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandler.js');
+var signup = require('../public/javascripts/functions/signup.js');
 
 
 /* GET home page. */
@@ -142,54 +142,10 @@ router.post('/login', async function(req,res,next) {
 });
 
 router.post('/signup', async function(req, res, next) {
-	var mail = req.body.mail;
-	var name = req.body.username;
-	var password = req.body.password;
-	var confirm_password = req.body.confirmPassword;
+	var success = await signup(req, req.body.mail, req.body.username, req.body.password, req.body.confirmPassword);
 
-	var ip_address;
-
-	var takenNames = [];
-	var takenMails = [];
-
-	var sql = "SELECT mail, name FROM logins;";
-
-	// Load the list of already taken emails and usernames
-	var results = await query(sql);
-	for(var i in results) {
-		takenNames.push(results[i].name.toLowerCase());
-		takenMails.push(results[i].mail.toLowerCase());
-	}
-	//Check if the email format is correct, the password length, and
-	//for duplicate emails and usernames
-	if(validateEmail(mail) &&
-		password.length >= 4 &&
-		takenNames.indexOf(name.toLowerCase()) <= -1 &&
-		takenMails.indexOf(mail.toLowerCase()) <= -1 &&
-		confirm_password == password) {
-
-		// Generate password hash
-		password = pwh.generate(password);
-		// Generate uuid
-		var uuid = await generator.genUUID();
-		// Gen IP
-		var ip_address = await generator.genIP();
-
-		sql = "INSERT INTO logins(uuid,mail, name, password) VALUES('"+uuid+"','"+mail.toLowerCase()+"','"+name+"','"+password+"');";
-		var sql2 = "INSERT INTO money(uuid, money) VALUES('"+uuid+"', '10000');";
-		var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES('"+uuid+"', '0', '0');";
-		var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES('"+uuid+"', '"+ip_address+"');";
-		var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('"+uuid+"');";
-
-		// Insert values
-		await query(sql);
-		await query(sql2);
-		await query(sql3);
-		await query(sql4);
-		await query(sql5);
+	if(success) {
 		res.redirect('login');
-
-	//Redirect with error msg
 	} else {
 		res.redirect('signup?error=invalidEmail');
 	}
