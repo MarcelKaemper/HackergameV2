@@ -14,6 +14,7 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 var checkAdmin = require('../public/javascripts/functions/checkAdmin.js');
 var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandler.js');
 var signup = require('../public/javascripts/functions/signup.js');
+var logoutInactive = require('../public/javascripts/functions/logoutInactivePlayers.js');
 
 
 /* GET home page. */
@@ -97,6 +98,7 @@ router.post('/login', async function(req,res,next) {
 	var sql; 
 	var sql2;
 
+	await logoutInactive(true);
 	// Define sql query for username or mail
 	if(validateEmail(login)){
 		sql = "SELECT * FROM logins WHERE mail='"+login+"';";
@@ -123,12 +125,16 @@ router.post('/login', async function(req,res,next) {
 			req.session.name = results[0].name;
 			req.session.loggedIn = true;
 			req.session.uuid = results[0].uuid;
+
 			sql = "SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';";
+			
 			results = await query(sql);
 			req.session.ip = results[0].ip_address;	
 			await writeActivity(req.session.uuid);
+			
 			req.session.isAdmin = await checkAdmin(req.session.uuid);
 			await setLoggedIn(req.session.loggedIn, req.session.uuid);
+
 			res.redirect('/');
 		// If password not correct
 		} else {

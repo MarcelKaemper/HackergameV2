@@ -1,0 +1,30 @@
+.wrapper {
+    display:table;
+    margin: 0 auto;
+    width:700px;
+}
+.row {
+    display:table-row;
+}
+.first {
+    display:table-cell;
+    width:300px;
+    border: 1px solid black;
+    border-right: 0px;
+}
+.second {
+    display:table-cell;
+    width:300px;
+    border: 1px solid black;
+}
+.third {
+    display:table-cell;
+    width:300px;
+    border: 1px solid black;
+    border-left: 0px;
+}
+
+#select{
+    width: 125px;
+}
+ 
