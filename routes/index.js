@@ -32,7 +32,7 @@ router.get('/login', async function(req, res, next) {
 
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
-	var players = await getAllPlayers(req.session.uuid);
+	var players = await getAllPlayers(req.session.uuid, "everyoneButYou");
 	res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, name: req.session.name, money: req.session.money, players: players});
 });
 
@@ -42,7 +42,7 @@ router.post('/bank', async function(req, res, next) {
 });
 
 router.get('/admin', async function(req, res, next) {
-	let players = await getAllPlayers(req.session.uuid);
+	let players = await getAllPlayers(req.session.uuid, "everyone");
 	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, players: players});
 });
 
