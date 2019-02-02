@@ -3,6 +3,7 @@ var toUuid = require('../uuidName.js');
 var delUser = require('./delUser.js');
 var setxp = require('../leveling/setXP.js');
 var setMoney = require('../changeMoney.js');
+var resetPassword = require('./resetPassword.js');
 
 
 function adminHandler(operation, username, additional){
@@ -29,6 +30,9 @@ function adminHandler(operation, username, additional){
 				break;
 			case "givemoney":
 				await setMoney(uuid, additional, "give");
+				break;
+			case "resetpw":
+				await resetPassword(uuid, additional);
 				break;
 			default:
 				break;
