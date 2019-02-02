@@ -11,6 +11,7 @@ var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandl
 var signup = require('../public/javascripts/functions/signup.js');
 var login = require('../public/javascripts/functions/login.js');
 var neededXP = require('../public/javascripts/functions/leveling/xpForLvlup.js');
+var cashbonus = require('../public/javascripts/functions/cashbonus.js');
 
 
 /* GET home page. */
@@ -68,6 +69,11 @@ router.get('/logout', async function(req, res, next) {
 router.get('/console', async function(req, res, next) {
 	await stdCall(req);
 	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, message: req.session.command_log});
+});
+
+router.get('/cashbonus', async function(req, res, next) {
+	await cashbonus(req.session.uuid);
+	res.redirect('/');
 });
 
 router.post('/admin', async function(req, res, next) {
