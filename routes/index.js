@@ -13,6 +13,7 @@ var login = require('../public/javascripts/functions/login.js');
 var neededXP = require('../public/javascripts/functions/leveling/xpForLvlup.js');
 var countServer = require('../public/javascripts/functions/server/countServer.js');
 var buyServer = require('../public/javascripts/functions/server/buyServer.js');
+var cashbonus = require('../public/javascripts/functions/cashbonus.js');
 
 
 /* GET home page. */
@@ -85,6 +86,11 @@ router.post('/server', async function(req, res, next) {
 	} else {
 		res.redirect('/server?error=purchaseFailed');
 	}
+});
+
+router.get('/cashbonus', async function(req, res, next) {
+	await cashbonus(req.session.uuid);
+	res.redirect('/');
 });
 
 router.post('/admin', async function(req, res, next) {
