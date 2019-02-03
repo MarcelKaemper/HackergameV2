@@ -1,4 +1,5 @@
 var query = require('../database/dbquery.js');
+var neededXP = require('./leveling/xpForLvlup.js');
 
 function reload(req) {
 	return new Promise(async function(resolve, reject) {
@@ -14,6 +15,9 @@ function reload(req) {
 			// Set session
 			req.session.level = results[0].level;
 			req.session.xp = results[0].xp;
+	
+			var xpNextlvl = await neededXP(req.session.xp, req.session.level);
+			req.session.neededXP = xpNextlvl;
 
 			results = await query("SELECT loggedIn FROM logins WHERE uuid='"+req.session.uuid+"';");
 			if(results[0].loggedIn == false){
