@@ -11,6 +11,8 @@ var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandl
 var signup = require('../public/javascripts/functions/signup.js');
 var login = require('../public/javascripts/functions/login.js');
 var neededXP = require('../public/javascripts/functions/leveling/xpForLvlup.js');
+var countServer = require('../public/javascripts/functions/server/countServer.js');
+var buyServer = require('../public/javascripts/functions/server/buyServer.js');
 var cashbonus = require('../public/javascripts/functions/cashbonus.js');
 
 
@@ -69,6 +71,21 @@ router.get('/logout', async function(req, res, next) {
 router.get('/console', async function(req, res, next) {
 	await stdCall(req);
 	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, message: req.session.command_log});
+});
+
+router.get('/server', async function(req, res, next) {
+	await stdCall(req);
+	var countServer = await countServer(req.session.uuid);
+	res.render('server', {title: 'Server', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, countServer: countServer, message: req.query.error});
+});
+
+router.post('/server', async function(req, res, next) {
+	var success = await buyServer(req);
+	if(success) {
+		res.redirect('/server');
+	} else {
+		res.redirect('/server?error=purchaseFailed');
+	}
 });
 
 router.get('/cashbonus', async function(req, res, next) {
