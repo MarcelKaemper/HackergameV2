@@ -1,7 +1,6 @@
 var validateEmail = require('./validateEmail.js');
 var query = require('../database/dbquery.js');
 var writeActivity = require('./writeActivity.js');
-var logoutInactive = require('./logoutInactivePlayers.js');
 var checkAdmin = require('./checkAdmin.js');
 var pwh = require('password-hash');
 var setLoggedIn = require('./setLoggedIn.js');
@@ -12,8 +11,6 @@ function login(req, arg_login, arg_password) {
         var password = arg_password;
         var sql;
     
-        await logoutInactive(true);
-
         if(validateEmail(login)) {
             sql = "SELECT * FROM logins WHERE mail='" + login +"';";
         } else {
