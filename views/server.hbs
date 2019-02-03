@@ -1,0 +1,12 @@
+{{#if loggedIn}}
+<h1>{{title}}</h1>
+<p>{{message}}</p>
+Currently having {{countServer}} server
+<br />
+<br />
+<form action="/server" method="post">
+	<button type="submit" name="buy_server">Buy Server ($50000)</button>
+</form>
+{{else}}
+You must be logged in to see this page!
+{{/if}}
