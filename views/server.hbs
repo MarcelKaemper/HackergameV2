@@ -3,20 +3,31 @@
 <p>{{message}}</p>
 Currently having {{countServer}} server
 <br />
-<table border="1">
-	<tr>
-		<th>IP</th>
-		<th>UUID</th>
-	</tr>
-	{{#each listServer}}
-		<tr>
-			<td>{{this.ip_address}}</td>
-			<td>{{this.uuid}}</td>
-		</tr>
-	{{/each}}
-</table>
 <br />
-<form action="/server" method="post">
+
+<center>
+	<form action="/sellserver" method="post">
+	<table class="serverlist" width="66%">
+		<tr>
+			<th width="25%">Server ID</th>
+			<th width="25%">Server IP</th>
+			<th width="25%"></th>
+			<th width="25%">Action</th>
+		</tr>
+		{{#each listServer}}
+		<tr>
+			<td>server_{{this.id}}_{{this.uuid}}</td>
+			<td>{{this.ip_address}}</td>
+			<td></td>
+			<td><button type="submit" name="sellserver" value="{{this.uuid}}">Sell Server ($30000)</button></td>
+		</tr>
+		{{/each}}
+	</table>
+	</form>
+</center>
+
+<br />
+<form action="/buyserver" method="post">
 	<button type="submit" name="buy_server">Buy Server ($50000)</button>
 </form>
 {{else}}
