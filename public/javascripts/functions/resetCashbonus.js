@@ -6,7 +6,6 @@ function resetCashbonus() {
         var results = await query("SELECT * FROM cashbonus");
     	for(var i in results) {
 				if(moment().diff(results[i].lastClaim, "minutes")>=30) {
-                    console.log("object");
 					sql = "UPDATE cashbonus SET claimed=false where uuid='"+results[i].uuid+"';";
                     await query(sql);
                 };
