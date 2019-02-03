@@ -6,7 +6,7 @@ function cronjob() {
   cron.schedule("* * * * *", function() {
    console.log("Resetting cash bonus!");
    resetCashbonus();
-   console.log("Logging out Inactive players");
+   console.log("Checking for inactive players");
    logoutInactive(true);
   });
 }
