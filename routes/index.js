@@ -75,8 +75,8 @@ router.get('/console', async function(req, res, next) {
 
 router.get('/server', async function(req, res, next) {
 	await stdCall(req);
-	var countServer = await countServer(req.session.uuid);
-	res.render('server', {title: 'Server', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, countServer: countServer, message: req.query.error});
+	var count = await countServer(req.session.uuid);
+	res.render('server', {title: 'Server', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, countServer: count, message: req.query.error});
 });
 
 router.post('/server', async function(req, res, next) {
