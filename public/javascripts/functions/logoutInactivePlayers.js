@@ -7,13 +7,15 @@ function timeBetweenLastActivity(loggedIn) {
 			var sql = "SELECT * FROM lastActivity;";
 			let results  = await query(sql)
 			for(var i in results) {
-				if(moment().diff(results[i].last_activity, "minutes")>=3) {
-					console.log("Last activity more than 3 mins ago");	
-					console.log("Logging out "+results[i].uuid);
-					sql = "UPDATE logins SET loggedIn=false where uuid='"+results[i].uuid+"';";
-					await query(sql);
-				};
-			};
+				var loggedInStatus = await query("SELECT loggedIn FROM logins WHERE uuid='"+results[i].uuid+"';");
+				if(loggedInStatus[0].loggedIn > 0){
+					if(moment().diff(results[i].last_activity, "minutes")>=3) {
+						console.log("Logging out "+results[i].uuid);
+						sql = "UPDATE logins SET loggedIn=false WHERE uuid='"+results[i].uuid+"';";
+						await query(sql);
+					}
+				}
+			}
 			resolve();
 		} else {
 			resolve();
