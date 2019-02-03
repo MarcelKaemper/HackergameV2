@@ -3,6 +3,11 @@
 <p>{{message}}</p>
 Currently having {{countServer}} server
 <br />
+<ul>
+	{{#each listServer}}
+		<li>ip: {{this.ip_address}} <br> uuid: {{this.uuid}}</li>
+	{{/each}}
+</ul>
 <br />
 <form action="/server" method="post">
 	<button type="submit" name="buy_server">Buy Server ($50000)</button>
