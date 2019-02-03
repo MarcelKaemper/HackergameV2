@@ -14,6 +14,7 @@ var neededXP = require('../public/javascripts/functions/leveling/xpForLvlup.js')
 var countServer = require('../public/javascripts/functions/server/countServer.js');
 var buyServer = require('../public/javascripts/functions/server/buyServer.js');
 var cashbonus = require('../public/javascripts/functions/cashbonus.js');
+var listServer = require('../public/javascripts/functions/server/listServer.js');
 
 
 /* GET home page. */
@@ -76,7 +77,8 @@ router.get('/console', async function(req, res, next) {
 router.get('/server', async function(req, res, next) {
 	await stdCall(req);
 	var count = await countServer(req.session.uuid);
-	res.render('server', {title: 'Server', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, countServer: count, message: req.query.error});
+	var srvlist = await listServer(req.session.uuid);
+	res.render('server', {title: 'Server', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, countServer: count, message: req.query.error, listServer: srvlist});
 });
 
 router.post('/server', async function(req, res, next) {
