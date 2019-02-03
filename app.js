@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('express-handlebars')
+var cronjob = require('./public/javascripts/functions/cronjob.js');
 
 var indexRouter = require('./routes/index');
 
@@ -25,6 +26,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({secret: "secret", saveUninitialized: false, resave: false}));
 
 app.use('/', indexRouter);
+
+cronjob();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
