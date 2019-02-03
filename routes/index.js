@@ -10,12 +10,12 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandler.js');
 var signup = require('../public/javascripts/functions/signup.js');
 var login = require('../public/javascripts/functions/login.js');
-var neededXP = require('../public/javascripts/functions/leveling/xpForLvlup.js');
 var countServer = require('../public/javascripts/functions/server/countServer.js');
 var buyServer = require('../public/javascripts/functions/server/buyServer.js');
 var cashbonus = require('../public/javascripts/functions/cashbonus.js');
 var listServer = require('../public/javascripts/functions/server/listServer.js');
 var sellServer = require('../public/javascripts/functions/server/sellServer.js');
+var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 
 /* GET home page. */
@@ -59,9 +59,7 @@ router.post('/deposit', async function(req, res, next) {
 
 router.get('/profile', async function(req, res, next) {
 	await stdCall(req);
-	var xpNextlvl = await neededXP(req.session.xp, req.session.level);
-	var user = {name: req.session.name,displayName: req.session.displayName,xp: req.session.xp, neededXP: xpNextlvl, level: req.session.level,money: req.session.money, ip: req.session.ip};
-	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn,user:user});
+	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, user: await getUserInfo(req), loggedIn: req.session.loggedIn});
 });
 
 router.get('/logout', async function(req, res, next) {
