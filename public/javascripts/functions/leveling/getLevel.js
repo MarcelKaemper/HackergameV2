@@ -8,3 +8,5 @@ function getLevel(uuid) {
         resolve(results[0].level);
     });
 }
+
+module.exports = getLevel;
