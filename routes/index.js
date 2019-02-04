@@ -17,30 +17,34 @@ var listServer = require('../public/javascripts/functions/server/listServer.js')
 var sellServer = require('../public/javascripts/functions/server/sellServer.js');
 var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 var repairServer = require('../public/javascripts/functions/server/repairServer.js');
+var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
 	var onlinePlayers = await getOnlinePlayers();
-	req.session.onlinePlayers = onlinePlayers;
-	res.render('index', {title: 'Hackergame', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, onlinePlayers: req.session.onlinePlayers});
+	res.render('index', stdParameter(req, 'Hackergame', {onlinePlayers: await getOnlinePlayers()}));
 });
 
 router.get('/signup', async function(req, res, next) {
 	await stdCall(req);
-	res.render('signup', { title: 'Sign up', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn });
+	res.render('signup', stdParameter(req, 'Sign up', {message: req.query.error}));
 });
 
 router.get('/login', async function(req, res, next) {
 	await stdCall(req);
-	res.render('login', {title: 'Login', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn});
+	res.render('login', stdParameter(req, 'Login', {}));
+});
+
+router.get('/stocks', async function(req, res, next) {
+	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money}));
 });
 
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
-	var players = await getAllPlayers(req.session.uuid, "everyoneButYou");
-	res.render('bank', {title: 'Bank', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, name: req.session.name, money: req.session.money, players: players});
+	let players = await getAllPlayers(req.session.uuid, "everyoneButYou");
+	res.render('bank', stdParameter(req, 'Bank', {money: req.session.money, players: players}));
 });
 
 router.post('/bank', async function(req, res, next) {
@@ -49,8 +53,7 @@ router.post('/bank', async function(req, res, next) {
 });
 
 router.get('/admin', async function(req, res, next) {
-	let players = await getAllPlayers(req.session.uuid, "everyone");
-	res.render('admin', {title: 'Adminarea', message: req.query.error, isAdmin: req.session.isAdmin, loggedIn: req.session.loggedIn, players: players});
+	res.render('admin', stdParameter(req, 'Adminarea', {players: await getAllPlayers(req.session.uuid, "everyone")}));
 });
 
 router.post('/deposit', async function(req, res, next) {
@@ -60,7 +63,7 @@ router.post('/deposit', async function(req, res, next) {
 
 router.get('/profile', async function(req, res, next) {
 	await stdCall(req);
-	res.render('profile', {title: 'Profile', isAdmin: req.session.isAdmin, user: await getUserInfo(req), loggedIn: req.session.loggedIn});
+	res.render('profile', stdParameter(req, 'Profile', {user: await getUserInfo(req)}));
 });
 
 router.get('/logout', async function(req, res, next) {
@@ -71,14 +74,14 @@ router.get('/logout', async function(req, res, next) {
 
 router.get('/console', async function(req, res, next) {
 	await stdCall(req);
-	res.render('console', {title: 'Console', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, message: req.session.command_log});
+	res.render('console', stdParameter(req, 'Console', {message: req.session.command_log}));
 });
 
 router.get('/server', async function(req, res, next) {
 	await stdCall(req);
 	var count = await countServer(req.session.uuid);
 	var srvlist = await listServer(req.session.uuid);
-	res.render('server', {title: 'Server', loggedIn: req.session.loggedIn, isAdmin: req.session.isAdmin, countServer: count, message: req.query.error, listServer: srvlist});
+	res.render('server', stdParameter(req, 'Server', {countServer: count, message: req.query.error, listServer: srvlist}));
 });
 
 router.post('/buyserver', async function(req, res, next) {
