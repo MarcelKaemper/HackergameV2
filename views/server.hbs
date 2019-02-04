@@ -6,24 +6,33 @@ Currently having {{countServer}} server
 <br />
 
 <center>
-	<form action="/sellserver" method="post">
-	<table class="serverlist" width="66%">
+	<table class="serverlist" width="90%">
 		<tr>
-			<th width="25%">Server ID</th>
-			<th width="25%">Server IP</th>
-			<th width="25%"></th>
-			<th width="25%">Action</th>
+			<th width="20%">Server ID</th>
+			<th width="15%">Server IP</th>
+			<th width="5%">Health</th>
+			<th width="15%">Repair</th>
+			<th width="15%">Action</th>
+			<th width="30%"></th>
 		</tr>
 		{{#each listServer}}
 		<tr>
 			<td>server_{{this.id}}_{{this.uuid}}</td>
 			<td>{{this.ip_address}}</td>
+			<td>{{this.health}}%</td>
+			<form action="/repairserver" method="post">
+			<td><input type="hidden" name="repairprice" value="{{this.repairprice}}"><button type="submit" name="repairserver" value="{{this.uuid}}">Repair Server (${{this.repairprice}})</button></td>
+			</form>
+			<form action="/sellserver" method="post">
+			<td>
+				<button type="submit" name="sellserver" value="{{this.uuid}}">Sell Server ($30000)</button>
+			</td>
+			</form>
 			<td></td>
-			<td><button type="submit" name="sellserver" value="{{this.uuid}}">Sell Server ($30000)</button></td>
 		</tr>
 		{{/each}}
 	</table>
-	</form>
+	
 </center>
 
 <br />
