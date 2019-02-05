@@ -37,7 +37,8 @@ router.get('/login', async function(req, res, next) {
 });
 
 router.get('/stocks', async function(req, res, next) {
-	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money}));
+	const url = "https://api.iextrading.com/1.0/stock/msft/batch?types=quote,news,chart&range=1m&last=10";
+	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, stocks}));
 });
 
 router.get('/bank', async function(req, res, next) {
