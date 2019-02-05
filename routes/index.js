@@ -16,6 +16,7 @@ var cashbonus = require('../public/javascripts/functions/cashbonus.js');
 var listServer = require('../public/javascripts/functions/server/listServer.js');
 var sellServer = require('../public/javascripts/functions/server/sellServer.js');
 var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
+var repairServer = require('../public/javascripts/functions/server/repairServer.js');
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 
 
@@ -95,6 +96,11 @@ router.post('/buyserver', async function(req, res, next) {
 
 router.post('/sellserver', async function(req, res, next) {
 	await sellServer(req);
+	res.redirect('/server');
+});
+
+router.post('/repairserver', async function(req, res, next) {
+	await repairServer(req);
 	res.redirect('/server');
 });
 
