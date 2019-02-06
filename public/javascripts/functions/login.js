@@ -28,6 +28,9 @@ function login(req, arg_login, arg_password) {
                 req.session.loggedIn = true;
                 req.session.uuid = results[0].uuid;
                 req.session.displayName = results[0].displayName;
+                
+                req.session.boolConToSrv = false;
+                req.session.conToSrv = "";
 
                 var sql2 = "SELECT ip_address FROM userdata WHERE uuid='" + req.session.uuid + "';";
                 
