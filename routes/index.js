@@ -44,8 +44,7 @@ router.get('/login', async function(req, res, next) {
 router.get('/stocks', async function(req, res, next) {
 	console.log(await loadStocks(req.session.uuid));
 	var ownedStocks = await loadStocks(req.session.uuid);
-	console.log(typeof JSON.parse(ownedStocks));
-	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: JSON.parse(ownedStocks)}));
+	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: ownedStocks}));
 });
 
 router.post('/getStocks', async (req, res , next) => {
