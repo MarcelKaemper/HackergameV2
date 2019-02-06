@@ -10,7 +10,7 @@ function transferMoney(req) {
 		let results = await query("SELECT money FROM money where uuid='"+req.session.uuid+"';");
 		currentMoney = results[0].money;
 		if(moneyToTransfer <= currentMoney){
-			var sql = "SELECT uuid FROM logins WHERE name='"+transferTo+"';";
+			var sql = "SELECT uuid FROM logins WHERE name='"+transferTo.toLowerCase()+"';";
 			let results = await query(sql);
 			await changeMoney(results[0].uuid, moneyToTransfer, "give");
 			await changeMoney(req.session.uuid, moneyToTransfer, "take");
