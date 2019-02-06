@@ -20,12 +20,14 @@ var repairServer = require('../public/javascripts/functions/server/repairServer.
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var listShop = require('../public/javascripts/functions/shop/listShop.js');
 var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
+var getStock = require('../public/javascripts/functions/stocks/getStock.js');
+var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
+var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
 
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
-	var onlinePlayers = await getOnlinePlayers();
 	res.render('index', stdParameter(req, 'Hackergame', {onlinePlayers: await getOnlinePlayers()}));
 });
 
@@ -40,8 +42,22 @@ router.get('/login', async function(req, res, next) {
 });
 
 router.get('/stocks', async function(req, res, next) {
-	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money}));
+	console.log(await loadStocks(req.session.uuid));
+	var ownedStocks = await loadStocks(req.session.uuid);
+	console.log(typeof JSON.parse(ownedStocks));
+	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: JSON.parse(ownedStocks)}));
 });
+
+router.post('/getStocks', async (req, res , next) => {
+	let info = await getStock(req.body.stockName);
+	res.render('stocks', stdParameter(req, 'Stocks', {price: parseInt(info.latestPrice), company: info.companyName, symbol: info.symbol}));
+})
+
+router.post('/buystock', async (req, res, next) => {
+	console.log(req.body.symbol, req.body.name, req.body.price);
+	await buyStock(req.session.uuid, req.body.symbol, parseInt(req.body.price));
+	res.redirect('/stocks');
+})
 
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
