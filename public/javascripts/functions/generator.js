@@ -31,7 +31,23 @@ function genIP() {
     });
 }
 
+function genPW() {
+    return new Promise(function(resolve, reject) {
+        var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var password = "";
+        var min = Math.ceil(0);
+        var max = Math.floor(61);
+        
+        for(var i = 0; i < 8; i++) {
+            password += charset[(Math.floor(Math.random() * (max - min + 1)) + min)];
+        }
+        
+        resolve(password);
+    });
+}
+
 module.exports = {
     genIP,
-    genUUID
+    genUUID,
+    genPW
 }

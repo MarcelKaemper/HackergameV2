@@ -35,7 +35,8 @@ function buyServer(req) {
                 }
             }
             if(!count1 && !count2) {
-                var sql = "INSERT INTO server (uuid, uuidOwner, ip_address) VALUES ('" + srvuuid + "', '" + uuidOwner + "', '" + srvip + "');";
+                var password = await generator.genPW();
+                var sql = "INSERT INTO server (uuid, uuidOwner, ip_address, password) VALUES ('" + srvuuid + "', '" + uuidOwner + "', '" + srvip + "', '" + password + "');";
                 await query(sql);
                 await changeMoney(uuidOwner, amount, "take");
                 var reclevel = await getLevel(uuidOwner);
