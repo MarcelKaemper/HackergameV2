@@ -5,14 +5,17 @@ function sellServer(req) {
     return new Promise(async function(resolve, reject) {
         var usruuid = req.session.uuid;
         var srvuuid = req.body.sellserver;
-
+        var confirm = req.body.confirm_sell;
         var amount = 30000;
-        var sql = "DELETE FROM server WHERE uuid='" + srvuuid + "';";
-        
-        await changeMoney(usruuid, amount, "give");
-        await query(sql);
 
-        resolve();
+        if(confirm == "true") {
+            var sql = "DELETE FROM server WHERE uuid='" + srvuuid + "';";
+            await changeMoney(usruuid, amount, "give");
+            await query(sql);
+            resolve(true);
+        } else {
+            resolve(false);
+        }
     });
 }
 
