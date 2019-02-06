@@ -42,21 +42,29 @@ router.get('/login', async function(req, res, next) {
 });
 
 router.get('/stocks', async function(req, res, next) {
-	console.log(await loadStocks(req.session.uuid));
-	var ownedStocks = await loadStocks(req.session.uuid);
-	console.log(typeof JSON.parse(ownedStocks));
-	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: JSON.parse(ownedStocks)}));
+	if(req.session.loggedIn){
+		console.log(await loadStocks(req.session.uuid));
+		var ownedStocks = await loadStocks(req.session.uuid);
+	}
+	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: ownedStocks}));
 });
 
 router.post('/getStocks', async (req, res , next) => {
-	let info = await getStock(req.body.stockName);
-	res.render('stocks', stdParameter(req, 'Stocks', {price: parseInt(info.latestPrice), company: info.companyName, symbol: info.symbol}));
+	let info = await getStock(req.body.stockName, "symbol,companyName,latestPrice");
+	res.render('stocks', stdParameter(req, 'Stocks', {price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol}));
 })
 
 router.post('/buystock', async (req, res, next) => {
 	console.log(req.body.symbol, req.body.name, req.body.price);
 	await buyStock(req.session.uuid, req.body.symbol, parseInt(req.body.price));
 	res.redirect('/stocks');
+})
+
+router.post('/sellstock', async (req, res, next) => {
+	let newPrice = await getStock(req.body.symbol, "latestPrice");
+	newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.count);
+	res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent, symbol: req.body.symbol, 
+																count: req.body.count, newprice: newPrice}))
 })
 
 router.get('/bank', async function(req, res, next) {

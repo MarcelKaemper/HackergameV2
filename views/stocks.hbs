@@ -1,3 +1,4 @@
+<h1>{{title}}</h1>
 {{#if loggedIn}}
     <form method="post" action="getStocks">
         <input type="text" name="stockName">
@@ -35,26 +36,32 @@
                 <tr>
                     <th>Name</th>
                     <th>Count</th>
-                    <th>Price</th>
-                    <th></th>
+                    <th>Spent</th>
                 </tr>
                 {{#each ownedStocks}}
+                <form method="post" action="sellstock">
                 <tr>
                     <td>
+                        <input type="hidden" name="symbol" value="{{@key}}">
                         {{@key}}
                     </td>
                     <td>
+                        <input type="hidden" name="count" value="{{this.count}}">
                         {{this.count}}
                     </td>
                     <td>
+                        <input type="hidden" name="spent" value="{{this.price}}">
                         ${{this.price}}
                     </td>
+                    <td>
+                        <input type="submit" value="Sell">
+                    </td>
                 </tr>
+                </form>
                 {{/each}}
             </table>
         </center>
     {{/if}}
 {{else}}
-<h1>{{title}}</h1>
 You must be logged in to see this page!
 {{/if}}
