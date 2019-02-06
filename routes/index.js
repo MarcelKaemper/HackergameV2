@@ -18,6 +18,8 @@ var sellServer = require('../public/javascripts/functions/server/sellServer.js')
 var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 var repairServer = require('../public/javascripts/functions/server/repairServer.js');
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
+var listShop = require('../public/javascripts/functions/shop/listShop.js');
+var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
 
 
 /* GET home page. */
@@ -77,6 +79,11 @@ router.get('/console', async function(req, res, next) {
 	res.render('console', stdParameter(req, 'Console', {message: req.session.command_log}));
 });
 
+router.get('/shop', async function(req, res, next) {
+	await stdCall(req);
+	res.render('shop', stdParameter(req, 'Shop', {shoplist: await listShop()}));
+});
+
 router.get('/server', async function(req, res, next) {
 	await stdCall(req);
 	var count = await countServer(req.session.uuid);
@@ -94,12 +101,25 @@ router.post('/buyserver', async function(req, res, next) {
 });
 
 router.post('/sellserver', async function(req, res, next) {
-	await sellServer(req);
-	res.redirect('/server');
+	var success = await sellServer(req);
+	if(success) {
+		res.redirect('/server');
+	} else {
+		res.redirect('/server?error=sellFailed');
+	}
 });
 
 router.post('/repairserver', async function(req, res, next) {
-	await repairServer(req);
+	var success = await repairServer(req);
+	if(success) {
+		res.redirect('/server');
+	} else {
+		res.redirect('/server?error=repairFailed');
+	}
+});
+
+router.post('/newserverpassword', async function(req, res, next) {
+	await genNewPassword(req);
 	res.redirect('/server');
 });
 

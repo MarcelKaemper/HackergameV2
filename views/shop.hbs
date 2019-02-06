@@ -1,0 +1,23 @@
+{{#if loggedIn}}
+<h1>{{title}}</h1>
+
+<center>
+    <table class="shoplist" width="90%">
+        <tr>
+            <th width="50%">Article</th>
+            <th width="25%">Price</th>
+            <th width="25%">Action</th>
+        </tr>
+        {{#each shoplist}}
+        <tr>
+            <td>{{this.articleName}}</td>
+            <td>${{this.articlePrice}}</td>
+            <td><input type="hidden" name="buyprice" value="{{this.articlePrice}}"><button type="submit" name="buyarticle" value="{{this.uuid}}">Buy</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</center>
+
+{{else}}
+You must be logged in to see this page!
+{{/if}}

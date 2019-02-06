@@ -1,0 +1,15 @@
+.shoplist {
+    border: 1px solid;
+}
+
+.shoplist th {
+    border-bottom: 1px solid;
+}
+
+.shoplist td {
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
