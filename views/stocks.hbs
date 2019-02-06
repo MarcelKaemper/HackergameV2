@@ -1,0 +1,60 @@
+{{#if loggedIn}}
+    <form method="post" action="getStocks">
+        <input type="text" name="stockName">
+        <input type="submit">
+    </form>
+    {{#if price}}
+        <center>
+            <table class="searchstock">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Company</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <form action="buystock" method="post">
+                        <td><input type="hidden" name="symbol" value="{{symbol}}">
+                        {{symbol}}
+                        </td>
+                        <td><input type="hidden" name="name" value="{{company}}"/>
+                        {{company}} 
+                        </td>
+                        <td><input type="hidden" name="price" value="{{price}}"/>
+                        ${{price}}
+                        </td>
+                    <td><button type="submit">Buy</button></td>
+                    </form>
+                </tr>
+            </table>
+        </center>
+    {{/if}}
+    {{#if ownedStocks}}
+        <center>
+            <table class="searchstock">
+                <tr>
+                    <th>Name</th>
+                    <th>Count</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+                {{#each ownedStocks}}
+                <tr>
+                    <td>
+                        {{@key}}
+                    </td>
+                    <td>
+                        {{this.count}}
+                    </td>
+                    <td>
+                        ${{this.price}}
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+        </center>
+    {{/if}}
+{{else}}
+<h1>{{title}}</h1>
+You must be logged in to see this page!
+{{/if}}
