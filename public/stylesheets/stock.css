@@ -1,0 +1,11 @@
+.searchstock{
+    border: 1px solid black;
+}
+
+.searchstock th{
+    border-bottom: 1px solid black;
+}
+
+.searchstock td{
+    padding: 10px;
+}
