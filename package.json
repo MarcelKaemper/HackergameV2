@@ -17,6 +17,7 @@
     "morgan": "~1.9.0",
     "mysql": "^2.16.0",
     "node-cron": "^2.0.3",
+    "node-fetch": "^2.3.0",
     "password-hash": "^1.2.2"
   }
 }
