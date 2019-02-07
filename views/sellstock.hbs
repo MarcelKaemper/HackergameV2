@@ -1,5 +1,11 @@
 <h1>{{title}}</h1>
-{{price}}
-{{symbol}}
-{{count}}
-{{newprice}}
+<form method="post" action="sellstock">
+    You spent ${{price}} on {{count}}x{{symbol}}
+    <br>
+    Are you sure you want to sell it for ${{newprice}}?
+
+    <input type="hidden" name="symbol" value="{{symbol}}">
+    <input type="hidden" name="count" value="{{count}}">
+    <input type="hidden" name="worth" value="{{newprice}}">
+    <input type="submit" name="confirmed" value="confirm">
+</form>
