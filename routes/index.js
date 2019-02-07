@@ -43,6 +43,7 @@ router.get('/login', async function(req, res, next) {
 });
 
 router.get('/stocks', async function(req, res, next) {
+	await stdCall(req);
 	if(req.session.loggedIn){
 		console.log(await loadStocks(req.session.uuid));
 		var ownedStocks = await loadStocks(req.session.uuid);
@@ -51,8 +52,9 @@ router.get('/stocks', async function(req, res, next) {
 });
 
 router.post('/getStocks', async (req, res , next) => {
+	await stdCall(req);
 	let info = await getStock(req.body.stockName, "symbol,companyName,latestPrice");
-	res.render('stocks', stdParameter(req, 'Stocks', {price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol}));
+	res.render('stocks', stdParameter(req, 'Stocks', {buyable: parseInt(Math.floor(req.session.money/Math.round(info.latestPrice))), price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol}));
 })
 
 router.post('/buystock', async (req, res, next) => {
@@ -64,8 +66,11 @@ router.post('/buystock', async (req, res, next) => {
 router.post('/sellstock', async (req, res, next) => {
 	if(!req.body.confirmed){
 		let newPrice = await getStock(req.body.symbol, "latestPrice");
-		newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.count);
-		res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent, symbol: req.body.symbol, count: req.body.count, newprice: newPrice}))
+		newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.amount);
+		res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent/req.body.count*req.body.amount,
+																	symbol: req.body.symbol, 
+																	count: req.body.amount, 
+																	newprice: newPrice}))
 	}else{
 		await sellStock(req.session.uuid, req.body.symbol, req.body.count, req.body.worth);
 		res.redirect('/stocks');
@@ -80,15 +85,18 @@ router.get('/bank', async function(req, res, next) {
 });
 
 router.post('/bank', async function(req, res, next) {
+	await stdCall(req);
 	await transferMoney(req);
 	res.redirect('/bank');
 });
 
 router.get('/admin', async function(req, res, next) {
+	await stdCall(req);
 	res.render('admin', stdParameter(req, 'Adminarea', {players: await getAllPlayers(req.session.uuid, "everyone")}));
 });
 
 router.post('/deposit', async function(req, res, next) {
+	await stdCall(req);
 	await changeMoney(req.session.uuid, req.body.amount, "give");
 	res.redirect('/');
 });
