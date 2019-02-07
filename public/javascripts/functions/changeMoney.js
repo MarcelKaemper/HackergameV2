@@ -10,7 +10,7 @@ function changeMoney(uuid, amount, operation) {
 			resolve();
 		} else if(operation == "take") {
 			let currentMoney = await query("SELECT money FROM money WHERE uuid='"+uuid+"';");
-			if(currentMoney[0].money>amount){
+			if(currentMoney[0].money>=amount){
 				sql = "UPDATE money SET money=money-"+amount+" WHERE uuid='"+uuid+"';";
 				await query(sql);
 				//successful
