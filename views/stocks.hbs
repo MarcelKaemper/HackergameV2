@@ -12,6 +12,7 @@
                     <th>Company</th>
                     <th>Price</th>
                     <th>Count</th>
+                    <th>Buyable</th>
                 </tr>
                 <tr>
                     <form action="buystock" method="post">
@@ -26,6 +27,9 @@
                         </td>
                         <td>
                             <input type="text" size="2" name="count">
+                        </td>
+                        <td>
+                            {{buyable}}
                         </td>
                         <td><button type="submit">Buy</button></td>
                     </form>
@@ -57,6 +61,7 @@
                         ${{this.price}}
                     </td>
                     <td>
+                        <input type="text" size="2" name="amount">
                         <input type="submit" value="Sell">
                     </td>
                 </tr>
