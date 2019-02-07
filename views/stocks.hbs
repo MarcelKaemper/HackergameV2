@@ -11,7 +11,7 @@
                     <th>Symbol</th>
                     <th>Company</th>
                     <th>Price</th>
-                    <th></th>
+                    <th>Count</th>
                 </tr>
                 <tr>
                     <form action="buystock" method="post">
@@ -24,7 +24,10 @@
                         <td><input type="hidden" name="price" value="{{price}}"/>
                         ${{price}}
                         </td>
-                    <td><button type="submit">Buy</button></td>
+                        <td>
+                            <input type="text" size="2" name="count">
+                        </td>
+                        <td><button type="submit">Buy</button></td>
                     </form>
                 </tr>
             </table>
