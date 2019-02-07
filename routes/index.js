@@ -23,6 +23,7 @@ var genNewPassword = require('../public/javascripts/functions/server/genNewPassw
 var getStock = require('../public/javascripts/functions/stocks/getStock.js');
 var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
 var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
+var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
 
 
 /* GET home page. */
@@ -61,10 +62,15 @@ router.post('/buystock', async (req, res, next) => {
 })
 
 router.post('/sellstock', async (req, res, next) => {
-	let newPrice = await getStock(req.body.symbol, "latestPrice");
-	newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.count);
-	res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent, symbol: req.body.symbol, 
-																count: req.body.count, newprice: newPrice}))
+	if(!req.body.confirmed){
+		let newPrice = await getStock(req.body.symbol, "latestPrice");
+		newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.count);
+		res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent, symbol: req.body.symbol, count: req.body.count, newprice: newPrice}))
+	}else{
+		await sellStock(req.session.uuid, req.body.symbol, req.body.count, req.body.worth);
+		res.redirect('/stocks');
+	}
+	
 })
 
 router.get('/bank', async function(req, res, next) {
