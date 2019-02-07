@@ -56,8 +56,8 @@ router.post('/getStocks', async (req, res , next) => {
 })
 
 router.post('/buystock', async (req, res, next) => {
-	console.log(req.body.symbol, req.body.name, req.body.price);
-	await buyStock(req.session.uuid, req.body.symbol, parseInt(req.body.price));
+	console.log(req.body.symbol, req.body.name, req.body.price, req.body.count);
+	await buyStock(req.session.uuid, req.body.symbol, Math.round(req.body.price), parseInt(req.body.count));
 	res.redirect('/stocks');
 })
 
