@@ -65,8 +65,12 @@ router.post('/buystock', async (req, res, next) => {
 
 router.post('/sellstock', async (req, res, next) => {
 	if(!req.body.confirmed){
+		// If no specific amount is set, sell all
+		req.body.amount <= 0 ? req.body.amount=req.body.count:req.body.amount=req.body.amount;
+		// Get the latest price & multiply to get the overall price
 		let newPrice = await getStock(req.body.symbol, "latestPrice");
 		newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.amount);
+		//Render page with given parameters
 		res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent/req.body.count*req.body.amount,
 																	symbol: req.body.symbol, 
 																	count: req.body.amount, 
