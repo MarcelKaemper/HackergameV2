@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
 {{#if loggedIn}}
-    <form method="post" action="getStocks">
+    <form method="post" action="stocks/getStocks">
         <input type="text" name="stockName">
         <input type="submit">
     </form>
@@ -15,7 +15,7 @@
                     <th>Buyable</th>
                 </tr>
                 <tr>
-                    <form action="buystock" method="post">
+                    <form action="stocks/buystock" method="post">
                         <td><input type="hidden" name="symbol" value="{{symbol}}">
                         {{symbol}}
                         </td>
@@ -46,7 +46,7 @@
                     <th>Spent</th>
                 </tr>
                 {{#each ownedStocks}}
-                <form method="post" action="sellstock">
+                <form method="post" action="stocks/sellstock">
                 <tr>
                     <td>
                         <input type="hidden" name="symbol" value="{{@key}}">
