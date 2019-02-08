@@ -8,6 +8,8 @@ var hbs = require('express-handlebars')
 var cronjob = require('./public/javascripts/functions/cronjob.js');
 
 var indexRouter = require('./routes/index');
+var stocksRouter = require('./routes/stocks')
+var clanRouter = require('./routes/clan');
 
 var app = express();
 
@@ -26,6 +28,8 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({secret: "secret", saveUninitialized: false, resave: false}));
 
 app.use('/', indexRouter);
+app.use('/stocks', stocksRouter);
+app.use('/clans', clanRouter);
 
 cronjob();
 
