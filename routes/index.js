@@ -24,6 +24,8 @@ var getStock = require('../public/javascripts/functions/stocks/getStock.js');
 var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
 var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
 var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
+var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
+var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
 
 
 /* GET home page. */
@@ -151,6 +153,12 @@ router.post('/repairserver', async function(req, res, next) {
 router.post('/newserverpassword', async function(req, res, next) {
 	await genNewPassword(req);
 	res.redirect('/server');
+});
+
+router.get('/inventory', async function(req, res, next) {
+	var getinventory = await loadInventory(req.session.uuid);
+	var inventory = await getItemName(getinventory);
+	res.render('inventory', stdParameter(req, 'Inventory', {inventory: inventory}));
 });
 
 router.get('/cashbonus', async function(req, res, next) {

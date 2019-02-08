@@ -1,0 +1,23 @@
+{{#if loggedIn}}
+<h1>{{title}}</h1>
+
+<center>
+    <table class="inventorylist" width="50%">
+        <tr>
+            <th width="33%">Item</th>
+            <th width="33%">Count</th>
+            <th width="33%">Action</th>
+        </tr>
+        {{#each inventory.inventory}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.count}}</td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </table>
+</center>
+
+{{else}}
+You must be logged in to see this page!
+{{/if}}

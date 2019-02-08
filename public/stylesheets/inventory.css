@@ -1,0 +1,15 @@
+.inventorylist {
+    border: 1px solid;
+}
+
+.inventorylist th {
+    border-bottom: 1px solid;
+}
+
+.inventorylist td {
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
