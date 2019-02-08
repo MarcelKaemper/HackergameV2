@@ -20,11 +20,6 @@ var repairServer = require('../public/javascripts/functions/server/repairServer.
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var listShop = require('../public/javascripts/functions/shop/listShop.js');
 var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
-var getStock = require('../public/javascripts/functions/stocks/getStock.js');
-var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
-var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
-var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
-
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
@@ -41,46 +36,6 @@ router.get('/login', async function(req, res, next) {
 	await stdCall(req);
 	res.render('login', stdParameter(req, 'Login', {}));
 });
-
-router.get('/stocks', async function(req, res, next) {
-	await stdCall(req);
-	if(req.session.loggedIn){
-		console.log(await loadStocks(req.session.uuid));
-		var ownedStocks = await loadStocks(req.session.uuid);
-	}
-	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: ownedStocks}));
-});
-
-router.post('/getStocks', async (req, res , next) => {
-	await stdCall(req);
-	let info = await getStock(req.body.stockName, "symbol,companyName,latestPrice");
-	res.render('stocks', stdParameter(req, 'Stocks', {buyable: parseInt(Math.floor(req.session.money/Math.round(info.latestPrice))), price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol}));
-})
-
-router.post('/buystock', async (req, res, next) => {
-	console.log(req.body.symbol, req.body.name, req.body.price, req.body.count);
-	await buyStock(req.session.uuid, req.body.symbol, Math.round(req.body.price), parseInt(req.body.count));
-	res.redirect('/stocks');
-})
-
-router.post('/sellstock', async (req, res, next) => {
-	if(!req.body.confirmed){
-		// If no specific amount is set, sell all
-		req.body.amount <= 0 ? req.body.amount=req.body.count:req.body.amount=req.body.amount;
-		// Get the latest price & multiply to get the overall price
-		let newPrice = await getStock(req.body.symbol, "latestPrice");
-		newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.amount);
-		//Render page with given parameters
-		res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent/req.body.count*req.body.amount,
-																	symbol: req.body.symbol, 
-																	count: req.body.amount, 
-																	newprice: newPrice}))
-	}else{
-		await sellStock(req.session.uuid, req.body.symbol, req.body.count, req.body.worth);
-		res.redirect('/stocks');
-	}
-	
-})
 
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
