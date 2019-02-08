@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
 {{#if loggedIn}}
-    <form method="post" action="getStocks">
+    <form method="post" action="stocks/getStocks">
         <input type="text" name="stockName">
         <input type="submit">
     </form>
@@ -12,9 +12,10 @@
                     <th>Company</th>
                     <th>Price</th>
                     <th>Count</th>
+                    <th>Buyable</th>
                 </tr>
                 <tr>
-                    <form action="buystock" method="post">
+                    <form action="stocks/buystock" method="post">
                         <td><input type="hidden" name="symbol" value="{{symbol}}">
                         {{symbol}}
                         </td>
@@ -26,6 +27,9 @@
                         </td>
                         <td>
                             <input type="text" size="2" name="count">
+                        </td>
+                        <td>
+                            {{buyable}}
                         </td>
                         <td><button type="submit">Buy</button></td>
                     </form>
@@ -42,7 +46,7 @@
                     <th>Spent</th>
                 </tr>
                 {{#each ownedStocks}}
-                <form method="post" action="sellstock">
+                <form method="post" action="stocks/sellstock">
                 <tr>
                     <td>
                         <input type="hidden" name="symbol" value="{{@key}}">
@@ -57,6 +61,7 @@
                         ${{this.price}}
                     </td>
                     <td>
+                        <input type="text" size="2" name="amount">
                         <input type="submit" value="Sell">
                     </td>
                 </tr>

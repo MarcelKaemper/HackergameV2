@@ -20,10 +20,6 @@ var repairServer = require('../public/javascripts/functions/server/repairServer.
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var listShop = require('../public/javascripts/functions/shop/listShop.js');
 var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
-var getStock = require('../public/javascripts/functions/stocks/getStock.js');
-var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
-var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
-var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
 var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
 var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
 
@@ -44,37 +40,6 @@ router.get('/login', async function(req, res, next) {
 	res.render('login', stdParameter(req, 'Login', {}));
 });
 
-router.get('/stocks', async function(req, res, next) {
-	if(req.session.loggedIn){
-		console.log(await loadStocks(req.session.uuid));
-		var ownedStocks = await loadStocks(req.session.uuid);
-	}
-	res.render('stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: ownedStocks}));
-});
-
-router.post('/getStocks', async (req, res , next) => {
-	let info = await getStock(req.body.stockName, "symbol,companyName,latestPrice");
-	res.render('stocks', stdParameter(req, 'Stocks', {price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol}));
-})
-
-router.post('/buystock', async (req, res, next) => {
-	console.log(req.body.symbol, req.body.name, req.body.price, req.body.count);
-	await buyStock(req.session.uuid, req.body.symbol, Math.round(req.body.price), parseInt(req.body.count));
-	res.redirect('/stocks');
-})
-
-router.post('/sellstock', async (req, res, next) => {
-	if(!req.body.confirmed){
-		let newPrice = await getStock(req.body.symbol, "latestPrice");
-		newPrice = parseInt(Math.round(newPrice.latestPrice)) * parseInt(req.body.count);
-		res.render('sellstock', stdParameter(req, 'Sell Stocks', {price: req.body.spent, symbol: req.body.symbol, count: req.body.count, newprice: newPrice}))
-	}else{
-		await sellStock(req.session.uuid, req.body.symbol, req.body.count, req.body.worth);
-		res.redirect('/stocks');
-	}
-	
-})
-
 router.get('/bank', async function(req, res, next) {
 	await stdCall(req);
 	let players = await getAllPlayers(req.session.uuid, "everyoneButYou");
@@ -82,15 +47,18 @@ router.get('/bank', async function(req, res, next) {
 });
 
 router.post('/bank', async function(req, res, next) {
+	await stdCall(req);
 	await transferMoney(req);
 	res.redirect('/bank');
 });
 
 router.get('/admin', async function(req, res, next) {
+	await stdCall(req);
 	res.render('admin', stdParameter(req, 'Adminarea', {players: await getAllPlayers(req.session.uuid, "everyone")}));
 });
 
 router.post('/deposit', async function(req, res, next) {
+	await stdCall(req);
 	await changeMoney(req.session.uuid, req.body.amount, "give");
 	res.redirect('/');
 });

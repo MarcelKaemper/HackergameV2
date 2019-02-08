@@ -8,7 +8,8 @@ function deleteUser(uuid){
 				"admins",
 				"money",
 				"userdata",
-				"cashbonus"];
+				"cashbonus",
+				"stocks"];
 
 		for(var i in tables){
 			await query("DELETE FROM "+tables[i]+" WHERE uuid='"+uuid+"';");
