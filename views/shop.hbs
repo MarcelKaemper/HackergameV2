@@ -1,5 +1,9 @@
 {{#if loggedIn}}
 <h1>{{title}}</h1>
+<p>{{message}}</p>
+
+<br />
+<br />
 
 <center>
     <table class="shoplist" width="90%">
@@ -12,7 +16,9 @@
         <tr>
             <td>{{this.itemName}}</td>
             <td>${{this.itemPrice}}</td>
+            <form action="/buyshop" method="post">
             <td><input type="hidden" name="buyprice" value="{{this.itemPrice}}"><button type="submit" name="buyitem" value="{{this.uuid}}">Buy</button></td>
+            </form>
         </tr>
         {{/each}}
     </table>
