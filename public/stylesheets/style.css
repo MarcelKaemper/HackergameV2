@@ -35,3 +35,17 @@ a{
 	border: none;
 	background-color: #cfcfcf;
 }
+
+.tablestyle{
+    border: 1px solid black;
+}
+
+.tablestyle th{
+    border-bottom: 1px solid black;
+}
+
+.tablestyle td{
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
