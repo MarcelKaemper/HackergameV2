@@ -6,7 +6,7 @@
     </form>
     {{#if price}}
         <center>
-            <table class="stock">
+            <table class="tablestyle">
                 <tr>
                     <th>Symbol</th>
                     <th>Company</th>
@@ -29,6 +29,7 @@
                             <input type="text" size="2" name="count">
                         </td>
                         <td>
+                            <input type="hidden" name="buyable" value="{{buyable}}"/>
                             {{buyable}}
                         </td>
                         <td><button type="submit">Buy</button></td>
@@ -39,7 +40,7 @@
     {{/if}}
     {{#if ownedStocks}}
         <center>
-            <table class="stock">
+            <table class="tablestyle">
                 <tr>
                     <th>Name</th>
                     <th>Count</th>
