@@ -26,7 +26,7 @@ router.post('/getStocks', async (req, res , next) => {
 router.post('/buystock', async (req, res, next) => {
 	console.log(req.body.symbol, req.body.name, req.body.price, req.body.count);
 	await buyStock(req.session.uuid, req.body.symbol, Math.round(req.body.price), parseInt(req.body.count));
-	res.redirect('stocks/stocks');
+	res.redirect('/stocks');
 })
 
 router.post('/sellstock', async (req, res, next) => {
@@ -43,7 +43,7 @@ router.post('/sellstock', async (req, res, next) => {
 																	newprice: newPrice}))
 	}else{
 		await sellStock(req.session.uuid, req.body.symbol, req.body.count, req.body.worth);
-		res.redirect('/');
+		res.redirect('/stocks');
 	}
 	
 })
