@@ -31,7 +31,7 @@ app.use(session({secret: "secret", saveUninitialized: false, resave: false}));
 app.use('/', indexRouter);
 app.use('/server', serverRouter);
 app.use('/stocks', stocksRouter);
-app.use('/clans', clanRouter);
+app.use('/clan', clanRouter);
 
 cronjob();
 
