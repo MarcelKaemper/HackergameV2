@@ -10,16 +10,10 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 var adminAreaHandler = require('../public/javascripts/functions/admin/adminHandler.js');
 var signup = require('../public/javascripts/functions/signup.js');
 var login = require('../public/javascripts/functions/login.js');
-var countServer = require('../public/javascripts/functions/server/countServer.js');
-var buyServer = require('../public/javascripts/functions/server/buyServer.js');
 var cashbonus = require('../public/javascripts/functions/cashbonus.js');
-var listServer = require('../public/javascripts/functions/server/listServer.js');
-var sellServer = require('../public/javascripts/functions/server/sellServer.js');
 var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
-var repairServer = require('../public/javascripts/functions/server/repairServer.js');
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var listShop = require('../public/javascripts/functions/shop/listShop.js');
-var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
 var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
 var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
 
@@ -82,45 +76,6 @@ router.get('/console', async function(req, res, next) {
 router.get('/shop', async function(req, res, next) {
 	await stdCall(req);
 	res.render('shop', stdParameter(req, 'Shop', {shoplist: await listShop()}));
-});
-
-router.get('/server', async function(req, res, next) {
-	await stdCall(req);
-	var count = await countServer(req.session.uuid);
-	var srvlist = await listServer(req.session.uuid);
-	res.render('server', stdParameter(req, 'Server', {countServer: count, message: req.query.error, listServer: srvlist}));
-});
-
-router.post('/buyserver', async function(req, res, next) {
-	var success = await buyServer(req);
-	if(success) {
-		res.redirect('/server');
-	} else {
-		res.redirect('/server?error=purchaseFailed');
-	}
-});
-
-router.post('/sellserver', async function(req, res, next) {
-	var success = await sellServer(req);
-	if(success) {
-		res.redirect('/server');
-	} else {
-		res.redirect('/server?error=sellFailed');
-	}
-});
-
-router.post('/repairserver', async function(req, res, next) {
-	var success = await repairServer(req);
-	if(success) {
-		res.redirect('/server');
-	} else {
-		res.redirect('/server?error=repairFailed');
-	}
-});
-
-router.post('/newserverpassword', async function(req, res, next) {
-	await genNewPassword(req);
-	res.redirect('/server');
 });
 
 router.get('/inventory', async function(req, res, next) {
