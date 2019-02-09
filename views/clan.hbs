@@ -1,0 +1,21 @@
+<h1>{{title}}</h1>
+{{#if loggedIn}}
+    {{#each clans}}
+        <center>        
+            <table class="tablestyle">
+                <tr>
+                    <th>Name</th>
+                    <th>Members</th>
+                    <th>Join</th>
+                </tr>
+                <tr>
+                    <td>{{@key}}</td>
+                    <td>{{this.members}}</td>
+                    <td><button>Join</button></td>
+                </tr>
+            </table>
+     </center>
+    {{/each}}
+{{else}}
+You must be logged in to see this page!
+{{/if}}
