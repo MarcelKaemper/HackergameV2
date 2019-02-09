@@ -1,5 +1,6 @@
 var query = require('../../database/dbquery.js');
 var changeMoney = require('../changeMoney.js');
+var setXP = require('../leveling/setXP.js');
 
 const buyStock = async(uuid, name, price, count) => {
     var ownedStocks = await query("SELECT stocks FROM stocks WHERE uuid='"+uuid+"';");
@@ -18,6 +19,7 @@ const buyStock = async(uuid, name, price, count) => {
             await query("UPDATE stocks SET stocks='"+JSON.stringify(ownedStocks)+"' WHERE uuid='"+uuid+"';");
         }
     }
+    await setXP(uuid, price*(count/100), "give");
 }
 
 module.exports = buyStock;
