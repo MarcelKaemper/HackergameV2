@@ -48,6 +48,7 @@ function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
                     var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('" + uuid + "');";
                     var sql6 = "INSERT INTO cashbonus(uuid) VALUES ('" + uuid + "');";
                     var sql7 = "INSERT INTO stocks(uuid) VALUES ('" + uuid +"');";
+                    var sql8 = "INSERT INTO inventory(uuid) VALUES ('" + uuid + "');";
 
                     await query(sql1);
                     await query(sql2);
@@ -56,6 +57,7 @@ function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
                     await query(sql5);
                     await query(sql6);
                     await query(sql7);
+                    await query(sql8);
 
                     resolve(true);
                 } else {

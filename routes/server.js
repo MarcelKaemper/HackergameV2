@@ -19,7 +19,7 @@ router.get('/', async function(req, res, next) {
 router.post('/buyserver', async function(req, res, next) {
 	var success = await buyServer(req);
 	if(success) {
-		res.redirect('/');
+		res.redirect('/server');
 	} else {
 		res.redirect('/server?error=purchaseFailed');
 	}
