@@ -9,7 +9,7 @@ function timeBetweenLastActivity(loggedIn) {
 			for(var i in results) {
 				var loggedInStatus = await query("SELECT loggedIn FROM logins WHERE uuid='"+results[i].uuid+"';");
 				if(loggedInStatus[0].loggedIn > 0){
-					if(moment().diff(results[i].last_activity, "minutes")>=3) {
+					if(moment().diff(results[i].last_activity, "minutes")>=10) {
 						console.log("Logging out "+results[i].uuid);
 						sql = "UPDATE logins SET loggedIn=false WHERE uuid='"+results[i].uuid+"';";
 						await query(sql);
