@@ -24,10 +24,10 @@ Currently having {{countServer}} server
 			<td>server_{{this.id}}</td>
 			<td>{{this.ip_address}}</td>
 			<td>{{this.health}}%</td>
-			<form action="/repairserver" method="post">
+			<form action="server/repairserver" method="post">
 			<td><input type="hidden" name="repairprice" value="{{this.repairprice}}"><button type="submit" name="repairserver" value="{{this.uuid}}">Repair Server (${{this.repairprice}})</button></td>
 			</form>
-			<form action="/sellserver" method="post">
+			<form action="server/sellserver" method="post">
 			<td>
 				<button type="submit" name="sellserver" value="{{this.uuid}}">Sell Server</button>
 			</td>
@@ -39,7 +39,7 @@ Currently having {{countServer}} server
 				<button type="submit" name="manageserver" value="{{this.uuid}}">Manage</button>
 			</td>
 			<td>{{this.password}}</td>
-			<form action="/newserverpassword" method="post">
+			<form action="server/newserverpassword" method="post">
 			<td>
 				<button type="submit" name="newserverpassword" value="{{this.uuid}}">Generate</button>
 			</td>
@@ -52,7 +52,7 @@ Currently having {{countServer}} server
 </center>
 
 <br />
-<form action="/buyserver" method="post">
+<form action="server/buyserver" method="post">
 	<button type="submit" name="buy_server">Buy Server ($50000)</button>
 </form>
 {{else}}
