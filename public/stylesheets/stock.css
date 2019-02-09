@@ -1,11 +1,11 @@
-.searchstock{
+.stock{
     border: 1px solid black;
 }
 
-.searchstock th{
+.stock th{
     border-bottom: 1px solid black;
 }
 
-.searchstock td{
+.stock td{
     padding: 10px;
 }
