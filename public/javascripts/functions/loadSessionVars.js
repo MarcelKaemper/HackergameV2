@@ -1,5 +1,6 @@
 var query = require('../database/dbquery.js');
 var neededXP = require('./leveling/xpForLvlup.js');
+var checkAdmin = require('./checkAdmin.js');
 
 function reload(req) {
 	return new Promise(async function(resolve, reject) {
@@ -18,6 +19,11 @@ function reload(req) {
 	
 			var xpNextlvl = await neededXP(req.session.xp, req.session.level);
 			req.session.neededXP = xpNextlvl;
+
+            var results = await query("SELECT ip_address FROM userdata WHERE uuid='"+req.session.uuid+"';");
+            req.session.ip = results[0].ip_address;	
+                
+			req.session.isAdmin = await checkAdmin(req.session.uuid);
 
 			results = await query("SELECT loggedIn FROM logins WHERE uuid='"+req.session.uuid+"';");
 			if(results[0].loggedIn == false){
