@@ -16,6 +16,8 @@ var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var listShop = require('../public/javascripts/functions/shop/listShop.js');
 var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
 var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
+var buyShop = require('../public/javascripts/functions/shop/buyShop.js');
+var sellShop = require('../public/javascripts/functions/shop/sellShop.js');
 
 
 /* GET home page. */
@@ -75,7 +77,21 @@ router.get('/console', async function(req, res, next) {
 
 router.get('/shop', async function(req, res, next) {
 	await stdCall(req);
-	res.render('shop', stdParameter(req, 'Shop', {shoplist: await listShop()}));
+	res.render('shop', stdParameter(req, 'Shop', {shoplist: await listShop(), message: req.query.error}));
+});
+
+router.post('/buyshop', async function(req, res, next) {
+	var success = await buyShop(req);
+	if(success) {
+		res.redirect('/shop');
+	} else {
+		res.redirect('/shop?error=buyFailed');
+	}
+});
+
+router.post('/sellshop', async function(req, res, next) {
+	await sellShop(req);
+	res.redirect('/inventory');
 });
 
 router.get('/inventory', async function(req, res, next) {

@@ -12,7 +12,11 @@
         <tr>
             <td>{{this.name}}</td>
             <td>{{this.count}}</td>
-            <td></td>
+            <form action="/sellshop" method="post">
+            <td>
+                <button type="submit" name="sellitem" value="{{this.uuid}}">Sell (50%)</button>
+            </td>
+            </form>
         </tr>
         {{/each}}
     </table>
