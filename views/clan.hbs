@@ -1,21 +1,43 @@
 <h1>{{title}}</h1>
 {{#if loggedIn}}
-    {{#each clans}}
-        <center>        
-            <table class="tablestyle">
-                <tr>
-                    <th>Name</th>
-                    <th>Members</th>
-                    <th>Join</th>
-                </tr>
-                <tr>
-                    <td>{{@key}}</td>
-                    <td>{{this.members}}</td>
-                    <td><button>Join</button></td>
-                </tr>
-            </table>
-     </center>
-    {{/each}}
+    {{error}}
+    <center>
+        <div class="clanwrapper">
+            <div>
+                <h3>Join</h3>
+                <table class="tablestyle">
+                    <tr>
+                        <th>Name</th>
+                        <th>Members/Max</th>
+                        <th>Join</th>
+                    </tr>
+                    {{#each clans}}
+                        <tr>
+                            <form action="clan/joinclan" method="post">
+                                <input type="hidden" name="uuid" value="{{this.uuid}}">
+                                <input type="hidden" name="name" value="{{this.name}}">
+                                <input type="hidden" name="memberCount" value="{{this.memberCount}}">
+                                <input type="hidden" name="maxMembers" value="{{this.maxMembers}}">
+                                <td>{{this.name}}</td>
+                                <td>{{this.memberCount}}/{{this.maxMembers}}</td>
+                                <td><button type="submit">Join</button></td>
+                            </form>
+                        </tr>
+                    {{/each}}
+                </table>
+            </div>
+            <div>
+                <h3>Create</h3>
+                <form action="clan/createClan" method="post">
+                    <input type="text" name="name" placeholder="Clan name" autocomplete="off">
+                    <br>
+                    <input type="text" name="maxMembers" placeholder="Max members (def. 10)" autocomplete="off">
+                    <br>
+                    <input type="submit" value="Create">
+                </form>
+            </div>
+        </div>
+    </center>
 {{else}}
 You must be logged in to see this page!
 {{/if}}
