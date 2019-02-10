@@ -1,0 +1,8 @@
+.clanWrapper{
+    display: flex;
+    width: 700px;
+}
+
+.clanWrapper > div{
+    flex: 1;
+}
