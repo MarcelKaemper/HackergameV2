@@ -17,7 +17,8 @@ Currently having {{countServer}} server
 			<th width="7%">Manage</th>
 			<th width="7%">Password</th>
 			<th width="7%">New Password</th>
-			<th width="31%"></th>
+			<th width="6%">Revenue</th>
+			<th width="25%"></th>
 		</tr>
 		{{#each listServer}}
 		<tr>
@@ -44,6 +45,7 @@ Currently having {{countServer}} server
 				<button type="submit" name="newserverpassword" value="{{this.uuid}}">Generate</button>
 			</td>
 			</form>
+			<td>${{this.revenue}}</td>
 			<td></td>
 		</tr>
 		{{/each}}

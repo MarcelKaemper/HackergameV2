@@ -4,9 +4,10 @@
 <center>
     <table class="inventorylist" width="50%">
         <tr>
-            <th width="33%">Item</th>
-            <th width="33%">Count</th>
-            <th width="33%">Action</th>
+            <th width="25%">Item</th>
+            <th width="25%">Count</th>
+            <th width="25%">Action</th>
+            <th width="25%"></th>
         </tr>
         {{#each inventory.inventory}}
         <tr>
@@ -17,6 +18,9 @@
                 <button type="submit" name="sellitem" value="{{this.uuid}}">Sell (50%)</button>
             </td>
             </form>
+            <td>
+                <button type="submit" name="useitem" value="{{this.uuid}}">Install</button>
+            </td>
         </tr>
         {{/each}}
     </table>
