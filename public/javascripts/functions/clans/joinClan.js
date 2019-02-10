@@ -19,10 +19,13 @@ const joinClan = (clan_uuid, clan_name, uuid, name, currentMemberCount, maxMembe
                 await query("UPDATE clans SET members='"+JSON.stringify(members)+"' WHERE uuid='"+clan_uuid+"';");
                 //Update userdata clan
                 await query("UPDATE userdata SET memberOf='"+clan_name+"' WHERE uuid='"+uuid+"';");
+                resolve(true);
+            }else{
+                resolve(false);
             }
+        }else{
+            resolve(false);
         }
-        
-        resolve();
     });
 }
 
