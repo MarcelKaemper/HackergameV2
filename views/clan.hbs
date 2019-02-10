@@ -14,6 +14,10 @@
                     {{#each clans}}
                         <tr>
                             <form action="clan/joinclan" method="post">
+                                <input type="hidden" name="uuid" value="{{this.uuid}}">
+                                <input type="hidden" name="name" value="{{this.name}}">
+                                <input type="hidden" name="memberCount" value="{{this.memberCount}}">
+                                <input type="hidden" name="maxMembers" value="{{this.maxMembers}}">
                                 <td>{{this.name}}</td>
                                 <td>{{this.memberCount}}/{{this.maxMembers}}</td>
                                 <td><button type="submit">Join</button></td>
@@ -27,7 +31,7 @@
                 <form action="clan/createClan" method="post">
                     <input type="text" name="name" placeholder="Clan name" autocomplete="off">
                     <br>
-                    <input type="text" name="maxMembers" placeholder="Max members (def. 24)" autocomplete="off">
+                    <input type="text" name="maxMembers" placeholder="Max members (def. 10)" autocomplete="off">
                     <br>
                     <input type="submit" value="Create">
                 </form>
