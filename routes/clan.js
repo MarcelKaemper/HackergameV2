@@ -5,21 +5,29 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 var loadClans = require('../public/javascripts/functions/clans/loadClans.js');
 var createClan = require('../public/javascripts/functions/clans/createClan.js');
 var joinClan = require('../public/javascripts/functions/clans/joinClan');
+var clanInfo = require('../public/javascripts/functions/clans/clanInfo');
 
 router.get('/', async(req, res, next) => {
     stdCall(req);
     let clans = await loadClans();
-    res.render('clan', stdParameter(req, 'Clans', {clans:clans}));
+    res.render('clan/clan', stdParameter(req, 'Clans', {clans:clans}));
 });
 
 router.post('/joinClan', async(req, res, next) => {
-    await joinClan(req.body.uuid, req.body.name, req.session.uuid, req.session.name, req.body.memberCount, req.body.maxMembers);
+    await joinClan(req.body.uuid, req.body.name, req.session.uuid, req.session.displayName, req.body.memberCount, req.body.maxMembers);
     res.redirect('/clan');
 });
 
 router.post('/createClan', async(req, res, next) => {
-    await createClan(req.session.uuid, req.body.name, req.body.maxMembers, req.session.name);
+    await createClan(req.session.uuid, req.body.name, req.body.maxMembers, req.session.displayName);
     res.redirect('/clan');
 });
+
+router.get('/showclan', async(req, res, next) => {
+    stdCall(req);
+    let clan = req.query.clan;
+    let members = await clanInfo(clan);
+    res.render('clan/showclan', stdParameter(req, clan, {members: members}));
+})
 
 module.exports = router;
