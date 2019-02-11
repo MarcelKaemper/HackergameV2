@@ -1,0 +1,18 @@
+<h1>{{title}}</h1>
+{{#if loggedIn}}
+<center>
+    <h4>Members:</h4>
+    <table class="tablestyle">
+        <tr>
+            <th>Name</th>
+        </tr>
+            {{#each members}}
+            <tr>
+                <td>{{this}}</td>
+            </tr>
+            {{/each}}
+    </table>
+</center>
+{{else}}
+    You must be logged in to see this page!
+{{/if}}
