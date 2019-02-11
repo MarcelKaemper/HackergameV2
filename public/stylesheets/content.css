@@ -6,12 +6,13 @@
     padding-bottom: 10px;
     height: auto;
 
-    -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.15);
-	-moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.15);
-    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
 
     border: 1px double;
-    border-color: rgba(200, 200, 200, 1);
+    /* border-color: rgba(200, 200, 200, 1); */
+    border-color: rgba(150, 150, 150, 1);
     border-radius: 10px;
 }
 
