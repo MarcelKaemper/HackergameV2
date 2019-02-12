@@ -1,6 +1,7 @@
 var query = require('../database/dbquery.js');
 var neededXP = require('./leveling/xpForLvlup.js');
 var checkAdmin = require('./checkAdmin.js');
+var currentClan = require('./clans/getCurrentClan.js');
 
 function reload(req) {
 	return new Promise(async function(resolve, reject) {
@@ -29,6 +30,7 @@ function reload(req) {
 			if(results[0].loggedIn == false){
 				req.session.loggedIn = false;
 			}
+			req.session.clan = await currentClan(req.session.uuid);
 			// Continue
 			resolve();
 		// Not logged in
