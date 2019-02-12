@@ -26,6 +26,10 @@ router.post('/createClan', async(req, res, next) => {
 router.get('/showclan', async(req, res, next) => {
     stdCall(req);
     let clan = req.query.clan;
+    console.log(clan);
+    if(clan == undefined){
+        clan = req.session.clan;
+    }
     let members = await clanInfo(clan);
     res.render('clan/showclan', stdParameter(req, clan, {members: members}));
 })
