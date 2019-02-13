@@ -3,8 +3,24 @@
     {{error}}
     <center>
         <div class="clanwrapper">
+            {{#if currentClan}}
             <div>
-                <h3>Join</h3>
+                <h3>Current clan</h3>
+                <h5>Name: {{currentClan}}</h5>
+                <table class="tablestyle">
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                        {{#each members}}
+                        <tr>
+                            <td>{{this}}</td>
+                        </tr>
+                        {{/each}}
+                </table>
+            </div>
+            {{/if}}
+            <div>
+                <h3>Browse</h3>
                 <table class="tablestyle">
                     <tr>
                         <th>Name</th>
@@ -26,6 +42,7 @@
                     {{/each}}
                 </table>
             </div>
+            {{#unless currentClan}}
             <div>
                 <h3>Create</h3>
                 <form action="clan/createClan" method="post">
@@ -36,6 +53,7 @@
                     <input type="submit" value="Create">
                 </form>
             </div>
+            {{/unless}}
         </div>
     </center>
 {{else}}
