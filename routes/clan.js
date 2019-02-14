@@ -26,7 +26,7 @@ router.post('/createClan', async(req, res, next) => {
     res.redirect('/clan');
 });
 
-router.get('/showclan', async(req, res, next) => {
+router.get('/info', async(req, res, next) => {
     await stdCall(req);
     let clan = req.query.clan;
     console.log(clan);
@@ -34,7 +34,7 @@ router.get('/showclan', async(req, res, next) => {
         clan = req.session.clan;
     }
     let members = await clanInfo(clan);
-    res.render('clan/showclan', stdParameter(req, clan, {members: members}));
+    res.render('clan/info', stdParameter(req, clan, {members: members}));
 })
 
 router.get('/leaveclan', async(req, res, next) => {
