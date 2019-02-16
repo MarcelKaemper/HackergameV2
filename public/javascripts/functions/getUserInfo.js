@@ -4,6 +4,7 @@ const getUserInfo = (req) => {
                     displayName: req.session.displayName,
                     xp: req.session.xp, 
                     neededXP: req.session.neededXP, 
+                    clan: req.session.clan!=""?req.session.clan:"None",
                     level: req.session.level,
                     money: req.session.money, 
                     ip: req.session.ip});
