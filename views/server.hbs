@@ -18,7 +18,8 @@ Currently having {{countServer}} server
 			<th width="7%">Password</th>
 			<th width="7%">New Password</th>
 			<th width="6%">Revenue</th>
-			<th width="25%"></th>
+			<th width="10%">Available Software</th>
+			<th width="10%">Install</th>
 		</tr>
 		{{#each listServer}}
 		<tr>
@@ -46,7 +47,18 @@ Currently having {{countServer}} server
 			</td>
 			</form>
 			<td>${{this.revenue}}</td>
-			<td></td>
+			<form action="server/installitem" method="post">
+			<td>
+				<select name="inventory">
+					{{#each ../inventory.inventory}}
+						<option value="{{this.uuid}}">{{this.name}}</option>
+					{{/each}}
+				</select>
+			</td>
+			<td>
+				<button type="submit" name="useitem" value="{{this.uuid}}">Install</button>
+			</td>
+			</form>
 		</tr>
 		{{/each}}
 	</table>
