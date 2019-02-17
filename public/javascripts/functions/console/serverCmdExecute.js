@@ -27,7 +27,7 @@ async function serverCmdExecute(req, cmd, command, callback) {
             var sql = "SELECT executedSoftware FROM server WHERE uuid='" + srvuuid + "';";
             var results = await query(sql);
             if(results.length > 0) {
-                var itemname = await uuidName.toItemName(itemuuid);
+                var itemname = await uuidName.toItemName(results[0].executedSoftware);
                 req.session.command_log += "Executed software: " + itemname + "\n";
             } else {
                 req.session.command_log += "There is no executed software on this server!\n";
