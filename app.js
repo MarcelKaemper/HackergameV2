@@ -9,8 +9,9 @@ var cronjob = require('./public/javascripts/functions/cronjob.js');
 
 var indexRouter = require('./routes/index');
 var serverRouter = require('./routes/server'); 
-var stocksRouter = require('./routes/stocks')
+var stocksRouter = require('./routes/stocks');
 var clanRouter = require('./routes/clan');
+var mailRouter = require('./routes/mail');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/', indexRouter);
 app.use('/server', serverRouter);
 app.use('/stocks', stocksRouter);
 app.use('/clan', clanRouter);
+app.use('/mail', mailRouter);
 
 cronjob();
 
