@@ -13,6 +13,8 @@ var cmdServer = require('./console/cmdServer.js');
 // >> ######################################## << //
 // >> ############ Server Commands ########## << //
 var serverCmdExit = require('./console/serverCmdExit.js');
+var serverCmdLs = require('./console/serverCmdLs.js');
+var serverCmdExecute = require('./console/serverCmdExecute.js');
 // >> ######################################## << //
 
 function consolecmd(req, cmd) {
@@ -89,6 +91,18 @@ function consolecmd(req, cmd) {
                     case "clear":
                         await serverDefault(req, cmd, command);
                         cmdClear(req, cmd, command, function() {
+                            resolve();
+                        });
+                        break;
+                    case "ls":
+                        await serverDefault(req, cmd, command);
+                        serverCmdLs(req, cmd, command, function() {
+                            resolve();
+                        });
+                        break;
+                    case "execute":
+                        await serverDefault(req, cmd, command);
+                        serverCmdExecute(req, cmd, command, function() {
                             resolve();
                         });
                         break;

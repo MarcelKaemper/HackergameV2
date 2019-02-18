@@ -45,7 +45,7 @@ async function cmdXp(req, cmd, command, callback) {
                         callback();
                         break;
                     default:
-                        req.session.command_log += "You need to specify a operation [give, set, take]\n";
+                        req.session.command_log += "You need to specify a operation [give|set|take]\n";
                         callback();
                         break;
                 }
