@@ -45,7 +45,7 @@ function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
                     var sql2 = "INSERT INTO money(uuid, money) VALUES ('" + uuid + "', '10000');";
                     var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES ('" + uuid + "', '0', '0');";
                     var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES ('" + uuid +"', '" + ip_address + "');";
-                    var sql5 = "INSERT INTO lastActivity(uuid) VALUES ('" + uuid + "');";
+                    var sql5 = "INSERT INTO lastactivity(uuid) VALUES ('" + uuid + "');";
                     var sql6 = "INSERT INTO cashbonus(uuid) VALUES ('" + uuid + "');";
                     var sql7 = "INSERT INTO stocks(uuid) VALUES ('" + uuid +"');";
                     var sql8 = "INSERT INTO inventory(uuid) VALUES ('" + uuid + "');";

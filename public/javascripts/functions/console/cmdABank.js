@@ -13,12 +13,12 @@ async function cmdABank(req, cmd, command, callback) {
         } else {
             switch(operation) {
                 case "create":
-                    var sql1 = "SELECT name FROM bankAccounts WHERE name='" + targetName + "';";
+                    var sql1 = "SELECT name FROM bankaccounts WHERE name='" + targetName + "';";
                     var results1 = await query(sql1);
                     if(results1 <= 0) {
                         var recuuid = await generator.genUUID();
                         var recipaddress = await generator.genIP();
-                        var sql2 = "INSERT INTO bankAccounts (uuid, name, money, ip_address) VALUES ('" + recuuid + "', '" + targetName + "', 0, '" + recipaddress + "');";
+                        var sql2 = "INSERT INTO bankaccounts (uuid, name, money, ip_address) VALUES ('" + recuuid + "', '" + targetName + "', 0, '" + recipaddress + "');";
       
                         await query(sql2);
                         req.session.command_log += "Bank account successful created!\n";

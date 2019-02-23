@@ -17,7 +17,7 @@ function cmdMoney(req, cmd, command, callback) {
                             callback();
                         } else {
                             var sql1 = "SELECT uuid, ip_address FROM userdata WHERE ip_address='" + target + "';";
-                            var sql2 = "SELECT uuid, ip_address, money FROM bankAccounts WHERE ip_address='" + target + "';";
+                            var sql2 = "SELECT uuid, ip_address, money FROM bankaccounts WHERE ip_address='" + target + "';";
                             var sql3 = "SELECT uuid, ip_address FROM server WHERE ip_address='" + target + "';";
                             var results1 = await query(sql1);
                             var results2 = await query(sql2);

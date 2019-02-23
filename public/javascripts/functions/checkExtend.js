@@ -3,7 +3,7 @@ var query = require('../database/dbquery.js');
 function IP(ipaddress) {
     return new Promise(async function(resolve, reject) {
         var sql1 = "SELECT ip_address FROM userdata WHERE ip_address='" + ipaddress + "';";
-        var sql2 = "SELECT ip_address FROM bankAccounts WHERE ip_address='" + ipaddress + "';";
+        var sql2 = "SELECT ip_address FROM bankaccounts WHERE ip_address='" + ipaddress + "';";
         var sql3 = "SELECT ip_address FROM server WHERE ip_address='" + ipaddress + "';";
 
         var results1 = await query(sql1);
@@ -20,7 +20,7 @@ function IP(ipaddress) {
 function UUID(uuid) {
     return new Promise(async function(resolve, reject) {
         var sql1 = "SELECT uuid FROM userdata WHERE uuid='" + uuid + "';";
-        var sql2 = "SELECT uuid FROM bankAccounts WHERE uuid='" + uuid + "';";
+        var sql2 = "SELECT uuid FROM bankaccounts WHERE uuid='" + uuid + "';";
         var sql3 = "SELECT uuid FROM server WHERE uuid='" + uuid + "';";
 
         var results1 = await query(sql1);

@@ -4,7 +4,7 @@ var moment = require('moment');
 function timeBetweenLastActivity(loggedIn) {
 	return new Promise(async function(resolve, reject) {
 		if(loggedIn) {
-			var sql = "SELECT * FROM lastActivity;";
+			var sql = "SELECT * FROM lastactivity;";
 			let results  = await query(sql)
 			for(var i in results) {
 				var loggedInStatus = await query("SELECT loggedIn FROM logins WHERE uuid='"+results[i].uuid+"';");
