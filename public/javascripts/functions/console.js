@@ -94,6 +94,12 @@ function consolecmd(req, cmd) {
                             resolve();
                         });
                         break;
+                    case "help":
+                        await serverDefault(req, cmd, command);
+                        cmdHelp(req, cmd, command, function() {
+                            resolve();
+                        });
+                        break;
                     case "ls":
                         await serverDefault(req, cmd, command);
                         serverCmdLs(req, cmd, command, function() {
