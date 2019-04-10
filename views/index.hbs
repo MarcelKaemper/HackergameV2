@@ -8,23 +8,6 @@ You are logged in
 <br>
 <br>
 
-<form action="/deposit" method="post">
-	<input type="text" id="earnMoneyLabel" readonly name="amount" value=""></input>
-	<br>
-	<input type="button" id="earnMoney" value="Earn money!"></input>
-	<button type="submit" id="DPbutton">Deposit</button>
-</form>
-
-<script>
-var generatedMoney = 0;
-document.getElementById("DPbutton").style.display = "none";
-document.getElementById("earnMoney").onclick = function(){
-	generatedMoney+=1;
-	document.getElementById("DPbutton").style.display = "inline-block";
-	document.getElementById("earnMoneyLabel").value = generatedMoney;
-};
-
-</script>
 <h4>Online Players:</h4>
 <div class="onlinePlayerList">
     <ul class="onlinePlayers">
