@@ -35,6 +35,24 @@ document.getElementById("earnMoney").onclick = function(){
 </div>
 
 <br>
+
+<h4>Top Players:</h4>
+<center>
+	<table class="topPlayersList" width="12%">
+		<tr>
+			<th width="7%">Username</th>
+			<th width="3%">Level</th>
+		</tr>
+		{{#each topPlayers}}
+			<tr>
+				<td>{{this.displayName}}</td>
+				<td>{{this.level}}</td>
+			</tr>
+		{{/each}}
+	</table>
+</center>
+
+<br>
 {{else}}
 Log in to start playing!
 <br>

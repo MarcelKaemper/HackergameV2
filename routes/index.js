@@ -18,12 +18,13 @@ var loadInventory = require('../public/javascripts/functions/inventory/loadInven
 var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
 var buyShop = require('../public/javascripts/functions/shop/buyShop.js');
 var sellShop = require('../public/javascripts/functions/shop/sellShop.js');
+var getTopPlayers = require('../public/javascripts/functions/getTopPlayers.js');
 
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
-	res.render('index', stdParameter(req, 'Hackergame', {onlinePlayers: await getOnlinePlayers()}));
+	res.render('index', stdParameter(req, 'Hackergame', {onlinePlayers: await getOnlinePlayers(), topPlayers: await getTopPlayers()}));
 });
 
 router.get('/signup', async function(req, res, next) {
