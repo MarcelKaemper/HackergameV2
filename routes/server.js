@@ -11,6 +11,7 @@ var genNewPassword = require('../public/javascripts/functions/server/genNewPassw
 var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
 var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
 var installSrvItem = require('../public/javascripts/functions/inventory/installSrvItem.js');
+var consolecmd = require('../public/javascripts/functions/console.js');
 
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
@@ -60,6 +61,21 @@ router.post('/installitem', async function(req, res, next) {
 	} else {
 		res.redirect('/server?error=installFailed');
 	}
+});
+
+router.post('/manage/login', async function(req, res, next) {
+	if(req.session.boolConToSrv) {
+		await consolecmd(req, "exit");
+		await consolecmd(req, "server connect " + req.body.srvloginipaddress + " " + req.body.srvloginpassword);
+	} else {
+		await consolecmd(req, "server connect " + req.body.srvloginipaddress + " " + req.body.srvloginpassword);
+	}
+	res.redirect('/console');
+});
+
+router.post('/manage/logout', async function(req, res, next) {
+	await consolecmd(req, "exit");
+	res.redirect('/console');
 });
 
 module.exports = router;
