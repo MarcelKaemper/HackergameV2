@@ -6,8 +6,6 @@ var joinClan = require('./joinClan.js');
 const createClan = (uuid, name, maxMembers, username) => {
     return new Promise(async(resolve, reject) => {
         let existingClans = await loadClans();
-        console.log(typeof existingClans);
-        console.log(existingClans);
         for(let item of existingClans){
             if(item.name == name){
                 resolve(false);

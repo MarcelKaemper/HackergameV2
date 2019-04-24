@@ -11,7 +11,6 @@ var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
 	if(req.session.loggedIn){
-		console.log(await loadStocks(req.session.uuid));
 		var ownedStocks = await loadStocks(req.session.uuid);
 	}
 	res.render('stocks/stocks', stdParameter(req, 'Stocks', {money: req.session.money, ownedStocks: ownedStocks}));

@@ -2,9 +2,6 @@ var query = require('../../database/dbquery.js');
 
 const joinClan = (clan_uuid, clan_name, uuid, name, currentMemberCount, maxMembers) => {
     return new Promise(async(resolve, reject) => {
-        console.log("Clan uuid:",clan_uuid,"\nClan name:", clan_name,"\nUser uuid:", uuid,"\nUsername:",name,
-                    "\nMembercount:",currentMemberCount,"/",maxMembers);
-
         let currentClan = await query("SELECT memberOf FROM userdata WHERE uuid='"+uuid+"';");
 
         if(!currentClan[0].memberOf){

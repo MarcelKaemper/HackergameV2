@@ -16,7 +16,6 @@ function deleteUser(uuid){
 			await query("DELETE FROM "+tables[i]+" WHERE uuid='"+uuid+"';");
 		}
 
-		console.log("Deleted user:%s", uuid);
 		resolve();
 	});
 
