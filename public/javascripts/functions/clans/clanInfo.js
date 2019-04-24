@@ -6,7 +6,6 @@ const clanInfo = (name) => {
             let clanUuid = await query("SELECT uuid FROM clans WHERE name='"+name+"';");
             let clanInfo = await query("SELECT * FROM clans WHERE uuid='"+clanUuid[0].uuid+"';");
             let members = JSON.parse(clanInfo[0].members);
-            console.log(members.names);
             resolve(members.names);
         });
     }
