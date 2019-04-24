@@ -38,11 +38,12 @@
 
 .onlinePlayers {
     list-style-type: none;
+    text-align: center;
+    margin-right: 25px;
 }
 
 .onlinePlayerList {
-    margin-right: 40px;
-    margin-top: -10px;
+    margin-right: 20px;
 }
 
 .topPlayersList {
@@ -54,4 +55,13 @@
     padding-top: 4px;
     padding-bottom: 4px;
     border: 1px solid;
+}
+
+.wrapper101{
+    display: flex;
+    width: 600px;
+}
+
+.flexObj{
+    flex: 1;
 }

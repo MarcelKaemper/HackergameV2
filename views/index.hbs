@@ -3,32 +3,40 @@
 <h5>Cashbonus</h5>
 <a href="cashbonus"><button>Claim</button></a>
 <br>
-
-<h4>Online Players:</h4>
-<div class="onlinePlayerList">
-    <ul class="onlinePlayers">
-        {{#each onlinePlayers}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
-</div>
-
+<br>
 <br>
 
-<h4>Top Players:</h4>
 <center>
-	<table class="topPlayersList" width="12%">
-		<tr>
-			<th width="7%">Username</th>
-			<th width="3%">Level</th>
-		</tr>
-		{{#each topPlayers}}
-			<tr>
-				<td>{{this.displayName}}</td>
-				<td>{{this.level}}</td>
-			</tr>
-		{{/each}}
-	</table>
+	<div class="wrapper101">
+		<div class="onlinePlayerList flexObj">
+			<center>
+			<h4>Online Players:</h4>
+			<ul class="onlinePlayers">
+				{{#each onlinePlayers}}
+					<li>{{this}}</li>
+				{{/each}}
+			</ul>
+			</center>
+		</div>
+
+		<div class="flexObj">
+			<center>
+			<h4>Top Players:</h4>
+			<table class="topPlayersList" width="12%">
+				<tr>
+					<th width="7%">Username</th>
+					<th width="3%">Level</th>
+				</tr>
+				{{#each topPlayers}}
+					<tr>
+						<td>{{this.displayName}}</td>
+						<td>{{this.level}}</td>
+					</tr>
+				{{/each}}
+			</table>
+			</center>
+		</div>
+	</div>
 </center>
 
 <br>
