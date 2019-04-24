@@ -1,18 +1,39 @@
 .console_input {
-    background: #F2F2F2;
+    /*background: #F2F2F2; */
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     outline: none;
-    color: #737373;
+    /* color: #737373; */
     letter-spacing: 1px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
     
-    width: 66%;
+    width: 850px;
+
+    background-color: #323232;
+    color: limegreen;
+}
+
+.console_input_cmd {
+    background: #F2F2F2;
+    color: #737373;
+    margin-top: 3px;
 }
 
 #commandlog {
     resize: none;
+}
+
+.consolebox {
+    width: 62%;
+    height: auto;
+    background-color: #bebebe;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 5px;
 }
