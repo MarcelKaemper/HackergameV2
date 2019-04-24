@@ -1,4 +1,4 @@
-var query = require('../javascripts/database/dbquery.js');
+var query = require('../database/dbquery.js');
 
 function transferToBank(amount, operation) {
     return new Promise(async function(resolve, reject) {
