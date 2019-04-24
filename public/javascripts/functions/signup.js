@@ -2,6 +2,7 @@ var checkExtend = require('./checkExtend.js');
 var query = require('../database/dbquery.js');
 var pwh = require('password-hash');
 var generator = require('./generator.js');
+var mailAddressGen = require('./mail/mailAddressGen.js');
 
 function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
     return new Promise(async function(resolve, reject) {
@@ -9,6 +10,7 @@ function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
         var name = arg_name;
         var password = arg_password;
         var confirm_password = arg_confirm_password;
+        var mailAddress = await mailAddressGen(name);
 
         var check1 = await checkExtend.Name(name);
         var check2 = await checkExtend.Mail(mail);
@@ -44,7 +46,7 @@ function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
                     var sql1 = "INSERT INTO logins(uuid, mail, name, displayName, password) VALUES ('" + uuid + "', '" + mail.toLowerCase() + "', '" + name.toLowerCase() + "', '" + name + "', '" + password + "');";
                     var sql2 = "INSERT INTO money(uuid, money) VALUES ('" + uuid + "', '10000');";
                     var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES ('" + uuid + "', '0', '0');";
-                    var sql4 = "INSERT INTO userdata(uuid, ip_address) VALUES ('" + uuid +"', '" + ip_address + "');";
+                    var sql4 = "INSERT INTO userdata(uuid, ip_address, mail_address) VALUES ('" + uuid +"', '" + ip_address + "', '" + mailAddress + "');";
                     var sql5 = "INSERT INTO lastactivity(uuid) VALUES ('" + uuid + "');";
                     var sql6 = "INSERT INTO cashbonus(uuid) VALUES ('" + uuid + "');";
                     var sql7 = "INSERT INTO stocks(uuid) VALUES ('" + uuid +"');";
