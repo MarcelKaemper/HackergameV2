@@ -1,6 +1,32 @@
 <h1>{{title}}</h1>
 {{#if loggedIn}}
+<div class="mailWrapper">
+    <div class="leftSide">
 
+    </div>
+    <div class="rightSide">
+        <div class="mailTop">
+            <form action="delMail" method="POST">
+                <input class="mailText" placeholder="Send by" type="text" readonly/>
+                <br>
+                <input class="mailText2" placeholder="Subject" type="text" readonly/>
+                <br>
+                <textarea class="writeMail" readonly></textarea>
+                <input class="sendMail" type="submit" value="Send"/>
+            </form>
+        </div>
+        <div class="mailBottom">
+            <form action="sendMail" method="POST">
+                <input class="mailText" placeholder="Send to" type="text"/>
+                <br>
+                <input class="mailText2" placeholder="Subject" type="text"/>
+                <br>
+                <textarea class="writeMail"></textarea>
+                <input class="sendMail" type="submit" value="Send"/>
+            </form>
+        </div>
+    </div>
+</div>
 {{else}}
 You are not logged in!
 {{/if}}
