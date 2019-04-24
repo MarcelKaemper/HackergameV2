@@ -30,7 +30,7 @@ var pool = mysql.createPool({
 module.exports = pool;
 ```
 
-### Run your server:  
+### Run the server:  
 
 ``` 
 npm install  
