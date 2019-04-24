@@ -32,13 +32,15 @@ function login(req, arg_login, arg_password) {
                 req.session.boolConToSrv = false;
                 req.session.conToSrv = "";
 
-                var sql2 = "SELECT ip_address FROM userdata WHERE uuid='" + req.session.uuid + "';";
+                var sql2 = "SELECT ip_address, mail_address FROM userdata WHERE uuid='" + req.session.uuid + "';";
                 
                 var results2 = await query(sql2);
                 req.session.ip = results2[0].ip_address;	
-                await writeActivity(req.session.uuid);
-                
+                req.session.mail = results2[0].mail_address;
+
+
                 req.session.isAdmin = await checkAdmin(req.session.uuid);
+                await writeActivity(req.session.uuid);
                 await setLoggedIn(req.session.loggedIn, req.session.uuid);
     
                 resolve(true);
