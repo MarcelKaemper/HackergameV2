@@ -17,6 +17,8 @@
                         </tr>
                         {{/each}}
                 </table>
+                <br>
+                <a href="/clan/leaveclan"><input type="button" value="Leave Clan"/></a>
             </div>
             {{/if}}
             <div>
@@ -25,6 +27,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Members/Max</th>
+                        <th>Details</th>
                         <th>Join</th>
                     </tr>
                     {{#each clans}}
@@ -36,6 +39,7 @@
                                 <input type="hidden" name="maxMembers" value="{{this.maxMembers}}">
                                 <td>{{this.name}}</td>
                                 <td>{{this.memberCount}}/{{this.maxMembers}}</td>
+                                <td><a href="/clan/info?clan={{this.name}}"><input type="button" value="Details"/></a></td>
                                 <td><button type="submit">Join</button></td>
                             </form>
                         </tr>
