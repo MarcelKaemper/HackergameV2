@@ -2,7 +2,7 @@ var query = require('../../database/dbquery.js');
 
 function deleteUser(uuid){
 	return new Promise(async function(resolve, reject){
-		var tables = [	"lastActivity",
+		var tables = [	"lastactivity",
 				"levels",
 				"logins",
 				"admins",
