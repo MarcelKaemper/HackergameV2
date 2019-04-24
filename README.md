@@ -5,7 +5,7 @@ Take a look at the [Wiki](https://github.com/MarcelKaemper/HackergameV2/wiki/tut
 
 ## Running it locally
 Create the file ```public/javascripts/database/dbconn.js``` and fill in the credentials to your database.  
-You can download the structure of our database [here](https://www.marcelkaemper.de/) (If outdated -> Open an issue)  
+You can download the structure of our database [here](https://www.marcelkaemper.de/dbstructure.zip) (If outdated -> Open an issue)  
 
 Example dbconn.js
 ```
