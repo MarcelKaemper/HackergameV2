@@ -10,7 +10,8 @@
     padding-top: 5px;
     padding-bottom: 5px;
     
-    width: 850px;
+    /* width: 850px; */
+    width: 96%;
 
     background-color: #323232;
     color: limegreen;
