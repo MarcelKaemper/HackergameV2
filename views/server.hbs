@@ -8,13 +8,14 @@ Currently having {{countServer}} server
 <center>
 	<table class="serverlist" width="90%">
 		<tr>
-			<th width="8%">Server ID</th>
+			<!--<th width="8%">Server ID</th>-->
 			<th width="11%">Server IP</th>
 			<th width="5%">Health</th>
 			<th width="15%">Repair</th>
 			<th width="9%">Sell ($30000)</th>
 			<th width="5%">Confirm</th>
 			<th width="7%">Manage</th>
+			<th width="8%">Manage</th>
 			<th width="7%">Password</th>
 			<th width="7%">New Password</th>
 			<th width="6%">Revenue</th>
@@ -23,7 +24,7 @@ Currently having {{countServer}} server
 		</tr>
 		{{#each listServer}}
 		<tr>
-			<td>server_{{this.id}}</td>
+			<!--<td>server_{{this.id}}</td>-->
 			<td>{{this.ip_address}}</td>
 			<td>{{this.health}}%</td>
 			<form action="server/repairserver" method="post">
@@ -37,9 +38,18 @@ Currently having {{countServer}} server
 				<input type="checkbox" name="confirm_sell" value="true"> Y
 			</td>
 			</form>
+			<form action="server/manage/login" method="post">
 			<td>
-				<button type="submit" name="manageserver" value="{{this.uuid}}">Manage</button>
+				<button type="submit" name="manageserver" value="{{this.uuid}}">Login</button>
+				<input type="hidden" name="srvloginipaddress" value="{{this.ip_address}}">
+				<input type="hidden" name="srvloginpassword" value="{{this.password}}">
 			</td>
+			</form>
+			<form action="server/manage/logout" method="post">
+			<td>
+				<button type="submit" name="srvlogout" value="{{this.uuid}}">Logout</button>
+			</td>
+			</form>
 			<td>{{this.password}}</td>
 			<form action="server/newserverpassword" method="post">
 			<td>
