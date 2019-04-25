@@ -17,11 +17,11 @@
         </div>
         <div class="mailBottom">
             <form action="/mail/sendMail" method="POST">
-                <input class="mailText" placeholder="Send to" type="text"/>
+                <input class="mailText" placeholder="Send to" name="sendTo" type="text"/>
                 <br>
-                <input class="mailText2" placeholder="Subject" type="text"/>
+                <input class="mailText2" placeholder="Subject" name="subject" type="text"/>
                 <br>
-                <textarea class="writeMail"></textarea>
+                <textarea class="writeMail" name="message"></textarea>
                 <input class="sendMail" type="submit" value="Send"/>
             </form>
         </div>
