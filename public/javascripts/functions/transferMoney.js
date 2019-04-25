@@ -1,6 +1,6 @@
 var query = require('../database/dbquery.js');
 var changeMoney = require('./changeMoney.js');
-var transferToBank = require('../transferToBank.js');
+var transferToBank = require('./transferToBank.js');
 
 function transferMoney(req) {
 	return new Promise(async function(resolve, reject) {
