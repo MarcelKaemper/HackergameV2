@@ -7,10 +7,14 @@ function sendMail(req, sendTo, subject, message) {
         let sendToUuid = results[0].uuid;
 
         // Get inbox of receiver
-        let results = await query("SELECT inbox FROM mails WHERE uuid='"+sendToUuid+"';");
-        let inbox = json.parse(results[0].inbox);
+        results = await query("SELECT inbox FROM mails WHERE uuid='"+sendToUuid+"';");
+        let inbox = JSON.parse(results[0].inbox);
 
         // Add mail to inbox of receiver
+        inbox.mails.push(JSON.parse('{"sender":"'+req.session.mail+'", "subject":"'+subject+'", "message":"'+message+'"}'));
+        inbox = JSON.stringify(inbox);
+        await query("UPDATE mails SET inbox='"+inbox+"' WHERE uuid='"+sendToUuid+"';");
+
     });
 }
 
