@@ -5,6 +5,13 @@ Take a look at the [Wiki](https://github.com/MarcelKaemper/HackergameV2/wiki/tut
 
 ## Running it locally
 
+### Installing NodeJS
+
+```
+apt update
+apt install nodejs
+```
+
 ### Downloading the repository
 
 ```

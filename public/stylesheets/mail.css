@@ -44,12 +44,11 @@
 
 .writeMail{
     position: absolute;
+    width: 95%;
+    height: 200px;
     bottom: 0px;
     left: 0px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    width: 600px;
-    height: 200px;
+    margin: 10 10;
     resize: none;
 }
 
@@ -67,4 +66,10 @@
     left: 0px;
     margin-top: 70px;
     margin-left: 20px;
+}
+
+.mailPreview{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding: 25px 0 25px 0;
 }
