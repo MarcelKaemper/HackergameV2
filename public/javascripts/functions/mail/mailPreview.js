@@ -6,8 +6,8 @@ mailPreview = (uuid) => {
         inbox = inbox.replace(/(\r\n|\n|\r)/gm, "\\n");
         inbox = JSON.parse(inbox).mails;
         let previews = []
-        for(let x of inbox){
-            previews.push({"sender":x.sender,"subject":x.subject})
+        for(let i = inbox.length-1; i>=0; i--){
+            previews.push({"sender":inbox[i].sender,"subject":inbox[i].subject})
         }
         resolve(previews);
     });
