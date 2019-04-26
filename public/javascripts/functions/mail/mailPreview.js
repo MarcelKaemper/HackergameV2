@@ -14,5 +14,3 @@ mailPreview = (uuid) => {
 }
 
 module.exports = mailPreview;
-
-// return [[subject1,subject2,subject3],[sender1,sender2,sender3]]

@@ -20,6 +20,3 @@ sendMail = (req, sendTo, subject, message) => {
 }
 
 module.exports = sendMail;
-
-// inbox = sendTo(mail) -> uuid -> mails(jsonObject)
-// inbox add -> object(this.email,subject,message)
