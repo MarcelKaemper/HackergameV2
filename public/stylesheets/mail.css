@@ -68,3 +68,9 @@
     margin-top: 70px;
     margin-left: 20px;
 }
+
+.mailPreview{
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding: 25px 0 25px 0;
+}
