@@ -4,20 +4,27 @@
     <div class="leftSide">
         {{#each preview}}
         <div class="mailPreview">
-            By: {{this.sender}}
-            <br>
-            Subject: {{this.subject}}
+            <form action="/mail/" method="POST">
+                <button class="previewMail" type="submit">
+                    <input type="hidden" name="sender" value="{{this.sender}}">
+                    <input type="hidden" name="subject" value="{{this.subject}}">
+                    <input type="hidden" name="message" value="{{this.message}}">
+                    By: {{this.sender}}
+                    <br>
+                    Subject: {{this.subject}}
+                </button>
+            </form>
         </div>
         {{/each}}
     </div>
     <div class="rightSide">
         <div class="mailTop">
             <form action="delMail" method="POST">
-                <input class="mailText" placeholder="Send by" type="text" readonly />
+                <input class="mailText" placeholder="Send by" type="text" value="{{sender}}" readonly />
                 <br>
-                <input class="mailText2" placeholder="Subject" type="text" readonly />
+                <input class="mailText2" placeholder="Subject" type="text" value="{{subject}}" readonly />
                 <br>
-                <textarea class="writeMail" readonly></textarea>
+                <textarea class="writeMail" readonly>{{message}}</textarea>
                 <input class="sendMail" type="submit" value="Send" />
             </form>
         </div>
@@ -25,9 +32,9 @@
             <form action="/mail/sendMail" method="POST">
                 <input class="mailText" placeholder="Send to" name="sendTo" type="text" />
                 <br>
-                <input class="mailText2" placeholder="Subject" name="subject" type="text" />
+                <input class="mailText2" placeholder="Subject" name="subject" maxlength="20" type="text" />
                 <br>
-                <textarea class="writeMail" name="message"></textarea>
+                <textarea class="writeMail" name="message" maxlength="800"></textarea>
                 <input class="sendMail" type="submit" value="Send" />
             </form>
         </div>
