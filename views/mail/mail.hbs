@@ -3,32 +3,32 @@
 <div class="mailWrapper">
     <div class="leftSide">
         {{#each preview}}
-            <div class="mailPreview">
-                By: {{this.sender}}
-                <br>
-                Subject: {{this.subject}}
-            </div>
+        <div class="mailPreview">
+            By: {{this.sender}}
+            <br>
+            Subject: {{this.subject}}
+        </div>
         {{/each}}
     </div>
     <div class="rightSide">
         <div class="mailTop">
             <form action="delMail" method="POST">
-                <input class="mailText" placeholder="Send by" type="text" readonly/>
+                <input class="mailText" placeholder="Send by" type="text" readonly />
                 <br>
-                <input class="mailText2" placeholder="Subject" type="text" readonly/>
+                <input class="mailText2" placeholder="Subject" type="text" readonly />
                 <br>
                 <textarea class="writeMail" readonly></textarea>
-                <input class="sendMail" type="submit" value="Send"/>
+                <input class="sendMail" type="submit" value="Send" />
             </form>
         </div>
         <div class="mailBottom">
             <form action="/mail/sendMail" method="POST">
-                <input class="mailText" placeholder="Send to" name="sendTo" type="text"/>
+                <input class="mailText" placeholder="Send to" name="sendTo" type="text" />
                 <br>
-                <input class="mailText2" placeholder="Subject" name="subject" type="text"/>
+                <input class="mailText2" placeholder="Subject" name="subject" type="text" />
                 <br>
                 <textarea class="writeMail" name="message"></textarea>
-                <input class="sendMail" type="submit" value="Send"/>
+                <input class="sendMail" type="submit" value="Send" />
             </form>
         </div>
     </div>
@@ -36,4 +36,3 @@
 {{else}}
 You are not logged in!
 {{/if}}
-
