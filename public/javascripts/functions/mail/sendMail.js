@@ -11,6 +11,10 @@ sendMail = (req, sendTo, subject, message) => {
         let inbox = results[0].inbox.replace(/(\r\n|\n|\r)/gm, "\\n");
         inbox = JSON.parse(inbox);
 
+        if(inbox.mails.length >= 14){
+            inbox.mails.shift();
+        }
+
         // Add mail to inbox of receiver
         inbox.mails.push(JSON.parse('{"sender":"' + req.session.mail + '", "subject":"' + subject + '", "message":"' + message + '"}'));
         inbox = JSON.stringify(inbox);
