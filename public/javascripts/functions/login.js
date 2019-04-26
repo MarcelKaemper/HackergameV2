@@ -11,7 +11,6 @@ function login(req, arg_login, arg_password) {
         var login = arg_login.toLowerCase();
         var password = arg_password;
         var sql;
-        var realip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     
         if(validateEmail(login)) {
             sql = "SELECT * FROM logins WHERE mail='" + login +"';";
@@ -31,6 +30,7 @@ function login(req, arg_login, arg_password) {
                 req.session.uuid = results[0].uuid;
                 req.session.displayName = results[0].displayName;
 
+                var realip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
                 req.session.realip = realip;
                 
                 req.session.boolConToSrv = false;
