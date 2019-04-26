@@ -44,12 +44,11 @@
 
 .writeMail{
     position: absolute;
+    width: 95%;
+    height: 200px;
     bottom: 0px;
     left: 0px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    width: 600px;
-    height: 200px;
+    margin: 10 10;
     resize: none;
 }
 
