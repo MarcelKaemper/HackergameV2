@@ -13,7 +13,6 @@ router.get('/', async (req, res, next) => {
 
 router.post('/sendMail', async (req, res, next) => {
     let message = req.body.message.replace(/(\r\n|\n|\r)/gm, "\\n");
-    console.log(message);
     await sendMail(req, req.body.sendTo, req.body.subject, message);
     res.redirect('/mail');
 });

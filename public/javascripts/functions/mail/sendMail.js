@@ -10,12 +10,10 @@ sendMail = (req, sendTo, subject, message) => {
         results = await query("SELECT inbox FROM mails WHERE uuid='" + sendToUuid + "';");
         let inbox = results[0].inbox.replace(/(\r\n|\n|\r)/gm, "\\n");
         inbox = JSON.parse(inbox);
-        console.log(inbox);
 
         // Add mail to inbox of receiver
         inbox.mails.push(JSON.parse('{"sender":"' + req.session.mail + '", "subject":"' + subject + '", "message":"' + message + '"}'));
         inbox = JSON.stringify(inbox);
-        console.log(inbox);
         await query("UPDATE mails SET inbox='" + inbox + "' WHERE uuid='" + sendToUuid + "';");
         resolve();
     });
