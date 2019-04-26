@@ -3,12 +3,18 @@ var router = express.Router();
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var stdCall = require('../public/javascripts/functions/stdCall.js');
 var sendMail = require('../public/javascripts/functions/mail/sendMail.js');
-var mailPreview = require('../public/javascripts/functions/mail/mailPreview.js');
+var loadInbox = require('../public/javascripts/functions/mail/loadInbox.js');
 
 router.get('/', async (req, res, next) => {
     stdCall(req);
-    let preview = await mailPreview(req.session.uuid);
-    res.render('mail/mail', stdParameter(req, 'Mail', {preview: preview}));
+    let inbox = await loadInbox(req.session.uuid);
+    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox}));
+});
+
+router.post('/', async (req, res, next) => {
+    stdCall(req);
+    let inbox = await loadInbox(req.session.uuid);
+    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox, sender: req.body.sender, subject: req.body.subject, message: req.body.message}));
 });
 
 router.post('/sendMail', async (req, res, next) => {
