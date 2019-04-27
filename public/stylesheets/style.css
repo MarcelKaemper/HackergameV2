@@ -1,55 +1,62 @@
 body {
     font-family: 'Josefin Slab', serif;
-	font-size: 100%;
-	background-color: #f7f7f7;
+    font-size: 100%;
+    background-color: #f7f7f7;
 }
 
-.topbar{
-	background-color: darkgrey;
-	border: 1px solid black;
-	height: 55px;
-	display: flex;
-	border-radius: 10px;
-
-	-webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
-	-moz-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
-    box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
-}
-.topbar a button{
-	margin-top: 4px;
-	margin-left: 4px;
-	top: 0;
-	height: 85%;
-	border: 0;
-	display: inline-block;
-	border-radius: 10px;
-}
-a{
-	text-decoration: none;
-}
-.topbar a button:hover{
-	border: 1px solid black;
-}
-.topbar a button:focus{
-	background-color: darkgrey;
+.topbar {
+    background-color: darkgrey;
+    border: 1px solid black;
+    height: 55px;
+    display: flex;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.1);
 }
 
-
-#earnMoneyLabel{
-	text-align: center;
-	border: none;
-	background-color: #cfcfcf;
+.topbar a button {
+    margin-top: 4px;
+    margin-left: 4px;
+    top: 0;
+    height: 85%;
+    border: 0;
+    display: inline-block;
+    border-radius: 10px;
 }
 
-.tablestyle{
+a {
+    text-decoration: none;
+}
+
+.topbar a button:hover {
+    background-color: darkgrey;
     border: 1px solid black;
 }
 
-.tablestyle th{
+.topbar a button:focus {
+    border: 0;
+    text-decoration: none;
+    outline: 0;
+    border: 1px solid black;
+    background-color: darkgrey;
+}
+
+#earnMoneyLabel {
+    text-align: center;
+    border: none;
+    background-color: #cfcfcf;
+}
+
+.tablestyle {
+    border: 1px solid black;
+}
+
+.tablestyle th {
     border-bottom: 1px solid black;
 }
 
-.tablestyle td{
+.tablestyle td {
     height: 35px;
     padding-left: 10px;
     padding-right: 10px;
