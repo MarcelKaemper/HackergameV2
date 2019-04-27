@@ -4,10 +4,10 @@ loadInbox = (uuid) => {
     return new Promise(async (resolve, reject) => {
         let inbox = (await query("SELECT inbox FROM mails WHERE uuid='"+uuid+"';"))[0].inbox;
         inbox = inbox.replace(/(\r\n|\n|\r)/gm, "\\n");
-        inbox = JSON.parse(inbox).mails;
-        let previews = []
-        for(let i = inbox.length-1; i>=0; i--){
-            previews.push({"sender":inbox[i].sender,"subject":inbox[i].subject, "message": inbox[i].message})
+        inbox = JSON.parse(inbox);
+        let previews = {"mails":[]};
+        for(let i = inbox.mails.length-1; i>=0; i--){
+            previews.mails.push({"index": i, "sender":inbox.mails[i].sender,"subject":inbox.mails[i].subject, "message": inbox.mails[i].message})
         }
         resolve(previews);
     });
