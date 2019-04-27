@@ -30,7 +30,7 @@ a {
 }
 
 .topbar a button:hover {
-    background-color: darkgrey;
+    background-color: #c5c5c5;
     border: 1px solid black;
 }
 
