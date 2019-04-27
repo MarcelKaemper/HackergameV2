@@ -19,9 +19,16 @@ Take a look at the [Wiki](https://github.com/MarcelKaemper/HackergameV2/wiki/tut
 
 ### Installing NodeJS
 
+#### Debian based distributions:
+
 ```
 apt update
 apt install nodejs
+```
+#### Arch based distributions:
+
+```
+pacman -S nodejs
 ```
 
 ### Downloading the repository
