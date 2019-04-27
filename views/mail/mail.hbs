@@ -5,7 +5,7 @@
         <div class="previewWrapper">
             {{#each preview}}
             <div class="mailPreview">
-                <form action="/mail/" method="POST">
+                <form class="previewForm" action="/mail/" method="POST">
                     <button class="previewMail" type="submit">
                         <input type="hidden" name="sender" value="{{this.sender}}">
                         <input type="hidden" name="subject" value="{{this.subject}}">
@@ -16,7 +16,7 @@
                     </button>
                 </form>
             </div>
-            <form action="/mail/deleteMail" method="POST">
+            <form class="previewForm" action="/mail/deleteMail" method="POST">
                 <div class="delMail">
                     <button class="delButton" type="submit">
                         <input type="hidden" name="index" value="{{this.index}}">
