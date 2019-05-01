@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     stdCall(req);
     let inbox = await loadInbox(req.session.uuid);
-    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox, sender: req.body.sender, subject: req.body.subject, message: req.body.message}));
+    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox.mails, sender: req.body.sender, subject: req.body.subject, message: req.body.message}));
 });
 
 router.post('/deleteMail', async (req, res, next) => {
