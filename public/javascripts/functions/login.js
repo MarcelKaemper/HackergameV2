@@ -5,6 +5,7 @@ var checkAdmin = require('./checkAdmin.js');
 var pwh = require('password-hash');
 var setLoggedIn = require('./setLoggedIn.js');
 var writeRealIP = require('./writeRealIP.js');
+var consolecmd = require('./console.js');
 
 function login(req, arg_login, arg_password) {
     return new Promise(async function(resolve, reject) {
@@ -47,6 +48,8 @@ function login(req, arg_login, arg_password) {
                 await writeActivity(req.session.uuid);
                 await setLoggedIn(req.session.loggedIn, req.session.uuid);
                 await writeRealIP(req, req.session.uuid, req.session.realip);
+
+                await consolecmd(req, "help");
     
                 resolve(true);
             } else {
