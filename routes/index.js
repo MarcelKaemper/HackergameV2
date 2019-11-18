@@ -15,7 +15,7 @@ var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 var stdParameter = require('../public/javascripts/functions/stdParameter.js');
 var listShop = require('../public/javascripts/functions/shop/listShop.js');
 var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
-var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
+var getItemData = require('../public/javascripts/functions/inventory/getItemData.js');
 var buyShop = require('../public/javascripts/functions/shop/buyShop.js');
 var sellShop = require('../public/javascripts/functions/shop/sellShop.js');
 var getTopPlayers = require('../public/javascripts/functions/getTopPlayers.js');
@@ -24,7 +24,7 @@ var getTopPlayers = require('../public/javascripts/functions/getTopPlayers.js');
 /* GET home page. */
 router.get('/', async function (req, res, next) {
 	await stdCall(req);
-	res.render('index', stdParameter(req, 'Hackergame', { onlinePlayers: await getOnlinePlayers(), topPlayers: await getTopPlayers() }));
+	res.render('index', stdParameter(req, 'Hackergame', { onlinePlayers: await getOnlinePlayers(), topPlayers: await getTopPlayers(), user: await getUserInfo(req) }));
 });
 
 router.get('/signup', async function (req, res, next) {
@@ -40,7 +40,7 @@ router.get('/login', async function (req, res, next) {
 router.get('/bank', async function (req, res, next) {
 	await stdCall(req);
 	let players = await getAllPlayers(req.session.uuid, "everyoneButYou");
-	res.render('bank', stdParameter(req, 'Bank', { money: req.session.money, players: players }));
+	res.render('bank', stdParameter(req, 'Bank', { money: req.session.money, players: players, user: await getUserInfo(req) }));
 });
 
 router.post('/bank', async function (req, res, next) {
@@ -51,7 +51,7 @@ router.post('/bank', async function (req, res, next) {
 
 router.get('/admin', async function (req, res, next) {
 	await stdCall(req);
-	res.render('admin', stdParameter(req, 'Adminarea', { players: await getAllPlayers(req.session.uuid, "everyone") }));
+	res.render('admin', stdParameter(req, 'Adminarea', { players: await getAllPlayers(req.session.uuid, "everyone"), user: await getUserInfo(req) }));
 });
 
 router.post('/deposit', async function (req, res, next) {
@@ -73,12 +73,12 @@ router.get('/logout', async function (req, res, next) {
 
 router.get('/console', async function (req, res, next) {
 	await stdCall(req);
-	res.render('console', stdParameter(req, 'Console', { message: req.session.command_log }));
+	res.render('console', stdParameter(req, 'Console', { message: req.session.command_log, user: await getUserInfo(req) }));
 });
 
 router.get('/shop', async function (req, res, next) {
 	await stdCall(req);
-	res.render('shop', stdParameter(req, 'Shop', { shoplist: await listShop(), message: req.query.error }));
+	res.render('shop', stdParameter(req, 'Shop', { shoplist: await listShop(), message: req.query.error, user: await getUserInfo(req) }));
 });
 
 router.post('/buyshop', async function (req, res, next) {
@@ -97,8 +97,8 @@ router.post('/sellshop', async function (req, res, next) {
 
 router.get('/inventory', async function (req, res, next) {
 	var getinventory = await loadInventory(req.session.uuid);
-	var inventory = await getItemName(getinventory);
-	res.render('inventory', stdParameter(req, 'Inventory', { inventory: inventory }));
+	var inventory = await getItemData(getinventory);
+	res.render('inventory', stdParameter(req, 'Inventory', { inventory: inventory, user: await getUserInfo(req) }));
 });
 
 router.get('/cashbonus', async function (req, res, next) {

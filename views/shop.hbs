@@ -8,14 +8,16 @@
 <center>
     <table class="shoplist" width="90%">
         <tr>
-            <th width="50%">Item</th>
+            <th width="25%">Item</th>
             <th width="25%">Price</th>
+            <th width="25%">Category</th>
             <th width="25%">Action</th>
         </tr>
         {{#each shoplist}}
         <tr>
             <td>{{this.itemName}}</td>
             <td>${{this.itemPrice}}</td>
+            <td>{{this.category}}</td>
             <form action="/buyshop" method="post">
             <td><input type="hidden" name="buyprice" value="{{this.itemPrice}}"><button type="submit" name="buyitem" value="{{this.uuid}}">Buy</button></td>
             </form>

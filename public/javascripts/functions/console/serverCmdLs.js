@@ -1,11 +1,11 @@
 var loadSrvInventory = require('../inventory/loadSrvInventory.js');
 var uuidName = require('../uuidName.js');
-var getItemName = require('../inventory/getItemName.js');
+var getItemData = require('../inventory/getItemData.js');
 
 async function serverCmdLs(req, cmd, command, callback) {
     var srvuuid = await uuidName.toSrvUuid(req.session.conToSrv);
     var inventory = await loadSrvInventory(srvuuid);
-    var getinvname = await getItemName(inventory);
+    var getinvname = await getItemData(inventory);
     var length = getinvname.inventory.length;
 
     if(length > 0) {
