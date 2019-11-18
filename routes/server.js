@@ -12,6 +12,7 @@ var loadInventory = require('../public/javascripts/functions/inventory/loadInven
 var getItemName = require('../public/javascripts/functions/inventory/getItemName.js');
 var installSrvItem = require('../public/javascripts/functions/inventory/installSrvItem.js');
 var consolecmd = require('../public/javascripts/functions/console.js');
+var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async function(req, res, next) {
 	await stdCall(req);
@@ -19,7 +20,7 @@ router.get('/', async function(req, res, next) {
 	var srvlist = await listServer(req.session.uuid);
 	var getinventory = await loadInventory(req.session.uuid);
 	var inventory = await getItemName(getinventory);
-	res.render('server', stdParameter(req, 'Server', {countServer: count, message: req.query.error, listServer: srvlist, inventory: inventory}));
+	res.render('server', stdParameter(req, 'Server', {countServer: count, message: req.query.error, listServer: srvlist, inventory: inventory, user: await getUserInfo(req)}));
 });
 
 router.post('/buyserver', async function(req, res, next) {

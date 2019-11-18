@@ -6,6 +6,7 @@ var getStock = require('../public/javascripts/functions/stocks/getStock.js');
 var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
 var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
 var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
+var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 
 router.get('/', async function (req, res, next) {
@@ -13,13 +14,13 @@ router.get('/', async function (req, res, next) {
 	if (req.session.loggedIn) {
 		var ownedStocks = await loadStocks(req.session.uuid);
 	}
-	res.render('stocks/stocks', stdParameter(req, 'Stocks', { money: req.session.money, ownedStocks: ownedStocks }));
+	res.render('stocks/stocks', stdParameter(req, 'Stocks', { money: req.session.money, ownedStocks: ownedStocks, user: await getUserInfo(req) }));
 });
 
 router.post('/getStocks', async (req, res, next) => {
 	await stdCall(req);
 	let info = await getStock(req.body.stockName, "symbol,companyName,latestPrice");
-	res.render('stocks/stocks', stdParameter(req, 'Stocks', { buyable: parseInt(Math.floor(req.session.money / Math.round(info.latestPrice))), price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol }));
+	res.render('stocks/stocks', stdParameter(req, 'Stocks', { buyable: parseInt(Math.floor(req.session.money / Math.round(info.latestPrice))), price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol, user: await getUserInfo(req) }));
 })
 
 router.post('/buystock', async (req, res, next) => {

@@ -11,35 +11,109 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/inventory.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/clan.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/mail.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="/stylesheets/dropdown.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/console.css">
 	</head>
 	<body>
 		<div class='topbar'>
-			<a href="/"><button>Home</button></a>
-			{{#unless loggedIn}}
-			<a href="/login"><button>Login</button></a>
-			<a href="/signup"><button>Sign up</button></a>
-			{{else}}
-			<a href="/profile"><button>Profile</button></a>
-			<a href="/clan"><button>Clan</button></a>
-			<a href="/console"><button>Console</button></a>
-			<a href="/stocks"><button>Stocks</button></a>
-			<a href="/mail"><button>Mail</button></a>
-			<a href="/bank"><button>Bank</button></a>
-			<a href="/server"><button>Server</button></a>
-			<a href="/shop"><button>Shop</button></a>
-			<a href="/inventory"><button>Inventory</button></a>
-			{{#if isAdmin}}
-			<a href="/admin"><button>Adminarea</button></a>
-			{{/if}}
-			<a href="https://www.github.com/marcelkaemper/hackergamev2/wiki/tutorial" target="_blank"><button>Wiki</button></a>
-			<a href="/logout"><button>Logout</button></a>
-			{{/unless}}
+			<ul>
+				<li><a href="/">Home</a></li>
+				{{#unless loggedIn}}
+				<li style="float:right"><a href="/signup">Sign up</a></li>
+				<li style="float:right"><a href="/login">Login</a></li>
+				{{else}}
+
+				<!-- <li><a href="/profile">Profile</a></li> -->
+				<li><a href="/clan">Clan</a></li>
+				<!-- <li><a href="/console">Console</a></li> -->
+				<!-- <li><a href="/stocks">Stocks</a></li> -->
+
+				<div class="dropdown">
+					<button class="dropbtn">Terminal 
+						<!-- <i class="fa fa-caret-down"></i> -->
+					</button>
+					<div class="dropdown-content">
+						<a href="/console">Console</a>
+						<a href="/server">Server</a>
+					</div>
+				</div>
+
+				<li><a href="/mail">Mail</a></li>
+				<!-- <li><a href="/bank">Bank</a></li> -->
+				<!-- <li><a href="/server">Server</a></li> -->
+
+				<div class="dropdown">
+					<button class="dropbtn">Economy 
+						<!-- <i class="fa fa-caret-down"></i> -->
+					</button>
+					<div class="dropdown-content">
+						<a href="/bank">Bank</a>
+						<a href="/stocks">Stocks</a>
+					</div>
+				</div>
+				
+				<li><a href="/shop">Shop</a></li>
+				<li><a href="/inventory">Inventory</a></li>
+				{{#if isAdmin}}
+				<li><a href="/admin">Adminarea</a></li>
+				{{/if}}
+				<li><a href="https://www.github.com/marcelkaemper/hackergamev2/wiki/tutorial" target="_blank">Wiki</a></li>
+				<li style="float:right"><a href="/logout">Logout</a></li>
+				{{/unless}}
+			</ul>
 		</div>
-		<div class="content">
-			<div class="content_box">
-				{{{body}}}
+		{{#if loggedIn}}
+		<div class="page_content">
+			<div class="content_2" style="width: 15%; float: left;">
+				<div class="content_box_2">
+					<table class="userInfo" width="90%">
+						<tr>
+							<td width="33%">Name:</td>
+							<td width="66%">{{user.displayName}}</td>
+						</tr>
+						<tr>
+							<td>Money:</td>
+							<td>${{user.money}}</td>
+						</tr>
+						<tr>
+							<td>Clan:</td>
+							<td>{{user.clan}}</td>
+						</tr>
+						<tr>
+							<td>Level:</td>
+							<td>{{user.level}}</td>
+						</tr>
+						<tr>
+							<td>XP:</td>
+							<td>{{user.xp}}</td>
+						</tr>
+						<tr>
+							<td>Needed:</td>
+							<td>{{user.neededXP}}</td>
+						</tr>
+						<tr>
+							<td>IP:</td>
+							<td>{{user.ip}}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-		</div>		
+			<div style="width: 84%; float: right;" class="content">
+				<div class="content_box">
+					{{{body}}}
+				</div>
+			</div>
+		</div>
+		{{else}}
+		<div class="page_content">
+			<div style="width: 90%;" class="content">
+				<div class="content_box">
+					{{{body}}}
+				</div>
+			</div>
+		</div>
+		{{/if}}
 	</body>
 </html>

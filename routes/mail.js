@@ -5,17 +5,18 @@ var stdCall = require('../public/javascripts/functions/stdCall.js');
 var sendMail = require('../public/javascripts/functions/mail/sendMail.js');
 var loadInbox = require('../public/javascripts/functions/mail/loadInbox.js');
 var deleteMail = require('../public/javascripts/functions/mail/delMail.js');
+var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async (req, res, next) => {
     stdCall(req);
     let inbox = await loadInbox(req.session.uuid);
-    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox.mails}));
+    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox.mails, user: await getUserInfo(req)}));
 });
 
 router.post('/', async (req, res, next) => {
     stdCall(req);
     let inbox = await loadInbox(req.session.uuid);
-    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox.mails, sender: req.body.sender, subject: req.body.subject, message: req.body.message}));
+    res.render('mail/mail', stdParameter(req, 'Mail', {preview: inbox.mails, sender: req.body.sender, subject: req.body.subject, message: req.body.message, user: await getUserInfo(req) }));
 });
 
 router.post('/deleteMail', async (req, res, next) => {

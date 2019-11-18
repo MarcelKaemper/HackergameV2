@@ -7,13 +7,14 @@ var createClan = require('../public/javascripts/functions/clans/createClan.js');
 var joinClan = require('../public/javascripts/functions/clans/joinClan');
 var clanInfo = require('../public/javascripts/functions/clans/clanInfo');
 var leaveClan = require('../public/javascripts/functions/clans/leaveClan.js');
+var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async (req, res, next) => {
     await stdCall(req);
     let clans = await loadClans();
     let currentClan = req.session.clan;
     let currentMembers = await clanInfo(currentClan)
-    res.render('clan/clan', stdParameter(req, 'Clans', { currentClan: currentClan, members: currentMembers, clans: clans }));
+    res.render('clan/clan', stdParameter(req, 'Clans', { currentClan: currentClan, members: currentMembers, clans: clans, user: await getUserInfo(req) }));
 });
 
 router.post('/joinClan', async (req, res, next) => {
@@ -33,7 +34,7 @@ router.get('/info', async (req, res, next) => {
         clan = req.session.clan;
     }
     let members = await clanInfo(clan);
-    res.render('clan/info', stdParameter(req, clan, { members: members }));
+    res.render('clan/info', stdParameter(req, clan, { members: members, user: await getUserInfo(req) }));
 })
 
 router.get('/leaveclan', async (req, res, next) => {
