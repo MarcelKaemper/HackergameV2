@@ -9,7 +9,7 @@ var sellServer = require('../public/javascripts/functions/server/sellServer.js')
 var repairServer = require('../public/javascripts/functions/server/repairServer.js');
 var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
 var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
-var getItemName = require('../public/javascripts/functions/inventory/getItemData.js/index.js');
+var getItemData = require('../public/javascripts/functions/inventory/getItemData.js');
 var installSrvItem = require('../public/javascripts/functions/inventory/installSrvItem.js');
 var consolecmd = require('../public/javascripts/functions/console.js');
 var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
@@ -19,7 +19,7 @@ router.get('/', async function(req, res, next) {
 	var count = await countServer(req.session.uuid);
 	var srvlist = await listServer(req.session.uuid);
 	var getinventory = await loadInventory(req.session.uuid);
-	var inventory = await getItemName(getinventory);
+	var inventory = await getItemData(getinventory);
 	res.render('server', stdParameter(req, 'Server', {countServer: count, message: req.query.error, listServer: srvlist, inventory: inventory, user: await getUserInfo(req)}));
 });
 
