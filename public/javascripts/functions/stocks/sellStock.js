@@ -1,6 +1,6 @@
-var changeMoney = require('../changeMoney.js');
-var loadStock = require('./loadStocks.js');
-var query = require('../../database/dbquery.js');
+const changeMoney = require('../changeMoney.js');
+const loadStock = require('./loadStocks.js');
+const query = require('../../database/dbquery.js');
 
 const sellStock = (uuid, symbol, count, worth) => {
     return new Promise(async (resolve, reject) => {

@@ -1,4 +1,4 @@
-var query = require('../../../database/dbquery.js');
+const query = require('../../../database/dbquery.js');
 
 function addServerRevenue(srvuuid, newrevenue) {
     return new Promise(async function(resolve, reject) {

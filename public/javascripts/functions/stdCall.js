@@ -1,5 +1,5 @@
-var sessionReload = require('./loadSessionVars.js');
-var writeActivity = require('./writeActivity.js');
+const sessionReload = require('./loadSessionVars.js');
+const writeActivity = require('./writeActivity.js');
 
 async function stdCall(req) {
 	return new Promise(async function(resolve, reject) {

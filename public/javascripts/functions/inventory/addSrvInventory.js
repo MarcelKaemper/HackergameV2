@@ -1,5 +1,5 @@
-var query = require('../../database/dbquery.js');
-var loadSrvInventory = require('./loadSrvInventory.js');
+const query = require('../../database/dbquery.js');
+const loadSrvInventory = require('./loadSrvInventory.js');
 
 function addSrvInventory(srvuuid, itemuuid) {
     return new Promise(async function(resolve, reject) {

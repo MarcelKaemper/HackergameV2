@@ -1,19 +1,19 @@
-var createError = require('http-errors');
-var express = require('express');
-var session = require('express-session');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var hbs = require('express-handlebars')
-var cronjob = require('./public/javascripts/functions/cronjob.js');
+const createError = require('http-errors');
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const hbs = require('express-handlebars')
+const cronjob = require('./public/javascripts/functions/cronjob.js');
 
-var indexRouter = require('./routes/index');
-var serverRouter = require('./routes/server'); 
-var stocksRouter = require('./routes/stocks');
-var clanRouter = require('./routes/clan');
-var mailRouter = require('./routes/mail');
+const indexRouter = require('./routes/index');
+const serverRouter = require('./routes/server'); 
+const stocksRouter = require('./routes/stocks');
+const clanRouter = require('./routes/clan');
+const mailRouter = require('./routes/mail');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts'}));

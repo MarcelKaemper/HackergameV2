@@ -1,9 +1,8 @@
-var query = require('../../database/dbquery.js');
-var toUuid = require('../uuidName.js');
-var delUser = require('./delUser.js');
-var setxp = require('../leveling/setXP.js');
-var setMoney = require('../changeMoney.js');
-var resetPassword = require('./resetPassword.js');
+const toUuid = require('../uuidName.js');
+const delUser = require('./delUser.js');
+const setxp = require('../leveling/setXP.js');
+const setMoney = require('../changeMoney.js');
+const resetPassword = require('./resetPassword.js');
 
 
 function adminHandler(operation, username, additional){

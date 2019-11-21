@@ -1,5 +1,5 @@
-var changeMoney = require('../changeMoney.js');
-var addInventory = require('../inventory/addInventory.js');
+const changeMoney = require('../changeMoney.js');
+const addInventory = require('../inventory/addInventory.js');
 
 function buyShop(req) {
     return new Promise(async function(resolve, reject) {

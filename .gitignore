@@ -1,6 +1,9 @@
 # DB File
 public/javascripts/database/dbconn.js
 
+# Secret
+secret.js
+
 # Logs
 logs
 *.log

@@ -1,4 +1,4 @@
-var net = require('net');
+const net = require('net');
 
 function checkIP(ipaddress, callback) {
     if(net.isIPv4(ipaddress)) {

@@ -1,6 +1,7 @@
-var checkIP = require('../checkIP.js');
-var query = require('../../database/dbquery.js');
-var changeMoney = require('../changeMoney.js');
+const checkIP = require('../checkIP.js');
+const query = require('../../database/dbquery.js');
+const changeMoney = require('../changeMoney.js');
+//const checkFirewall = require('./checkFirewall.js');
 
 function cmdMoney(req, cmd, command, callback) {
     var operation = command[1];
@@ -30,7 +31,10 @@ function cmdMoney(req, cmd, command, callback) {
                                 await changeMoney(req.session.uuid, targetMoney1, "give");
                                 await changeMoney(results1[0].uuid, targetMoney1, "take");
 
+                                //var success = await checkFirewall(req.session.uuid, results1[0].uuid);
+
                                 req.session.command_log += "Transfered $" + targetMoney1 + " from " + target + "!\n";
+                                //req.session.command_log += "> " + success + "\n";
                                 callback();
                             } else if(results2.length == 1) {
                                 req.session.command_log += "You can't hack this target currently!\n";

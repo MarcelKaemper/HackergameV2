@@ -1,5 +1,5 @@
-var query = require('../../database/dbquery.js');
-var changeMoney = require('../changeMoney.js');
+const query = require('../../database/dbquery.js');
+const changeMoney = require('../changeMoney.js');
 
 function repairServer(req) {
     return new Promise(async function(resolve, reject) {

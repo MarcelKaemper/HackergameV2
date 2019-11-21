@@ -1,4 +1,4 @@
-var query = require('../../database/dbquery.js');
+const query = require('../../database/dbquery.js');
 
 function listServer(usruuid) {
     return new Promise(async function(resolve, reject) {

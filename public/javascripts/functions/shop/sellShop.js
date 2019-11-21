@@ -1,6 +1,6 @@
-var changeMoney = require('../changeMoney.js');
-var delInventory = require('../inventory/delInventory.js');
-var query = require('../../database/dbquery.js');
+const changeMoney = require('../changeMoney.js');
+const delInventory = require('../inventory/delInventory.js');
+const query = require('../../database/dbquery.js');
 
 function sellShop(req) {
     return new Promise(async function(resolve, reject) {

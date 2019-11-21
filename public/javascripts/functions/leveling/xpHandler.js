@@ -1,4 +1,4 @@
-var setLevel = require('./setLevel.js');
+const setLevel = require('./setLevel.js');
 
 //level = parameter
 //faktor = 125
