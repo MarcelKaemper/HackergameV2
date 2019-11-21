@@ -1,6 +1,6 @@
-var query = require('../../database/dbquery.js');
-var handleXP = require('./xpHandler.js');
-var uuidName = require('../uuidName.js');
+const query = require('../../database/dbquery.js');
+const handleXP = require('./xpHandler.js');
+const uuidName = require('../uuidName.js');
 
 function setXP(uuid, amount, operation) {
 	return new Promise(async function(resolve, reject) {

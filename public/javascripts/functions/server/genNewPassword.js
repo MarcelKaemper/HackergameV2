@@ -1,5 +1,5 @@
-var generator = require('../generator.js');
-var query = require('../../database/dbquery.js');
+const generator = require('../generator.js');
+const query = require('../../database/dbquery.js');
 
 function genNewPassword(req) {
     return new Promise(async function(resolve, reject) {

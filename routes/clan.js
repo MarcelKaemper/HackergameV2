@@ -1,13 +1,13 @@
-var express = require('express');
-var router = express.Router();
-var stdParameter = require('../public/javascripts/functions/stdParameter.js');
-var stdCall = require('../public/javascripts/functions/stdCall.js');
-var loadClans = require('../public/javascripts/functions/clans/loadClans.js');
-var createClan = require('../public/javascripts/functions/clans/createClan.js');
-var joinClan = require('../public/javascripts/functions/clans/joinClan');
-var clanInfo = require('../public/javascripts/functions/clans/clanInfo');
-var leaveClan = require('../public/javascripts/functions/clans/leaveClan.js');
-var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
+const express = require('express');
+const router = express.Router();
+const stdParameter = require('../public/javascripts/functions/stdParameter.js');
+const stdCall = require('../public/javascripts/functions/stdCall.js');
+const loadClans = require('../public/javascripts/functions/clans/loadClans.js');
+const createClan = require('../public/javascripts/functions/clans/createClan.js');
+const joinClan = require('../public/javascripts/functions/clans/joinClan');
+const clanInfo = require('../public/javascripts/functions/clans/clanInfo');
+const leaveClan = require('../public/javascripts/functions/clans/leaveClan.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async (req, res, next) => {
     await stdCall(req);

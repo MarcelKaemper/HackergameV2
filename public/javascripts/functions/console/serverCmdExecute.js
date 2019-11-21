@@ -1,7 +1,7 @@
-var uuidName = require('../uuidName.js');
-var checkSrvItem = require('../inventory/checkSrvItem.js');
-var setSrvExecuted = require('../server/setSrvExecuted.js');
-var query = require('../../database/dbquery.js');
+const uuidName = require('../uuidName.js');
+const checkSrvItem = require('../inventory/checkSrvItem.js');
+const setSrvExecuted = require('../server/setSrvExecuted.js');
+const query = require('../../database/dbquery.js');
 
 async function serverCmdExecute(req, cmd, command, callback) {
     var srvuuid = await uuidName.toSrvUuid(req.session.conToSrv);

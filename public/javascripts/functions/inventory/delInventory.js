@@ -1,5 +1,5 @@
-var query = require('../../database/dbquery.js');
-var loadInventory = require('./loadInventroy.js');
+const query = require('../../database/dbquery.js');
+const loadInventory = require('./loadInventroy.js');
 
 function delInventory(usruuid, itemuuid) {
     return new Promise(async function(resolve, reject) {

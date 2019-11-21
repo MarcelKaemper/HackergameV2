@@ -1,7 +1,7 @@
-var query = require('../../database/dbquery.js');
-var loadClans = require('./loadClans.js');
-var generator = require('../generator.js');
-var joinClan = require('./joinClan.js');
+const query = require('../../database/dbquery.js');
+const loadClans = require('./loadClans.js');
+const generator = require('../generator.js');
+const joinClan = require('./joinClan.js');
 
 const createClan = (uuid, name, maxMembers, username) => {
     return new Promise(async(resolve, reject) => {

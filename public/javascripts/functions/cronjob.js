@@ -1,7 +1,7 @@
-var cron = require('node-cron');
-var resetCashbonus = require('./resetCashbonus.js');
-var logoutInactive = require('./logoutInactivePlayers.js');
-var addRevenue = require('./server/revenue/addRevenue.js');
+const cron = require('node-cron');
+const resetCashbonus = require('./resetCashbonus.js');
+const logoutInactive = require('./logoutInactivePlayers.js');
+const addRevenue = require('./server/revenue/addRevenue.js');
 
 const cronjob = ()  => {
 	cron.schedule("* * * * *", function() {

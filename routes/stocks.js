@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var stdCall = require('../public/javascripts/functions/stdCall.js');
-var stdParameter = require('../public/javascripts/functions/stdParameter.js');
-var getStock = require('../public/javascripts/functions/stocks/getStock.js');
-var buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
-var loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
-var sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
-var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
+const express = require('express');
+const router = express.Router();
+const stdCall = require('../public/javascripts/functions/stdCall.js');
+const stdParameter = require('../public/javascripts/functions/stdParameter.js');
+const getStock = require('../public/javascripts/functions/stocks/getStock.js');
+const buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
+const loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
+const sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 
 router.get('/', async function (req, res, next) {
@@ -19,8 +19,8 @@ router.get('/', async function (req, res, next) {
 
 router.post('/getStocks', async (req, res, next) => {
 	await stdCall(req);
-	let info = await getStock(req.body.stockName, "symbol,companyName,latestPrice");
-	res.render('stocks/stocks', stdParameter(req, 'Stocks', { buyable: parseInt(Math.floor(req.session.money / Math.round(info.latestPrice))), price: parseInt(Math.round(info.latestPrice)), company: info.companyName, symbol: info.symbol, user: await getUserInfo(req) }));
+	let info = await getStock(req.body.stockName);
+	res.render('stocks/stocks', stdParameter(req, 'Stocks', { buyable: parseInt(Math.floor(req.session.money / Math.round(info.price))), price: parseInt(Math.round(info.price)), companyName: "", symbol: info.symbol, user: await getUserInfo(req) }));
 })
 
 router.post('/buystock', async (req, res, next) => {

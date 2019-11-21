@@ -1,6 +1,6 @@
-var query = require('../database/dbquery.js');
-var addMoney = require('./changeMoney.js');
-var setXP = require('./leveling/setXP.js');
+const query = require('../database/dbquery.js');
+const addMoney = require('./changeMoney.js');
+const setXP = require('./leveling/setXP.js');
 
 function cashbonus(uuid) {
     return new Promise(async function(resolve, reject) {

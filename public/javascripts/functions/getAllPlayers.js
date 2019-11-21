@@ -1,5 +1,4 @@
-var query = require ('../database/dbquery.js');
-var checkAdmin = require ('../functions/checkAdmin.js');
+const query = require ('../database/dbquery.js');
 
 function getAllPlayers(ownUuid, operator) {
 	return new Promise(async function(resolve, reject) {

@@ -1,18 +1,18 @@
-var express = require('express');
-var router = express.Router();
-var stdParameter = require('../public/javascripts/functions/stdParameter.js');
-var stdCall = require('../public/javascripts/functions/stdCall.js');
-var countServer = require('../public/javascripts/functions/server/countServer.js');
-var buyServer = require('../public/javascripts/functions/server/buyServer.js');
-var listServer = require('../public/javascripts/functions/server/listServer.js');
-var sellServer = require('../public/javascripts/functions/server/sellServer.js');
-var repairServer = require('../public/javascripts/functions/server/repairServer.js');
-var genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
-var loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
-var getItemData = require('../public/javascripts/functions/inventory/getItemData.js');
-var installSrvItem = require('../public/javascripts/functions/inventory/installSrvItem.js');
-var consolecmd = require('../public/javascripts/functions/console.js');
-var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
+const express = require('express');
+const router = express.Router();
+const stdParameter = require('../public/javascripts/functions/stdParameter.js');
+const stdCall = require('../public/javascripts/functions/stdCall.js');
+const countServer = require('../public/javascripts/functions/server/countServer.js');
+const buyServer = require('../public/javascripts/functions/server/buyServer.js');
+const listServer = require('../public/javascripts/functions/server/listServer.js');
+const sellServer = require('../public/javascripts/functions/server/sellServer.js');
+const repairServer = require('../public/javascripts/functions/server/repairServer.js');
+const genNewPassword = require('../public/javascripts/functions/server/genNewPassword.js');
+const loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
+const getItemData = require('../public/javascripts/functions/inventory/getItemData.js');
+const installSrvItem = require('../public/javascripts/functions/inventory/installSrvItem.js');
+const consolecmd = require('../public/javascripts/functions/console.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async function(req, res, next) {
 	await stdCall(req);

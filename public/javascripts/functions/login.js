@@ -1,11 +1,11 @@
-var validateEmail = require('./validateEmail.js');
-var query = require('../database/dbquery.js');
-var writeActivity = require('./writeActivity.js');
-var checkAdmin = require('./checkAdmin.js');
-var pwh = require('password-hash');
-var setLoggedIn = require('./setLoggedIn.js');
-var writeRealIP = require('./writeRealIP.js');
-var consolecmd = require('./console.js');
+const validateEmail = require('./validateEmail.js');
+const query = require('../database/dbquery.js');
+const writeActivity = require('./writeActivity.js');
+const checkAdmin = require('./checkAdmin.js');
+const pwh = require('password-hash');
+const setLoggedIn = require('./setLoggedIn.js');
+const writeRealIP = require('./writeRealIP.js');
+const consolecmd = require('./console.js');
 
 function login(req, arg_login, arg_password) {
     return new Promise(async function(resolve, reject) {

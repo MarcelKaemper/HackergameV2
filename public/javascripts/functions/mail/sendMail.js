@@ -1,4 +1,4 @@
-var query = require('../../database/dbquery.js');
+const query = require('../../database/dbquery.js');
 
 sendMail = (req, sendTo, subject, message) => {
     return new Promise(async (resolve, reject) => {

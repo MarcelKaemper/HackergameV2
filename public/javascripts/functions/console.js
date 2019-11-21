@@ -1,20 +1,20 @@
 // >> ######################################## << //
-var consoleDefault = require('./console/consoleDefault.js');
-var serverDefault = require('./console/serverDefault.js');
+const consoleDefault = require('./console/consoleDefault.js');
+const serverDefault = require('./console/serverDefault.js');
 // >> ############ Console Commands ########## << //
-var cmdHelp = require('./console/cmdHelp.js');
-var cmdClear = require('./console/cmdClear.js');
-var cmdCheck = require('./console/cmdCheck.js');
-var cmdXp = require('./console/cmdXp.js');
-var cmdABank = require('./console/cmdABank.js');
-var cmdScan = require('./console/cmdScan.js');
-var cmdMoney = require('./console/cmdMoney.js');
-var cmdServer = require('./console/cmdServer.js');
+const cmdHelp = require('./console/cmdHelp.js');
+const cmdClear = require('./console/cmdClear.js');
+const cmdCheck = require('./console/cmdCheck.js');
+const cmdXp = require('./console/cmdXp.js');
+const cmdABank = require('./console/cmdABank.js');
+const cmdScan = require('./console/cmdScan.js');
+const cmdMoney = require('./console/cmdMoney.js');
+const cmdServer = require('./console/cmdServer.js');
 // >> ######################################## << //
 // >> ############ Server Commands ########## << //
-var serverCmdExit = require('./console/serverCmdExit.js');
-var serverCmdLs = require('./console/serverCmdLs.js');
-var serverCmdExecute = require('./console/serverCmdExecute.js');
+const serverCmdExit = require('./console/serverCmdExit.js');
+const serverCmdLs = require('./console/serverCmdLs.js');
+const serverCmdExecute = require('./console/serverCmdExecute.js');
 // >> ######################################## << //
 
 function consolecmd(req, cmd) {

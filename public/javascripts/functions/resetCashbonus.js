@@ -1,5 +1,5 @@
-var query = require('../database/dbquery.js');
-var moment = require('moment'); 
+const query = require('../database/dbquery.js');
+const moment = require('moment'); 
 
 function resetCashbonus() {
     return new Promise(async function(resolve, reject) {

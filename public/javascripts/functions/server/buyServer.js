@@ -1,9 +1,9 @@
-var query = require('../../database/dbquery.js');
-var checkExtend = require('../checkExtend.js');
-var generator = require('../generator.js');
-var changeMoney = require('../changeMoney.js');
-var setXP = require('../leveling/setXP.js');
-var getLevel = require('../leveling/getLevel.js');
+const query = require('../../database/dbquery.js');
+const checkExtend = require('../checkExtend.js');
+const generator = require('../generator.js');
+const changeMoney = require('../changeMoney.js');
+const setXP = require('../leveling/setXP.js');
+const getLevel = require('../leveling/getLevel.js');
 
 function buyServer(req) {
     return new Promise(async function(resolve, reject) {
