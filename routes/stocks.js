@@ -20,7 +20,9 @@ router.get('/', async function (req, res, next) {
 router.post('/getStocks', async (req, res, next) => {
 	await stdCall(req);
 	let info = await getStock(req.body.stockName);
-	res.render('stocks/stocks', stdParameter(req, 'Stocks', { buyable: parseInt(Math.floor(req.session.money / Math.round(info.price))), price: parseInt(Math.round(info.price)), companyName: "", symbol: info.symbol, user: await getUserInfo(req) }));
+	let price = info;
+	console.log(price);
+	res.render('stocks/stocks', stdParameter(req, 'Stocks', { buyable: parseInt(Math.floor(req.session.money / Math.round(price))), price: parseInt(Math.round(price)), companyName: "", symbol: price, user: await getUserInfo(req) }));
 })
 
 router.post('/buystock', async (req, res, next) => {

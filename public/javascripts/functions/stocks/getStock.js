@@ -6,7 +6,7 @@ const getStock = (name) => {
     return new Promise((resolve, reject) => {
     	fetch(url)
     	.then(res => res.json())
-    	.then(data => console.log(data["Global Quote"].price));
+    	.then(data => resolve(data["Global Quote"]["05. price"]));
     });
 }
 
