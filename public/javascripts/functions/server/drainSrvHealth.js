@@ -1,5 +1,5 @@
-var query = require('../../database/dbquery.js');
-var getSrvHealth = require('./getSrvHealth.js');
+const query = require('../../database/dbquery.js');
+const getSrvHealth = require('./getSrvHealth.js');
 
 function drainSrvHealth(srvuuid, amount) {
     return new Promise(async function(resolve, reject) {

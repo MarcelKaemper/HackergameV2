@@ -1,4 +1,4 @@
-var query = require('../../database/dbquery.js');
+const query = require('../../database/dbquery.js');
 
 const joinClan = (clan_uuid, clan_name, uuid, name, currentMemberCount, maxMembers) => {
     return new Promise(async(resolve, reject) => {

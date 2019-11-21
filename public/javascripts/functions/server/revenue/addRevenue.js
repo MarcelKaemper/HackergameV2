@@ -1,7 +1,7 @@
-var query = require('../../../database/dbquery.js');
-var addServerRevenue = require('./addServerRevenue.js');
-var changeMoney = require('../../changeMoney.js');
-var drainSrvHealth = require('../drainSrvHealth.js');
+const query = require('../../../database/dbquery.js');
+const addServerRevenue = require('./addServerRevenue.js');
+const changeMoney = require('../../changeMoney.js');
+const drainSrvHealth = require('../drainSrvHealth.js');
 
 function addRevenue() {
     return new Promise(async function(resolve, reject) {

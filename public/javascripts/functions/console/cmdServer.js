@@ -1,6 +1,6 @@
-var checkIP = require('../checkIP.js');
-var checkIfCorrect = require('../server/checkIfCorrect.js');
-var checkExtend = require('../checkExtend.js');
+const checkIP = require('../checkIP.js');
+const checkIfCorrect = require('../server/checkIfCorrect.js');
+const checkExtend = require('../checkExtend.js');
 
 function cmdServer(req, cmd, command, callback) {
     var operation = command[1];

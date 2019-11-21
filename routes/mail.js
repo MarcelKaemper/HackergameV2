@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var stdParameter = require('../public/javascripts/functions/stdParameter.js');
-var stdCall = require('../public/javascripts/functions/stdCall.js');
-var sendMail = require('../public/javascripts/functions/mail/sendMail.js');
-var loadInbox = require('../public/javascripts/functions/mail/loadInbox.js');
-var deleteMail = require('../public/javascripts/functions/mail/delMail.js');
-var getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
+const express = require('express');
+const router = express.Router();
+const stdParameter = require('../public/javascripts/functions/stdParameter.js');
+const stdCall = require('../public/javascripts/functions/stdCall.js');
+const sendMail = require('../public/javascripts/functions/mail/sendMail.js');
+const loadInbox = require('../public/javascripts/functions/mail/loadInbox.js');
+const deleteMail = require('../public/javascripts/functions/mail/delMail.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async (req, res, next) => {
     stdCall(req);

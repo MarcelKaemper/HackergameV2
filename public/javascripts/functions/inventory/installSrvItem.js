@@ -1,8 +1,8 @@
-var query = require('../../database/dbquery.js');
-var addServerRevenue = require('../server/revenue/addServerRevenue.js');
-var delInventory = require('./delInventory.js');
-var checkSrvItem = require('./checkSrvItem.js');
-var addSrvInventory = require('./addSrvInventory.js');
+const query = require('../../database/dbquery.js');
+const addServerRevenue = require('../server/revenue/addServerRevenue.js');
+const delInventory = require('./delInventory.js');
+const checkSrvItem = require('./checkSrvItem.js');
+const addSrvInventory = require('./addSrvInventory.js');
 
 function installSrvItem(req) {
     return new Promise(async function(resolve, reject) {

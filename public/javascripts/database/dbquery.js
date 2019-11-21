@@ -1,4 +1,4 @@
-var pool = require('./dbconn.js');
+const pool = require('./dbconn.js');
 
 function query(sql) {
 	// Open connection

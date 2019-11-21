@@ -1,8 +1,8 @@
-var checkExtend = require('./checkExtend.js');
-var query = require('../database/dbquery.js');
-var pwh = require('password-hash');
-var generator = require('./generator.js');
-var mailAddressGen = require('./mail/mailAddressGen.js');
+const checkExtend = require('./checkExtend.js');
+const query = require('../database/dbquery.js');
+const pwh = require('password-hash');
+const generator = require('./generator.js');
+const mailAddressGen = require('./mail/mailAddressGen.js');
 
 function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
     return new Promise(async function(resolve, reject) {

@@ -1,4 +1,4 @@
-var loadSrvInventory = require('./loadSrvInventory.js');
+const loadSrvInventory = require('./loadSrvInventory.js');
 
 function checkSrvItem(srvuuid, itemuuid) {
     return new Promise(async function(resolve, reject) {

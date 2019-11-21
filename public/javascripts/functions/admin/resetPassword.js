@@ -1,5 +1,5 @@
-var query = require('../../database/dbquery.js');
-var pwh = require('password-hash');
+const query = require('../../database/dbquery.js');
+const pwh = require('password-hash');
 
 
 function resetPassword(uuid, newPW){

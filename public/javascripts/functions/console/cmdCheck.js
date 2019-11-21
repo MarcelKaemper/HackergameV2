@@ -1,6 +1,6 @@
-var checkIP = require('../checkIP.js');
-var query = require('../../database/dbquery.js');
-var checkAdmin = require('../checkAdmin.js');
+const checkIP = require('../checkIP.js');
+const query = require('../../database/dbquery.js');
+const checkAdmin = require('../checkAdmin.js');
 
 async function cmdCheck(req, cmd, command, callback) {
     var callb = await checkAdmin(req.session.uuid);

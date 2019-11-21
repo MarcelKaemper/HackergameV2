@@ -1,5 +1,5 @@
-var checkIP = require('../checkIP.js');
-var query = require('../../database/dbquery.js');
+const checkIP = require('../checkIP.js');
+const query = require('../../database/dbquery.js');
 
 function cmdScan(req, cmd, command, callback) {
     var operation = command[1];

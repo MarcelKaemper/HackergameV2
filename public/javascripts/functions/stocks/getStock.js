@@ -1,4 +1,4 @@
-var fetch = require('node-fetch');
+const fetch = require('node-fetch');
 
 const getStock = (name, filter) => {
     const url = "https://api.iextrading.com/1.0/stock/"+name+"/batch?types=quote&range=1m&last=10&filter="+filter;

@@ -1,4 +1,4 @@
-var query = require('../../database/dbquery.js');
+const query = require('../../database/dbquery.js');
 
 const currentClan = (uuid) => {
     return new Promise(async(resolve, reject) => {

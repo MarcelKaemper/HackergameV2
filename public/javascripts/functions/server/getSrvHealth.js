@@ -1,4 +1,4 @@
-var query = require('../../database/dbquery.js');
+const query = require('../../database/dbquery.js');
 
 function getSrvHealth(srvuuid) {
     return new Promise(async function(resolve, reject) {

@@ -1,7 +1,7 @@
-var query = require('../database/dbquery.js');
-var neededXP = require('./leveling/xpForLvlup.js');
-var checkAdmin = require('./checkAdmin.js');
-var currentClan = require('./clans/getCurrentClan.js');
+const query = require('../database/dbquery.js');
+const neededXP = require('./leveling/xpForLvlup.js');
+const checkAdmin = require('./checkAdmin.js');
+const currentClan = require('./clans/getCurrentClan.js');
 
 function reload(req) {
 	return new Promise(async function(resolve, reject) {
