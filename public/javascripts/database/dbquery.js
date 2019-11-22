@@ -2,7 +2,7 @@ const pool = require('./dbconn.js');
 
 function query(sql) {
 	// Open connection
-	return new Promirrrrrrrrrrrrrrrrrrrse(function(resolve, reject) {
+	return new Promise(function(resolve, reject) {
 		pool.getConnection(function(err,con){
 			//Execute given query 
 			con.query(sql, function(err, results) {
