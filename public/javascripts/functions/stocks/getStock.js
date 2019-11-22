@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const secret = require('../../../../secret.js');
 
 const getStock = (name) => {
     const url = "https://financialmodelingprep.com/api/v3/stock/real-time-price/"+name;
