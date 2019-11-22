@@ -2,12 +2,24 @@ const fetch = require('node-fetch');
 const secret = require('../../../../secret.js');
 
 const getStock = (name) => {
-    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+name+"&apikey="+secret.apiKey;
+    const url = "https://financialmodelingprep.com/api/v3/stock/real-time-price/"+name;
     return new Promise((resolve, reject) => {
     	fetch(url)
     	.then(res => res.json())
-    	.then(data => console.log(data["Global Quote"].price));
+    	.then(data => resolve(data["price"]));
     });
 }
 
-module.exports = getStock;
+const getCompanyName = (name) => {
+    const url = "https://financialmodelingprep.com/api/v3/company/profile/"+name;
+    return new Promise((resolve, reject) => {
+    	fetch(url)
+    	.then(res => res.json())
+    	.then(data => resolve(data["profile"]["companyName"]));
+    });
+}
+
+module.exports = {
+    getStock,
+    getCompanyName
+};
