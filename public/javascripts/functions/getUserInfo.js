@@ -1,5 +1,7 @@
+const getVersion = require('./getVersion');
+
 const getUserInfo = (req) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         resolve({name: req.session.name,
                     displayName: req.session.displayName,
                     xp: req.session.xp, 
@@ -7,7 +9,8 @@ const getUserInfo = (req) => {
                     clan: req.session.clan!=""?req.session.clan:"None",
                     level: req.session.level,
                     money: req.session.money, 
-                    ip: req.session.ip});
+                    ip: req.session.ip,
+                    version: await getVersion()});
     });
 };
 
