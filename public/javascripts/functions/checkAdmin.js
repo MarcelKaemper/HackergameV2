@@ -1,6 +1,6 @@
 const query = require('../database/dbquery.js');
 
-function checkAdmin(uuid) {
+const checkAdmin = (uuid) => {
     return new Promise(async function(resolve, reject) {
         var sql = "SELECT uuid FROM admins WHERE uuid='" + uuid + "';";
         var results = await query(sql);

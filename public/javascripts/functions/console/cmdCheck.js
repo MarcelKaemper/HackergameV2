@@ -2,10 +2,10 @@ const checkIP = require('../checkIP.js');
 const query = require('../../database/dbquery.js');
 const checkAdmin = require('../checkAdmin.js');
 
-async function cmdCheck(req, cmd, command, callback) {
+const cmdCheck = async(req, cmd, command, callback) => {
     var callb = await checkAdmin(req.session.uuid);
     if (callb) {
-        checkIP(command[1], async function (call) {
+        checkIP(command[1], async(call) => {
             if (call) {
                 var sql = "SELECT uuid, ip_address FROM userdata WHERE ip_address='" + command[1] + "';";
                 var results = await query(sql);

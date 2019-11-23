@@ -4,8 +4,8 @@ const pwh = require('password-hash');
 const generator = require('./generator.js');
 const mailAddressGen = require('./mail/mailAddressGen.js');
 
-function signup(req, arg_mail, arg_name, arg_password, arg_confirm_password) {
-    return new Promise(async function(resolve, reject) {
+const signup = (req, arg_mail, arg_name, arg_password, arg_confirm_password) => {
+    return new Promise(async(resolve, reject) => {
         var mail = arg_mail.toLowerCase();
         var name = arg_name;
         var password = arg_password;

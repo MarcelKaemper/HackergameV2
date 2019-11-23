@@ -1,7 +1,7 @@
 const query = require('../../database/dbquery.js');
 
-function checkIfCorrect(req, srvip, targetpw) {
-    return new Promise(async function(resolve, reject) {
+const checkIfCorrect = (req, srvip, targetpw) => {
+    return new Promise(async(resolve, reject) => {
         var usruuid = req.session.uuid;
         var sql = "SELECT uuid, uuidOwner, password FROM server WHERE ip_address='" + srvip + "';";
         var results = await query(sql);

@@ -1,7 +1,7 @@
 const query = require('../database/dbquery.js');
 
-function toName(uuid) {
-    return new Promise(async function(resolve, reject) {
+const toName = (uuid) => {
+    return new Promise(async(resolve, reject) => {
         var sql1 = "SELECT name, displayName FROM logins WHERE uuid='" + uuid + "';";
         var name = "";
         var results1 = await query(sql1);
@@ -14,8 +14,8 @@ function toName(uuid) {
     });
 }
 
-function toUuid(name) {
-    return new Promise(async function(resolve, reject) {
+const toUuid = (name) => {
+    return new Promise(async(resolve, reject) => {
         var sql2 = "SELECT uuid FROM logins WHERE name='" + name.toLowerCase() + "';";
         var uuid = "";
         var results2 = await query(sql2);
@@ -28,8 +28,8 @@ function toUuid(name) {
     });
 }
 
-function toSrvUuid(ipaddress) {
-    return new Promise(async function(resolve, reject) {
+const toSrvUuid = (ipaddress) => {
+    return new Promise(async(resolve, reject) => {
         var sql3 = "SELECT uuid FROM server WHERE ip_address='" + ipaddress + "';";
         var uuid2 = "";
         var results3 = await query(sql3);
@@ -42,8 +42,8 @@ function toSrvUuid(ipaddress) {
     });
 }
 
-function toSrvIP(uuid) {
-    return new Promise(async function(resolve, reject) {
+const toSrvIP = (uuid) => {
+    return new Promise(async(resolve, reject) => {
         var sql4 = "SELECT ip_address FROM server WHERE uuid='" + uuid + "';";
         var ipaddress = "";
         var results4 = await query(sql4);
@@ -56,8 +56,8 @@ function toSrvIP(uuid) {
     });
 }
 
-function toItemUuid(name) {
-    return new Promise(async function(resolve, reject) {
+const toItemUuid = (name) => {
+    return new Promise(async(resolve, reject) => {
         var sql5 = "SELECT uuid FROM shop WHERE itemName='" + name + "';";
         var uuid3 = "";
         var results5 = await query(sql5);
@@ -70,8 +70,8 @@ function toItemUuid(name) {
     });
 }
 
-function toItemName(uuid) {
-    return new Promise(async function(resolve, reject) {
+const toItemName = (uuid) => {
+    return new Promise(async(resolve, reject) => {
         var sql6 = "SELECT itemName FROM shop WHERE uuid='" + uuid + "';";
         var name2 = "";
         var results6 = await query(sql6);

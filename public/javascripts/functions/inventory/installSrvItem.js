@@ -4,8 +4,8 @@ const delInventory = require('./delInventory.js');
 const checkSrvItem = require('./checkSrvItem.js');
 const addSrvInventory = require('./addSrvInventory.js');
 
-function installSrvItem(req) {
-    return new Promise(async function(resolve, reject) {
+const installSrvItem = (req) => {
+    return new Promise(async(resolve, reject) => {
         var itemuuid = req.body.inventory;
         var srvuuid = req.body.useitem;
         var usruuid = req.session.uuid;

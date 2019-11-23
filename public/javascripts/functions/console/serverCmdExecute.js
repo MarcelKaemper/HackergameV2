@@ -3,7 +3,7 @@ const checkSrvItem = require('../inventory/checkSrvItem.js');
 const setSrvExecuted = require('../server/setSrvExecuted.js');
 const query = require('../../database/dbquery.js');
 
-async function serverCmdExecute(req, cmd, command, callback) {
+const serverCmdExecute = async(req, cmd, command, callback) => {
     var srvuuid = await uuidName.toSrvUuid(req.session.conToSrv);
     var operation = command[1];
     var iteminput = command[2];

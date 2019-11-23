@@ -1,8 +1,8 @@
 const query = require('../../database/dbquery.js');
 const changeMoney = require('../changeMoney.js');
 
-function sellServer(req) {
-    return new Promise(async function(resolve, reject) {
+const sellServer = (req) => {
+    return new Promise(async(resolve, reject) => {
         var usruuid = req.session.uuid;
         var srvuuid = req.body.sellserver;
         var confirm = req.body.confirm_sell;

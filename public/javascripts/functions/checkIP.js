@@ -1,6 +1,6 @@
 const net = require('net');
 
-function checkIP(ipaddress, callback) {
+const checkIP = (ipaddress, callback) => {
     if(net.isIPv4(ipaddress)) {
         callback(true);
     } else {

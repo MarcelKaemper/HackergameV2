@@ -1,8 +1,8 @@
 const query = require('../../database/dbquery.js');
 const changeMoney = require('../changeMoney.js');
 
-function repairServer(req) {
-    return new Promise(async function(resolve, reject) {
+const repairServer = (req) => {
+    return new Promise(async(resolve, reject) => {
         var usruuid = req.session.uuid;
         var srvuuid = req.body.repairserver;
         var repairprice = req.body.repairprice;

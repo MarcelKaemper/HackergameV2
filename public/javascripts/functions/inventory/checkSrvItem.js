@@ -1,7 +1,7 @@
 const loadSrvInventory = require('./loadSrvInventory.js');
 
-function checkSrvItem(srvuuid, itemuuid) {
-    return new Promise(async function(resolve, reject) {
+const checkSrvItem = (srvuuid, itemuuid) => {
+    return new Promise(async(resolve, reject) => {
         var srvinv = await loadSrvInventory(srvuuid);
         var length = srvinv.inventory.length;
         var counter = 0;

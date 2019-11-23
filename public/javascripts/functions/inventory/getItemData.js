@@ -1,7 +1,7 @@
 const query = require('../../database/dbquery.js');
 
-function getItemData(table) {
-    return new Promise(async function(resolve, reject) {
+const getItemData = (table) => {
+    return new Promise(async(resolve, reject) => {
         var newtable = table;
         var sql;
         var itemuuid;

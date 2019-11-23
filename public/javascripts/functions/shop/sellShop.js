@@ -2,8 +2,8 @@ const changeMoney = require('../changeMoney.js');
 const delInventory = require('../inventory/delInventory.js');
 const query = require('../../database/dbquery.js');
 
-function sellShop(req) {
-    return new Promise(async function(resolve, reject) {
+const sellShop = (req) => {
+    return new Promise(async(resolve, reject) => {
         var usruuid = req.session.uuid;
         var itemuuid = req.body.sellitem;
 

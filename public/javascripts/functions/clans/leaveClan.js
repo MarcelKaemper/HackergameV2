@@ -17,7 +17,7 @@ const leaveClan = (req) => {
         //Update userdata clan
         await query("UPDATE userdata SET memberOf='' WHERE uuid='"+req.session.uuid+"';");
         let memberCount = await query("SELECT memberCount FROM clans WHERE uuid='"+clan[0].uuid+"';");
-        if(parseInt(memberCount[0].memberCount) <= 0){
+        if(parseInt(memberCount[0].memberCount) <= 0) {
             await query("DELETE FROM clans WHERE uuid='"+clan[0].uuid+"';");
         }
         

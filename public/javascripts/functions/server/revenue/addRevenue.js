@@ -3,8 +3,8 @@ const addServerRevenue = require('./addServerRevenue.js');
 const changeMoney = require('../../changeMoney.js');
 const drainSrvHealth = require('../drainSrvHealth.js');
 
-function addRevenue() {
-    return new Promise(async function(resolve, reject) {
+const addRevenue = () => {
+    return new Promise(async(resolve, reject) => {
         var sql = "SELECT * FROM server;";
         var results = await query(sql);
         var srvuuid;

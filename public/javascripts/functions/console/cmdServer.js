@@ -2,7 +2,7 @@ const checkIP = require('../checkIP.js');
 const checkIfCorrect = require('../server/checkIfCorrect.js');
 const checkExtend = require('../checkExtend.js');
 
-function cmdServer(req, cmd, command, callback) {
+const cmdServer = (req, cmd, command, callback) => {
     var operation = command[1];
     var target = command[2];
     var targetpw = command[3];
@@ -10,7 +10,7 @@ function cmdServer(req, cmd, command, callback) {
     switch(operation) {
         case "connect":
             if(target != "" || target != undefined || target != null) {
-                checkIP(target, async function(calla) {
+                checkIP(target, async(calla) => {
                     if(calla) {
                         var trueip = await checkExtend.IP(target);
                         if(trueip) {

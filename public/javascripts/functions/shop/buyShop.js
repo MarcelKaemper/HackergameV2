@@ -1,8 +1,8 @@
 const changeMoney = require('../changeMoney.js');
 const addInventory = require('../inventory/addInventory.js');
 
-function buyShop(req) {
-    return new Promise(async function(resolve, reject) {
+const buyShop = (req) => {
+    return new Promise(async(resolve, reject) => {
         var usruuid = req.session.uuid;
         var itemuuid = req.body.buyitem;
         var amount = req.body.buyprice;

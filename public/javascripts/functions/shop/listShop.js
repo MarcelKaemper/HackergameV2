@@ -1,7 +1,7 @@
 const query = require('../../database/dbquery.js');
 
-function listShop() {
-    return new Promise(async function(resolve, reject) {
+const listShop = () => {
+    return new Promise(async(resolve, reject) => {
         var sql = "SELECT * FROM shop;"
         var results = await query(sql);
 

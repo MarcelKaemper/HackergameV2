@@ -1,7 +1,7 @@
 const query = require('../../database/dbquery.js');
 
-function countServer(uuid) {
-    return new Promise(async function(resolve, reject) {
+const countServer = (uuid) => {
+    return new Promise(async(resolve, reject) => {
         var sql = "SELECT * FROM server WHERE uuidOwner='" + uuid + "';";
         var results = await query(sql);
         var count = results.length;
