@@ -1,7 +1,7 @@
 const query = require('../database/dbquery.js');
 
-function IP(ipaddress) {
-    return new Promise(async function(resolve, reject) {
+const IP = (ipaddress) => {
+    return new Promise(async(resolve, reject) => {
         var sql1 = "SELECT ip_address FROM userdata WHERE ip_address='" + ipaddress + "';";
         var sql2 = "SELECT ip_address FROM bankaccounts WHERE ip_address='" + ipaddress + "';";
         var sql3 = "SELECT ip_address FROM server WHERE ip_address='" + ipaddress + "';";
@@ -17,8 +17,8 @@ function IP(ipaddress) {
     });
 }
 
-function UUID(uuid) {
-    return new Promise(async function(resolve, reject) {
+const UUID = (uuid) => {
+    return new Promise(async(resolve, reject) => {
         var sql1 = "SELECT uuid FROM userdata WHERE uuid='" + uuid + "';";
         var sql2 = "SELECT uuid FROM bankaccounts WHERE uuid='" + uuid + "';";
         var sql3 = "SELECT uuid FROM server WHERE uuid='" + uuid + "';";
@@ -34,8 +34,8 @@ function UUID(uuid) {
     });
 }
 
-function Name(name) {
-    return new Promise(async function(resolve, reject) {
+const Name = (name) => {
+    return new Promise(async(resolve, reject) => {
         var sql1 = "SELECT uuid, name FROM logins WHERE name='" + name.toLowerCase() + "';";
         var results1 = await query(sql1);
 
@@ -47,7 +47,7 @@ function Name(name) {
     });
 }
 
-function Mail(mail) {
+const Mail = (mail) => {
     return new Promise(async function(resolve, reject) {
         var sql1 = "SELECT uuid, mail FROM logins WHERE mail='" + mail.toLowerCase() + "';";
         var results1 = await query(sql1);

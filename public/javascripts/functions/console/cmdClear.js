@@ -1,4 +1,4 @@
-function cmdClear(req, cmd, command, callback) {
+const cmdClear = (req, cmd, command, callback) => {
     req.session.command_log = "";
     callback();
 }

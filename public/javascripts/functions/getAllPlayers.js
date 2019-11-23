@@ -1,11 +1,11 @@
 const query = require ('../database/dbquery.js');
 
-function getAllPlayers(ownUuid, operator) {
-	return new Promise(async function(resolve, reject) {
+const getAllPlayers = (ownUuid, operator) => {
+	return new Promise(async(resolve, reject) => {
 		var results = await query("SELECT uuid, name, displayName FROM logins;");
 		var players = [];
 		for(var i in results) {
-			switch(operator){
+			switch(operator) {
 				case "everyone":
 					players.push(results[i].displayName);
 					break;

@@ -2,19 +2,19 @@ const query = require('../database/dbquery.js');
 const changeMoney = require('./changeMoney.js');
 const transferToBank = require('./transferToBank.js');
 
-function transferMoney(req) {
-	return new Promise(async function(resolve, reject) {
+const transferMoney = (req) => {
+	return new Promise(async(resolve, reject) => {
 		var currentMoney;
 		var moneyToTransfer = Math.abs(req.body.amount);
 		var transferTo = req.body.player;
 		var moneyToTransferAfter;
 
-		let results = await query("SELECT money FROM money where uuid='"+req.session.uuid+"';");
+		let results = await query("SELECT money FROM money where uuid='" + req.session.uuid + "';");
 		currentMoney = results[0].money;
-		if(moneyToTransfer <= currentMoney){
+		if(moneyToTransfer <= currentMoney) {
 			var tax = moneyToTransfer * 0.05;
 			moneyToTransferAfter = moneyToTransfer - tax;
-			var sql = "SELECT uuid FROM logins WHERE name='"+transferTo.toLowerCase()+"';";
+			var sql = "SELECT uuid FROM logins WHERE name='" + transferTo.toLowerCase() + "';";
 			let results = await query(sql);
 			await changeMoney(results[0].uuid, moneyToTransferAfter, "give");
 			await transferToBank(tax, "give");

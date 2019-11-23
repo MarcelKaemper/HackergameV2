@@ -1,7 +1,7 @@
 const query = require('../database/dbquery.js');
 
-function getOnlinePlayers() {
-    return new Promise(async function(resolve, reject) {
+const getOnlinePlayers = () => {
+    return new Promise(async(resolve, reject) => {
         var players = [];
         var sql = "SELECT name, displayName, loggedIn FROM logins WHERE loggedIn=true;";
 

@@ -1,11 +1,11 @@
 const pool = require('./dbconn.js');
 
-function query(sql) {
+const query = (sql) => {
 	// Open connection
-	return new Promise(function(resolve, reject) {
-		pool.getConnection(function(err,con){
+	return new Promise((resolve, reject) => {
+		pool.getConnection((err,con) => {
 			//Execute given query 
-			con.query(sql, function(err, results) {
+			con.query(sql, (err, results) => {
 				// Release and continue
 				con.release();
 				resolve(results);
@@ -13,6 +13,5 @@ function query(sql) {
 		});
 	});
 };
-
 
 module.exports = query;

@@ -7,8 +7,8 @@ const setLoggedIn = require('./setLoggedIn.js');
 const writeRealIP = require('./writeRealIP.js');
 const consolecmd = require('./console.js');
 
-function login(req, arg_login, arg_password) {
-    return new Promise(async function(resolve, reject) {
+const login = (req, arg_login, arg_password) => {
+    return new Promise(async(resolve, reject) => {
         var login = arg_login.toLowerCase();
         var password = arg_password;
         var sql;

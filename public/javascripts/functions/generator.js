@@ -1,5 +1,5 @@
-function genUUID() {
-    return new Promise(function(resolve, reject) {
+const genUUID = () => {
+    return new Promise((resolve, reject) => {
         var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         var uuid = "";
         var min = Math.ceil(0);
@@ -13,8 +13,8 @@ function genUUID() {
     });
 }
 
-function genIP() {
-    return new Promise(function(resolve, reject) {
+const genIP = () => {
+    return new Promise((resolve, reject) => {
         var ipaddress = "";
         var min = Math.ceil(0);
         var max = Math.floor(255);
@@ -31,8 +31,8 @@ function genIP() {
     });
 }
 
-function genPW() {
-    return new Promise(function(resolve, reject) {
+const genPW = () => {
+    return new Promise((resolve, reject) => {
         var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         var password = "";
         var min = Math.ceil(0);

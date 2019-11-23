@@ -2,7 +2,7 @@ const checkAdmin = require('../checkAdmin.js');
 const uuidName = require('../uuidName.js');
 const setXp = require('../leveling/setXP.js');
 
-async function cmdXp(req, cmd, command, callback) {
+const cmdXp = async(req, cmd, command, callback) => {
     var calla = await checkAdmin(req.session.uuid);
     if(calla) {
         var operation = command[1];

@@ -1,7 +1,7 @@
 const query = require('../database/dbquery.js');
 
-function writeRealIP(req, uuid, realip) {
-    return new Promise(async function(resolve, reject) {
+const writeRealIP = (req, uuid, realip) => {
+    return new Promise(async(resolve, reject) => {
         var regex = ["::1", "::ffff:127.0.0.1", "127.0.0.1"];
         if(regex.indexOf(realip) > -1) {
             resolve();

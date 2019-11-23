@@ -2,7 +2,7 @@ const loadSrvInventory = require('../inventory/loadSrvInventory.js');
 const uuidName = require('../uuidName.js');
 const getItemData = require('../inventory/getItemData.js');
 
-async function serverCmdLs(req, cmd, command, callback) {
+const serverCmdLs = async(req, cmd, command, callback) => {
     var srvuuid = await uuidName.toSrvUuid(req.session.conToSrv);
     var inventory = await loadSrvInventory(srvuuid);
     var getinvname = await getItemData(inventory);

@@ -17,8 +17,8 @@ const serverCmdLs = require('./console/serverCmdLs.js');
 const serverCmdExecute = require('./console/serverCmdExecute.js');
 // >> ######################################## << //
 
-function consolecmd(req, cmd) {
-    return new Promise(async function(resolve, reject) {
+const consolecmd = (req, cmd) => {
+    return new Promise(async(resolve, reject) => {
         if(req.session.command_log == null) {
             req.session.command_log = "";
         }
@@ -29,49 +29,49 @@ function consolecmd(req, cmd) {
                 switch(command[0]) {
                     case "help":
                         await consoleDefault(req, cmd, command);
-                        cmdHelp(req, cmd, command, function() {
+                        cmdHelp(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "clear":
                         await consoleDefault(req, cmd, command);
-                        cmdClear(req, cmd, command, function() {
+                        cmdClear(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "check":
                         await consoleDefault(req, cmd, command);
-                        cmdCheck(req, cmd, command, function() {
+                        cmdCheck(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "xp":
                         await consoleDefault(req, cmd, command);
-                        cmdXp(req, cmd, command, function() {
+                        cmdXp(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "bank":
                         await consoleDefault(req, cmd, command);
-                        cmdABank(req, cmd, command, function() {
+                        cmdABank(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "scan":
                         await consoleDefault(req, cmd, command);
-                        cmdScan(req, cmd, command, function() {
+                        cmdScan(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "money":
                         await consoleDefault(req, cmd, command);
-                        cmdMoney(req, cmd, command, function() {
+                        cmdMoney(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "server":
                         await consoleDefault(req, cmd, command);
-                        cmdServer(req, cmd, command, function() {
+                        cmdServer(req, cmd, command, () => {
                             resolve();
                         });
                         break;
@@ -84,31 +84,31 @@ function consolecmd(req, cmd) {
                 switch(command[0]) {
                     case "exit":
                         await serverDefault(req, cmd, command);
-                        serverCmdExit(req, cmd, command, function() {
+                        serverCmdExit(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "clear":
                         await serverDefault(req, cmd, command);
-                        cmdClear(req, cmd, command, function() {
+                        cmdClear(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "help":
                         await serverDefault(req, cmd, command);
-                        cmdHelp(req, cmd, command, function() {
+                        cmdHelp(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "ls":
                         await serverDefault(req, cmd, command);
-                        serverCmdLs(req, cmd, command, function() {
+                        serverCmdLs(req, cmd, command, () => {
                             resolve();
                         });
                         break;
                     case "execute":
                         await serverDefault(req, cmd, command);
-                        serverCmdExecute(req, cmd, command, function() {
+                        serverCmdExecute(req, cmd, command, () => {
                             resolve();
                         });
                         break;

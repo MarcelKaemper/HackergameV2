@@ -5,8 +5,8 @@ const changeMoney = require('../changeMoney.js');
 const setXP = require('../leveling/setXP.js');
 const getLevel = require('../leveling/getLevel.js');
 
-function buyServer(req) {
-    return new Promise(async function(resolve, reject) {
+const buyServer = (req) => {
+    return new Promise(async(resolve, reject) => {
         var amount = 50000;
         var uuidOwner = req.session.uuid;
         if(req.session.money >= amount) {

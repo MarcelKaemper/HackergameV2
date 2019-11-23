@@ -1,7 +1,7 @@
 const query = require('../../database/dbquery.js');
 
-function loadInventory(uuid) {
-    return new Promise(async function(resolve, reject) {
+const loadInventory = (uuid) => {
+    return new Promise(async(resolve, reject) => {
         var sql = "SELECT * FROM inventory WHERE uuid='" + uuid + "';";
         var results = await query(sql);
         

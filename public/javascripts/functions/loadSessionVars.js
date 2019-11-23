@@ -3,8 +3,8 @@ const neededXP = require('./leveling/xpForLvlup.js');
 const checkAdmin = require('./checkAdmin.js');
 const currentClan = require('./clans/getCurrentClan.js');
 
-function reload(req) {
-	return new Promise(async function(resolve, reject) {
+const reload = (req) => {
+	return new Promise(async(resolve, reject) => {
 		//If user logged in
 		if(req.session.loggedIn) {
 			var results;

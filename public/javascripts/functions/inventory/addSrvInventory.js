@@ -1,8 +1,8 @@
 const query = require('../../database/dbquery.js');
 const loadSrvInventory = require('./loadSrvInventory.js');
 
-function addSrvInventory(srvuuid, itemuuid) {
-    return new Promise(async function(resolve, reject) {
+const addSrvInventory = (srvuuid, itemuuid) => {
+    return new Promise(async(resolve, reject) => {
         var results = await loadSrvInventory(srvuuid);
         var resinv;
         var obj;

@@ -4,11 +4,10 @@ const setxp = require('../leveling/setXP.js');
 const setMoney = require('../changeMoney.js');
 const resetPassword = require('./resetPassword.js');
 
-
-function adminHandler(operation, username, additional){
-	return new Promise(async function(resolve, reject){
+const adminHandler = (operation, username, additional) => {
+	return new Promise(async(resolve, reject) => {
 		var uuid = await toUuid.toUuid(username); 
-		switch(operation){
+		switch(operation) {
 			case "delete":
 				await delUser(uuid);
 				break;

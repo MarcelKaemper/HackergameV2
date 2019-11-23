@@ -9,7 +9,7 @@ const sellStock = (uuid, symbol, count, worth) => {
         stocks[symbol].count -= count;
         stocks[symbol].price -= worth; 
 
-        if(stocks[symbol].count <= 0){
+        if(stocks[symbol].count <= 0) {
             delete stocks[symbol];
         }
 

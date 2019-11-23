@@ -3,7 +3,7 @@ const query = require('../../database/dbquery.js');
 const changeMoney = require('../changeMoney.js');
 //const checkFirewall = require('./checkFirewall.js');
 
-function cmdMoney(req, cmd, command, callback) {
+const cmdMoney = (req, cmd, command, callback) => {
     var operation = command[1];
     var target = command[2];
 
@@ -11,7 +11,7 @@ function cmdMoney(req, cmd, command, callback) {
         case "tr":
         case "transfer":
             if(target != "" || target != undefined || target != null) {
-                checkIP(target, async function(calla) {
+                checkIP(target, async(calla) => {
                     if(calla) {
                         if(target == req.session.ip) {
                             req.session.command_log += "You can't hack yourself!\n";

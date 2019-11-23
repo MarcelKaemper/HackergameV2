@@ -1,4 +1,4 @@
-function serverCmdExit(req, cmd, command, callback) {
+const serverCmdExit = (req, cmd, command, callback) => {
     req.session.boolConToSrv = false;
     req.session.conToSrv = "";
 

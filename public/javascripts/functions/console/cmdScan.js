@@ -1,14 +1,14 @@
 const checkIP = require('../checkIP.js');
 const query = require('../../database/dbquery.js');
 
-function cmdScan(req, cmd, command, callback) {
+const cmdScan = (req, cmd, command, callback) => {
     var operation = command[1];
     var target = command[2];
 
     switch(operation) {
         case "ip":
             if(target != "" || target != undefined || target != null) {
-                checkIP(target, async function(calla) {
+                checkIP(target, async(calla) => {
                     if(calla) {
                         if(target == req.session.ip) {
                             req.session.command_log += "You can't scan yourself!\n";

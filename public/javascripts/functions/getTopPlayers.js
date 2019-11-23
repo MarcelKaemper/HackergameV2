@@ -1,7 +1,7 @@
 const query = require('../database/dbquery.js');
 
-function getTopPlayers() {
-    return new Promise(async function(resolve, reject) {
+const getTopPlayers = () => {
+    return new Promise(async(resolve, reject) => {
         var sql = "SELECT uuid, level FROM levels ORDER BY level DESC LIMIT 10;";
         var sql2;
         var results2;
