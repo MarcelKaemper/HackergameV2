@@ -1,18 +1,13 @@
 .console_input {
-    /*background: #F2F2F2; */
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     outline: none;
-    /* color: #737373; */
     letter-spacing: 1px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    
-    /* width: 850px; */
     width: 96%;
-
     background-color: #323232;
     color: limegreen;
 }
@@ -33,7 +28,7 @@
     background-color: #bebebe;
     border: 1px solid black;
     border-radius: 10px;
-    margin: 0 auto;
+    margin: auto;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 5px;

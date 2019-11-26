@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
 	<head>
-		<title>{{ title }}</title>
+		<title>{{title}}</title>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/content.css">
@@ -21,15 +22,10 @@
 			<ul>
 				<li><a href="/">Home</a></li>
 				{{#unless loggedIn}}
-				<li style="float:right"><a href="/signup">Sign up</a></li>
-				<li style="float:right"><a href="/login">Login</a></li>
+				<li style="float: right"><a href="/signup">Sign up</a></li>
+				<li style="float: right"><a href="/login">Login</a></li>
 				{{else}}
-
-				<!-- <li><a href="/profile">Profile</a></li> -->
 				<li><a href="/clan">Clan</a></li>
-				<!-- <li><a href="/console">Console</a></li> -->
-				<!-- <li><a href="/stocks">Stocks</a></li> -->
-
 				<div class="dropdown">
 					<button class="dropbtn">Terminal 
 						<!-- <i class="fa fa-caret-down"></i> -->
@@ -39,11 +35,7 @@
 						<a href="/server">Server</a>
 					</div>
 				</div>
-
 				<li><a href="/mail">Mail</a></li>
-				<!-- <li><a href="/bank">Bank</a></li> -->
-				<!-- <li><a href="/server">Server</a></li> -->
-
 				<div class="dropdown">
 					<button class="dropbtn">Economy 
 						<!-- <i class="fa fa-caret-down"></i> -->
@@ -53,14 +45,13 @@
 						<a href="/stocks">Stocks</a>
 					</div>
 				</div>
-				
 				<li><a href="/shop">Shop</a></li>
 				<li><a href="/inventory">Inventory</a></li>
 				{{#if isAdmin}}
 				<li><a href="/admin">Adminarea</a></li>
 				{{/if}}
 				<li><a href="https://www.github.com/marcelkaemper/hackergamev2/wiki/tutorial" target="_blank">Wiki</a></li>
-				<li style="float:right"><a href="/logout">Logout</a></li>
+				<li style="float: right"><a href="/logout">Logout</a></li>
 				{{/unless}}
 			</ul>
 		</div>

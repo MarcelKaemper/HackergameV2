@@ -1,14 +1,11 @@
 {{#if loggedIn}}
 <h1>{{title}}</h1>
 <p>{{message}}</p>
-Currently having {{countServer}} server
-<br />
-<br />
+<p>Currently having {{countServer}} server</p>
 
 <center>
 	<table class="serverlist" width="90%">
 		<tr>
-			<!--<th width="8%">Server ID</th>-->
 			<th width="11%">Server IP</th>
 			<th width="5%">Health</th>
 			<th width="15%">Repair</th>
@@ -24,7 +21,6 @@ Currently having {{countServer}} server
 		</tr>
 		{{#each listServer}}
 		<tr>
-			<!--<td>server_{{this.id}}</td>-->
 			<td>{{this.ip_address}}</td>
 			<td>{{this.health}}%</td>
 			<form action="server/repairserver" method="post">

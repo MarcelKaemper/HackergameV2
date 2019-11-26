@@ -1,9 +1,9 @@
 .content {
     background-color: #cfcfcf;
-    /* width: 79%; */
-    margin: 15 auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin: auto;
+    margin-top: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     height: auto;
 
     -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
@@ -11,9 +11,7 @@
     box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
 
     border: 1px double;
-    /* border-color: rgba(200, 200, 200, 1); */
     border-color: rgba(150, 150, 150, 1);
-    /* border-radius: 10px; */
 }
 
 .content_box {
@@ -34,6 +32,7 @@
 }
 .form_signup button, .form_login button {
     padding: 5px 5px 5px 5px;
+    margin-top: 5px;
 }
 
 .onlinePlayers {
@@ -57,21 +56,21 @@
     border: 1px solid;
 }
 
-.wrapper101{
+.wrapper101 {
     display: flex;
     width: 600px;
 }
 
-.flexObj{
+.flexObj {
     flex: 1;
 }
 
 .content_2 {
     background-color: #cfcfcf;
-    /* width: 20%; */
-    margin: 15 auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin: auto;
+    margin-top: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     height: auto;
 
     -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
@@ -79,9 +78,7 @@
     box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.1);
 
     border: 1px double;
-    /* border-color: rgba(200, 200, 200, 1); */
     border-color: rgba(150, 150, 150, 1);
-    /* border-radius: 10px; */
 }
 
 .content_box_2 {
