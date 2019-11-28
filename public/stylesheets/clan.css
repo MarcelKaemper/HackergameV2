@@ -1,6 +1,7 @@
 .clanWrapper{
     display: flex;
     width: 1000px;
+    flex-direction: row;
 }
 
 .clanWrapper > div{
