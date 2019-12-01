@@ -12,10 +12,10 @@ const createClan = (uuid, name, maxMembers, username) => {
             }
         }
         let clan_uuid = await generator.genUUID();
-        let values = "('"+clan_uuid+"','"+name+"', 0,"+maxMembers+",' {\"names\":[],\"uuids\":[]}');";
-        await query("INSERT INTO clans(uuid,name,memberCount,maxMembers,members) VALUES "+values);
+        let values = "('" + clan_uuid + "', '" + name + "', 0, " + maxMembers + ", '{\"names\":[],\"uuids\":[]}');";
+        await query("INSERT INTO clans(uuid, name, memberCount, maxMembers, members) VALUES " + values);
         if(!await joinClan(clan_uuid, name, uuid, username, 0, maxMembers)) {
-            await query("DELETE * FROM clans WHERE uuid='"+clan_uuid+"';");
+            await query("DELETE * FROM clans WHERE uuid='" + clan_uuid + "';");
         }
         resolve(true);
     });

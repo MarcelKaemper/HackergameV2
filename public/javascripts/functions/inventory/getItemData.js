@@ -3,9 +3,7 @@ const query = require('../../database/dbquery.js');
 const getItemData = (table) => {
     return new Promise(async(resolve, reject) => {
         var newtable = table;
-        var sql;
-        var itemuuid;
-        var results;
+        var sql, itemuuid, results;
         
         for(let i = 0; i < table.inventory.length; i++) {
             itemuuid = table.inventory[i].uuid;

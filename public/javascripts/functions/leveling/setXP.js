@@ -5,8 +5,7 @@ const uuidName = require('../uuidName.js');
 const setXP = (uuid, amount, operation) => {
 	return new Promise(async(resolve, reject) => {
 		amount = parseInt(amount);
-		var sql;
-		var xp;
+		var sql, xp;
 
 		switch(operation) {
 			case "give":

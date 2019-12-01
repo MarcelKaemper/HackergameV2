@@ -2,15 +2,16 @@ const checkIP = require('../checkIP.js');
 const checkIfCorrect = require('../server/checkIfCorrect.js');
 const checkExtend = require('../checkExtend.js');
 
-const cmdServer = (req, cmd, command, callback) => {
-    var operation = command[1];
-    var target = command[2];
-    var targetpw = command[3];
+const cmdServer = (req, cmd, command) => {
+    return new Promise(async(resolve, reject) => {
+        var operation = command[1];
+        var target = command[2];
+        var targetpw = command[3];
 
-    switch(operation) {
-        case "connect":
-            if(target != "" || target != undefined || target != null) {
-                checkIP(target, async(calla) => {
+        switch(operation) {
+            case "connect":
+                if(target != "" || target != undefined || target != null) {
+                    var calla = await checkIP(target);
                     if(calla) {
                         var trueip = await checkExtend.IP(target);
                         if(trueip) {
@@ -20,30 +21,30 @@ const cmdServer = (req, cmd, command, callback) => {
                                 req.session.conToSrv = target;
 
                                 req.session.command_log += "Connected to " + target + "!\n";
-                                callback();
+                                resolve();
                             } else {
                                 req.session.command_log += "Wrong credentials!\n";
-                                callback();
+                                resolve();
                             }
                         } else {
                             req.session.command_log += "Not found!\n";
-                            callback();
+                            resolve();
                         } 
                     } else {
                         req.session.command_log += "Invalid ip address!\n";
-                        callback();
+                        resolve();
                     }
-                });
-            } else {
-                req.session.command_log += "You need to specify a target!\n";
-                callback();
-            }
-            break;
-        default:
-            req.session.command_log += "You need to specify a operation [connect]!\n";
-            callback();
-            break;
-    }
+                } else {
+                    req.session.command_log += "You need to specify a target!\n";
+                    resolve();
+                }
+                break;
+            default:
+                req.session.command_log += "You need to specify a operation [connect]!\n";
+                resolve();
+                break;
+        }
+    });
 }
 
 module.exports = cmdServer;

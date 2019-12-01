@@ -4,6 +4,9 @@ public/javascripts/database/dbconn.js
 # Secret
 secret.js
 
+# NPM Package
+package-lock.json
+
 # Logs
 logs
 *.log

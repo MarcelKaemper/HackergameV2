@@ -1,9 +1,11 @@
-const serverCmdExit = (req, cmd, command, callback) => {
-    req.session.boolConToSrv = false;
-    req.session.conToSrv = "";
+const serverCmdExit = (req, cmd, command) => {
+    return new Promise((resolve, reject) => {
+        req.session.boolConToSrv = false;
+        req.session.conToSrv = "";
 
-    req.session.command_log += "Connection closed!\n";
-    callback();
+        req.session.command_log += "Connection closed!\n";
+        resolve();
+    });
 }
 
 module.exports = serverCmdExit;

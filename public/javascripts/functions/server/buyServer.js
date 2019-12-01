@@ -10,13 +10,10 @@ const buyServer = (req) => {
         var amount = 50000;
         var uuidOwner = req.session.uuid;
         if(req.session.money >= amount) {
-            var srvuuid;
-            var srvip;
+            var srvuuid, srvip;
 
-            let count1 = true;
-            let count2 = true;
-            var check3;
-            var check4;
+            let count1, count2 = true;
+            var check3, check4;
 
             while(count1) {
                 srvuuid = await generator.genUUID();
