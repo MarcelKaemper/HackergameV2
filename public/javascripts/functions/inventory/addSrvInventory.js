@@ -4,9 +4,8 @@ const loadSrvInventory = require('./loadSrvInventory.js');
 const addSrvInventory = (srvuuid, itemuuid) => {
     return new Promise(async(resolve, reject) => {
         var results = await loadSrvInventory(srvuuid);
-        var resinv;
-        var obj;
-        var sql;
+        var resinv, sql;
+        var obj = {};
 
         var length = results.inventory.length;
         var counter = 0;
@@ -14,8 +13,8 @@ const addSrvInventory = (srvuuid, itemuuid) => {
         if(length > 0) {
             while(counter <= length) {
                 if(counter == length) {
-                    obj = '{"uuid":"' + itemuuid  + '"}';
-                    results.inventory[counter] = Object.assign(JSON.parse(obj), results.inventory[counter]);
+                    obj.uuid = itemuuid;
+                    results.inventory[counter] = Object.assign(obj, results.inventory[counter]);
                     resinv = JSON.stringify(results);
                     sql = "UPDATE server SET inventoryData='" + resinv + "' WHERE uuid='" + srvuuid + "';";
                     await query(sql);
@@ -27,8 +26,8 @@ const addSrvInventory = (srvuuid, itemuuid) => {
                 counter++;
             }
         } else {
-            obj = '{"uuid":"' + itemuuid  + '"}';
-            results.inventory[0] = Object.assign(JSON.parse(obj), results.inventory[0]);
+            obj.uuid = itemuuid;
+            results.inventory[0] = Object.assign(obj, results.inventory[0]);
             resinv = JSON.stringify(results);
             sql = "UPDATE server SET inventoryData='" + resinv + "' WHERE uuid='" + srvuuid + "';";
             await query(sql);

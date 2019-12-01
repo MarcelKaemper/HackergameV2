@@ -4,10 +4,9 @@ const transferToBank = require('./transferToBank.js');
 
 const transferMoney = (req) => {
 	return new Promise(async(resolve, reject) => {
-		var currentMoney;
+		var currentMoney, moneyToTransferAfter;
 		var moneyToTransfer = Math.abs(req.body.amount);
 		var transferTo = req.body.player;
-		var moneyToTransferAfter;
 
 		let results = await query("SELECT money FROM money where uuid='" + req.session.uuid + "';");
 		currentMoney = results[0].money;
