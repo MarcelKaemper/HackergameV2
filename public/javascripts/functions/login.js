@@ -43,7 +43,6 @@ const login = (req, arg_login, arg_password) => {
                 req.session.ip = results2[0].ip_address;	
                 req.session.mail = results2[0].mail_address;
 
-
                 req.session.isAdmin = await checkAdmin(req.session.uuid);
                 await writeActivity(req.session.uuid);
                 await setLoggedIn(req.session.loggedIn, req.session.uuid);
