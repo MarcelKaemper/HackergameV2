@@ -5,7 +5,7 @@ const checkAdmin = require('./checkAdmin.js');
 const pwh = require('password-hash');
 const setLoggedIn = require('./setLoggedIn.js');
 const writeRealIP = require('./writeRealIP.js');
-const consolecmd = require('./console.js');
+const consolecmd = require('./console/consolecmd.js');
 
 const login = (req, arg_login, arg_password) => {
     return new Promise(async(resolve, reject) => {
@@ -42,7 +42,6 @@ const login = (req, arg_login, arg_password) => {
                 var results2 = await query(sql2);
                 req.session.ip = results2[0].ip_address;	
                 req.session.mail = results2[0].mail_address;
-
 
                 req.session.isAdmin = await checkAdmin(req.session.uuid);
                 await writeActivity(req.session.uuid);

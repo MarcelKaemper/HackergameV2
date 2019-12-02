@@ -12,6 +12,11 @@ const serverRouter = require('./routes/server');
 const stocksRouter = require('./routes/stocks');
 const clanRouter = require('./routes/clan');
 const mailRouter = require('./routes/mail');
+const shopRouter = require('./routes/shop');
+const bankRouter = require('./routes/bank');
+const consoleRouter = require('./routes/console');
+const inventoryRouter = require('./routes/inventory');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -34,6 +39,11 @@ app.use('/server', serverRouter);
 app.use('/stocks', stocksRouter);
 app.use('/clan', clanRouter);
 app.use('/mail', mailRouter);
+app.use('/shop', shopRouter);
+app.use('/bank', bankRouter);
+app.use('/console', consoleRouter);
+app.use('/inventory', inventoryRouter);
+app.use('/admin', adminRouter);
 
 cronjob();
 

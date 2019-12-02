@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const stdParameter = require('../public/javascripts/functions/stdParameter.js');
 const stdCall = require('../public/javascripts/functions/stdCall.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 const countServer = require('../public/javascripts/functions/server/countServer.js');
 const buyServer = require('../public/javascripts/functions/server/buyServer.js');
 const listServer = require('../public/javascripts/functions/server/listServer.js');
@@ -11,8 +12,7 @@ const genNewPassword = require('../public/javascripts/functions/server/genNewPas
 const loadInventory = require('../public/javascripts/functions/inventory/loadInventroy.js');
 const getItemData = require('../public/javascripts/functions/inventory/getItemData.js');
 const installSrvItem = require('../public/javascripts/functions/inventory/installSrvItem.js');
-const consolecmd = require('../public/javascripts/functions/console.js');
-const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
+const consolecmd = require('../public/javascripts/functions/console/consolecmd.js');
 
 router.get('/', async(req, res, next) => {
 	await stdCall(req);

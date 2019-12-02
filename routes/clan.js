@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const stdParameter = require('../public/javascripts/functions/stdParameter.js');
 const stdCall = require('../public/javascripts/functions/stdCall.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 const loadClans = require('../public/javascripts/functions/clans/loadClans.js');
 const createClan = require('../public/javascripts/functions/clans/createClan.js');
 const joinClan = require('../public/javascripts/functions/clans/joinClan');
 const clanInfo = require('../public/javascripts/functions/clans/clanInfo');
 const leaveClan = require('../public/javascripts/functions/clans/leaveClan.js');
-const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async(req, res, next) => {
     await stdCall(req);
