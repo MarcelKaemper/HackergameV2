@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const stdCall = require('../public/javascripts/functions/stdCall.js');
 const stdParameter = require('../public/javascripts/functions/stdParameter.js');
+const stdCall = require('../public/javascripts/functions/stdCall.js');
+const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 const stocks = require('../public/javascripts/functions/stocks/getStock.js');
 const buyStock = require('../public/javascripts/functions/stocks/buyStock.js');
 const loadStocks = require('../public/javascripts/functions/stocks/loadStocks.js');
 const sellStock = require('../public/javascripts/functions/stocks/sellStock.js');
-const getUserInfo = require('../public/javascripts/functions/getUserInfo.js');
 
 router.get('/', async(req, res, next) => {
 	await stdCall(req);

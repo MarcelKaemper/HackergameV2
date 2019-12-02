@@ -5,7 +5,7 @@ const checkAdmin = require('./checkAdmin.js');
 const pwh = require('password-hash');
 const setLoggedIn = require('./setLoggedIn.js');
 const writeRealIP = require('./writeRealIP.js');
-const consolecmd = require('./console.js');
+const consolecmd = require('./console/consolecmd.js');
 
 const login = (req, arg_login, arg_password) => {
     return new Promise(async(resolve, reject) => {
