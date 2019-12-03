@@ -48,7 +48,7 @@ const Name = (name) => {
 }
 
 const Mail = (mail) => {
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async(resolve, reject) => {
         var sql1 = "SELECT uuid, mail FROM logins WHERE mail='" + mail.toLowerCase() + "';";
         var results1 = await query(sql1);
 
