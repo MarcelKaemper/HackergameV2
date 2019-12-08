@@ -19,13 +19,9 @@ const signup = (req, arg_mail, arg_name, arg_password, arg_confirm_password) => 
         if(!check1 && !check2) {
             if(password == confirm_password) {
                 password = pwh.generate(password);
-                var uuid;
-                var ip_address;
+                var uuid, ip_address, check3, check4;
                 
-                let count1 = true;
-                let count2 = true;
-                var check3;
-                var check4;
+                let count1, count2 = true;
 
                 while(count1) {
                     uuid = await generator.genUUID();

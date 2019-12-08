@@ -7,7 +7,7 @@ loadInbox = (uuid) => {
         inbox = JSON.parse(inbox);
         let previews = {"mails": []};
         for(let i = inbox.mails.length - 1; i >= 0; i--) {
-            previews.mails.push({"index": i, "sender":inbox.mails[i].sender,"subject":inbox.mails[i].subject, "message": inbox.mails[i].message})
+            previews.mails.push({"index": i, "sender":inbox.mails[i].sender, "subject":inbox.mails[i].subject, "message": inbox.mails[i].message})
         }
         resolve(previews);
     });

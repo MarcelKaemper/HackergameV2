@@ -4,8 +4,7 @@ const loadInventory = require('./loadInventroy.js');
 const delInventory = (usruuid, itemuuid) => {
     return new Promise(async(resolve, reject) => {
         var results = await loadInventory(usruuid);
-        var resinv;
-        var sql;
+        var resinv, sql;
 
         var length = results.inventory.length;
         var counter = 0;

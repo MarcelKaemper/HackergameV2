@@ -3,19 +3,20 @@ const query = require('../../database/dbquery.js');
 const changeMoney = require('../changeMoney.js');
 //const checkFirewall = require('./checkFirewall.js');
 
-const cmdMoney = (req, cmd, command, callback) => {
-    var operation = command[1];
-    var target = command[2];
+const cmdMoney = (req, cmd, command) => {
+    return new Promise(async(resolve, reject) => {
+        var operation = command[1];
+        var target = command[2];
 
-    switch(operation) {
-        case "tr":
-        case "transfer":
-            if(target != "" || target != undefined || target != null) {
-                checkIP(target, async(calla) => {
+        switch(operation) {
+            case "tr":
+            case "transfer":
+                if(target != "" || target != undefined || target != null) {
+                    var calla = await checkIP(target);
                     if(calla) {
                         if(target == req.session.ip) {
                             req.session.command_log += "You can't hack yourself!\n";
-                            callback();
+                            resolve();
                         } else {
                             var sql1 = "SELECT uuid, ip_address FROM userdata WHERE ip_address='" + target + "';";
                             var sql2 = "SELECT uuid, ip_address, money FROM bankaccounts WHERE ip_address='" + target + "';";
@@ -35,33 +36,33 @@ const cmdMoney = (req, cmd, command, callback) => {
 
                                 req.session.command_log += "Transfered $" + targetMoney1 + " from " + target + "!\n";
                                 //req.session.command_log += "> " + success + "\n";
-                                callback();
+                                resolve();
                             } else if(results2.length == 1) {
                                 req.session.command_log += "You can't hack this target currently!\n";
-                                callback();
+                                resolve();
                             } else if(results3.length == 1) {
                                 req.session.command_log += "You can't hack this target currently!\n";
-                                callback();
+                                resolve();
                             } else {
                                 req.session.command_log += "Target not found!\n";
-                                callback();
+                                resolve();
                             }
                         }
                     } else {
                         req.session.command_log += "Invalid ip address!\n";
-                        callback();
+                        resolve();
                     }
-                });
-            } else {
-                req.session.command_log += "You need to specify a target!\n";
-                callback();
-            }
-            break;
-        default:
-            req.session.command_log += "You need to specify a operation [ip]!\n";
-            callback();
-            break;
-    }
+                } else {
+                    req.session.command_log += "You need to specify a target!\n";
+                    resolve();
+                }
+                break;
+            default:
+                req.session.command_log += "You need to specify a operation [ip]!\n";
+                resolve();
+                break;
+        }
+    });
 }
 
 module.exports = cmdMoney;

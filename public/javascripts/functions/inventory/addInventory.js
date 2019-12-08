@@ -4,9 +4,8 @@ const loadInventory = require('./loadInventroy.js');
 const addInventory = (usruuid, itemuuid) => {
     return new Promise(async(resolve, reject) => {
         var results = await loadInventory(usruuid);
-        var resinv;
-        var obj;
-        var sql;
+        var resinv, sql;
+        var obj = {};
 
         var length = results.inventory.length;
         var counter = 0;
@@ -14,8 +13,9 @@ const addInventory = (usruuid, itemuuid) => {
         if(length > 0) {
             while(counter <= length) {
                 if(counter == length) {
-                    obj = '{"uuid":"' + itemuuid  + '","count":1}';
-                    results.inventory[counter] = Object.assign(JSON.parse(obj), results.inventory[counter]);
+                    obj.uuid = itemuuid;
+                    obj.count = 1;
+                    results.inventory[counter] = Object.assign(obj, results.inventory[counter]);
                     resinv = JSON.stringify(results);
                     sql = "UPDATE inventory SET inventoryData='" + resinv + "' WHERE uuid='" + usruuid + "';";
                     await query(sql);
@@ -31,8 +31,9 @@ const addInventory = (usruuid, itemuuid) => {
                 counter++;
             }
         } else {
-            obj = '{"uuid":"' + itemuuid  + '","count":1}';
-            results.inventory[0] = Object.assign(JSON.parse(obj), results.inventory[0]);
+            obj.uuid = itemuuid;
+            obj.count = 1;
+            results.inventory[0] = Object.assign(obj, results.inventory[0]);
             resinv = JSON.stringify(results);
             sql = "UPDATE inventory SET inventoryData='" + resinv + "' WHERE uuid='" + usruuid + "';";
             await query(sql);
