@@ -61,4 +61,6 @@ module.exports = pool;
 ``` 
 npm install  
 node bin/www  
+OR
+pm2 start bin/www
 ```
