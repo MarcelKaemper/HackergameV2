@@ -40,7 +40,7 @@ git clone https://github.com/MarcelKaemper/HackergameV2.git
 ### Create database file
 
 Create the file ```public/javascripts/database/dbconn.js``` and fill in the credentials to your database.  
-You can download the structure of our database [here](https://www.marcelkaemper.de/dbstructure.zip) (If outdated -> Open an issue)  
+You can download the structure of our database [here](https://marcelkaemper.dev/db_structure.sql) (If outdated -> Open an issue)  
 
 Example dbconn.js
 ```
