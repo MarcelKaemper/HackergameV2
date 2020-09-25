@@ -26,7 +26,6 @@ const signup = (req, arg_mail, arg_name, arg_password, arg_confirm_password) => 
 
                 while (count1) {
                     uuid = await generator.genUUID();
-                    console.log(uuid);
                     check3 = await checkExtend.UUID(uuid);
                     if (!check3) {
                         count1 = false;
@@ -36,7 +35,6 @@ const signup = (req, arg_mail, arg_name, arg_password, arg_confirm_password) => 
                 while (count2) {
                     ip_address = await generator.genIP();
                     check4 = await checkExtend.IP(ip_address);
-                    console.log(ip_address);
                     if (!check4) {
                         count2 = false;
                         break;
