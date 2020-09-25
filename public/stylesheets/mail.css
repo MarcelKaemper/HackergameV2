@@ -73,6 +73,8 @@
     height: 50px;
     border-bottom: 1px solid black;
     float: left;
+    overflow: hidden;
+    position: relative;
 }
 
 .previewForm{
@@ -86,6 +88,9 @@
     height: 100%;
     box-shadow: 0;
     border: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .delMail{

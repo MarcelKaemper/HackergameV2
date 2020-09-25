@@ -10,7 +10,7 @@
                         <input type="hidden" name="sender" value="{{this.sender}}">
                         <input type="hidden" name="subject" value="{{this.subject}}">
                         <input type="hidden" name="message" value="{{this.message}}">
-                        By: {{this.sender}}
+                        From: {{this.sender}}
                         <br>
                         Subject: {{this.subject}}
                     </button>
@@ -30,7 +30,7 @@
     <div class="rightSide">
         <div class="mailTop">
             <form action="delMail" method="POST">
-                <input class="mailText" placeholder="Send by" type="text" value="{{sender}}" readonly />
+                <input class="mailText" placeholder="Received from" type="text" value="{{sender}}" readonly />
                 <br>
                 <input class="mailText2" placeholder="Subject" type="text" value="{{subject}}" readonly />
                 <br>
