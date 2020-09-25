@@ -16,37 +16,40 @@ const signup = (req, arg_mail, arg_name, arg_password, arg_confirm_password) => 
         var check1 = await checkExtend.Name(name);
         var check2 = await checkExtend.Mail(mail);
 
-        if(!check1 && !check2) {
-            if(password == confirm_password) {
+        if (!check1 && !check2) {
+            if (password == confirm_password) {
                 password = pwh.generate(password);
                 var uuid, ip_address, check3, check4;
-                
-                let count1, count2 = true;
 
-                while(count1) {
+                let count1 = true;
+                let count2 = true;
+
+                while (count1) {
                     uuid = await generator.genUUID();
+                    console.log(uuid);
                     check3 = await checkExtend.UUID(uuid);
-                    if(!check3) {
+                    if (!check3) {
                         count1 = false;
                         break;
                     }
                 }
-                while(count2) {
+                while (count2) {
                     ip_address = await generator.genIP();
                     check4 = await checkExtend.IP(ip_address);
-                    if(!check4) {
+                    console.log(ip_address);
+                    if (!check4) {
                         count2 = false;
                         break;
                     }
                 }
-                if(!count1 && !count2) {
+                if (!count1 && !count2) {
                     var sql1 = "INSERT INTO logins(uuid, mail, name, displayName, password, updated_realip, registered_realip) VALUES ('" + uuid + "', '" + mail.toLowerCase() + "', '" + name.toLowerCase() + "', '" + name + "', '" + password + "', '" + realip + "', '" + realip + "');";
                     var sql2 = "INSERT INTO money(uuid, money) VALUES ('" + uuid + "', '10000');";
                     var sql3 = "INSERT INTO levels(uuid, level, xp) VALUES ('" + uuid + "', '0', '0');";
-                    var sql4 = "INSERT INTO userdata(uuid, ip_address, mail_address) VALUES ('" + uuid +"', '" + ip_address + "', '" + mailAddress + "');";
+                    var sql4 = "INSERT INTO userdata(uuid, ip_address, mail_address) VALUES ('" + uuid + "', '" + ip_address + "', '" + mailAddress + "');";
                     var sql5 = "INSERT INTO lastactivity(uuid) VALUES ('" + uuid + "');";
                     var sql6 = "INSERT INTO cashbonus(uuid) VALUES ('" + uuid + "');";
-                    var sql7 = "INSERT INTO stocks(uuid) VALUES ('" + uuid +"');";
+                    var sql7 = "INSERT INTO stocks(uuid) VALUES ('" + uuid + "');";
                     var sql8 = "INSERT INTO inventory(uuid) VALUES ('" + uuid + "');";
                     var sql9 = "INSERT INTO mails(uuid) VALUES ('" + uuid + "');";
 
@@ -68,6 +71,7 @@ const signup = (req, arg_mail, arg_name, arg_password, arg_confirm_password) => 
                 resolve(false);
             }
         } else {
+            console.log("Error");
             resolve(false);
         }
     });
