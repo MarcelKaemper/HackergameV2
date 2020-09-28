@@ -1,8 +1,9 @@
 # DB File
-public/javascripts/database/dbconn.js
+# - public/javascripts/database/dbconn.js
 
 # Secret
-secret.js
+# - secret.js
+public/javascripts/functions/secret.js
 
 # NPM Package
 package-lock.json
