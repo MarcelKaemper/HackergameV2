@@ -33,7 +33,7 @@ router.post('/getStocks', async(req, res, next) => {
 router.post('/buystock', async(req, res, next) => {
 	let count;
 	req.body.count <= 0 ? count = req.body.buyable : count = req.body.count;
-	await buyStock(req.session.uuid, (req.body.symbol).toUpperCase, Math.round(req.body.price), parseInt(count));
+	await buyStock(req.session.uuid, req.body.symbol, Math.round(req.body.price), parseInt(count));
 	res.redirect('/stocks');
 });
 
