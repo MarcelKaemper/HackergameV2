@@ -23,7 +23,7 @@ router.post('/joinClan', async(req, res, next) => {
 });
 
 router.post('/createClan', async(req, res, next) => {
-    await createClan(req.session.uuid, req.body.name, req.body.maxMembers, req.session.displayName);
+    await createClan(req.session.uuid, req.body.name, req.body.maxMembers != "" ? req.body.maxMembers : "10", req.session.displayName);
     res.redirect('/clan');
 });
 
