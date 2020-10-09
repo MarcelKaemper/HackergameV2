@@ -20,8 +20,9 @@ router.get('/', async(req, res, next) => {
 router.post("/details", async(req, res, next) => {
     await stdCall(req);
     stockDetails.addDetails(req.body.symbol);
+    let details = await stockDetails.getDetails(req.body.symbol);
     // res.render("/stock/stocks", stdParameter(req, 'Stocks'))
-    res.redirect("/")
+    res.render('stocks/stockDetails', stdParameter(req, 'Stocks', { details: details, money: req.session.money, user: await getUserInfo(req) }));
 });
 
 router.post('/getStocks', async(req, res, next) => {

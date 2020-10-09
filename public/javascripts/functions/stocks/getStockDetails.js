@@ -28,12 +28,10 @@ const addDetails = async(name) => {
 }
 
 const getDetails = (name) => {
-    const url = "https://finnhub.io/api/v1/quote?symbol=" + name + "&token=" + secret._API._KEY;
-    return new Promise((resolve, reject) => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => resolve(data["c"]));
-    });
+    return new Promise(async(resolve, reject) => {
+        var history = await query("SELECT history FROM stockhistory WHERE symbol='" + name + "';");
+        resolve(history[0].history);
+    })
 }
 
 module.exports = {
