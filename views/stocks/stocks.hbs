@@ -47,29 +47,37 @@
                     <th>Spent</th>
                 </tr>
                 {{#each ownedStocks}}
-                <form method="post" action="stocks/sellstock">
                 <tr>
+                    <form method="post" action="stocks/sellstock">
+                        <td>
+                            <input type="hidden" name="symbol" value="{{@key}}">
+                            {{@key}}
+                        </td>
+                        <td>
+                            <input type="hidden" name="count" value="{{this.count}}">
+                            {{this.count}}
+                        </td>
+                        <td>
+                            <input type="hidden" name="spent" value="{{this.price}}">
+                            ${{this.price}}
+                        </td>
+                        <td>
+                            <input type="text" size="2" name="amount">
+                            <input type="submit" value="Sell">
+                        </td>
+                    </form>
                     <td>
-                        <input type="hidden" name="symbol" value="{{@key}}">
-                        {{@key}}
-                    </td>
-                    <td>
-                        <input type="hidden" name="count" value="{{this.count}}">
-                        {{this.count}}
-                    </td>
-                    <td>
-                        <input type="hidden" name="spent" value="{{this.price}}">
-                        ${{this.price}}
-                    </td>
-                    <td>
-                        <input type="text" size="2" name="amount">
-                        <input type="submit" value="Sell">
+                        <form method="POST" action="stocks/details">
+                            <input type="hidden" name="symbol" value="{{@key}}">
+                            <input type="submit" value="Details">
+                        </form>
                     </td>
                 </tr>
-                </form>
                 {{/each}}
             </table>
         </center>
+    {{/if}}
+    {{#if stockDetails}}
     {{/if}}
 {{else}}
 You must be logged in to see this page!
